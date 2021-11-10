@@ -91,6 +91,7 @@ Shader "Emil/shadow and fog"
 				SHADOW_CASTER_FRAGMENT(i)
 			}
 			ENDCG
-		}
+		
+	}
 	}
 }
