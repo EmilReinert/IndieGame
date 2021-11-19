@@ -1,69 +1,26 @@
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "Emil/outline" {
-
+Shader "Emil/outline"
+{
 	Properties
 	{
 		_Color("Color", Color) = (1,1,1,1)
-		_MainTex("Albedo", 2D) = "white" {}
-
-		_Cutoff("Alpha Cutoff", Range(0.0, 1.0)) = 0.5
-
-		_Glossiness("Smoothness", Range(0.0, 1.0)) = 0.5
-		[Gamma] _Metallic("Metallic", Range(0.0, 1.0)) = 0.0
-		_MetallicGlossMap("Metallic", 2D) = "white" {}
-
-		_BumpScale("Scale", Float) = 1.0
-		_BumpMap("Normal Map", 2D) = "bump" {}
-
-		_Parallax("Height Scale", Range(0.005, 0.08)) = 0.02
-		_ParallaxMap("Height Map", 2D) = "black" {}
-
-		_OcclusionStrength("Strength", Range(0.0, 1.0)) = 1.0
-		_OcclusionMap("Occlusion", 2D) = "white" {}
-
-		_EmissionColor("Color", Color) = (0,0,0)
-		_EmissionMap("Emission", 2D) = "white" {}
-
-		_DetailMask("Detail Mask", 2D) = "white" {}
-
-		_DetailAlbedoMap("Detail Albedo x2", 2D) = "grey" {}
-		_DetailNormalMapScale("Scale", Float) = 1.0
-		_DetailNormalMap("Normal Map", 2D) = "bump" {}
-
-		[Enum(UV0,0,UV1,1)] _UVSec("UV Set for secondary textures", Float) = 0
-
-			// UI-only data
-			[HideInInspector] _EmissionScaleUI("Scale", Float) = 0.0
-			[HideInInspector] _EmissionColorUI("Color", Color) = (1,1,1)
-
-			// Blending state
-			[HideInInspector] _Mode("__mode", Float) = 0.0
-			[HideInInspector] _SrcBlend("__src", Float) = 1.0
-			[HideInInspector] _DstBlend("__dst", Float) = 0.0
-			[HideInInspector] _ZWrite("__zw", Float) = 1.0
-
+		_Light("Light", Range(0,1)) = 0.5
+		_MainTex("Texture", 2D) = "white" {}
+		_TexStr("Texture Strength", Range(0,1)) = 0.5
+		_SecTex("Texture", 2D) = "white" {}
+		_TexStr2("Texture Strength", Range(0,1)) = 0.5
 			// -------------------------
 			// Added Outline properties
 			_OutlineColor("Outline Color", Color) = (0,0,0,1)
-			_Outline("Outline width", Range(.002, 0.3)) = .005
+			_Outline("Outline width", Range(.2, 0.3)) = 0.2
 			// -------------------------
+
 	}
-
-		CGINCLUDE
-#define UNITY_SETUP_BRDF_INPUT MetallicSetup
-			ENDCG
-
-			/////////////////////////////////////////////////////////////////////////////////////////////
-
-			SubShader
+		SubShader
 		{
-			Tags { "RenderType" = "Opaque" "PerformanceChecks" = "False" }
-			LOD 300
+			Tags { "RenderType" = "Opaque" }
+			LOD 100
 
-			// ----------------------
-			// Start of Outline adding
-
+			Cull off
 			CGINCLUDE
 			#include "UnityCG.cginc"
 
@@ -96,32 +53,111 @@ Shader "Emil/outline" {
 			}
 			ENDCG
 
-			Pass {
-				Name "OUTLINE"
-				Tags { "LightMode" = "Always" }
-				Cull Front
-				ZWrite On
-				ColorMask RGB
-				Blend SrcAlpha OneMinusSrcAlpha
+			Pass
+			{
+			Tags {"LightMode" = "ForwardBase"}
+				CGPROGRAM
+				#pragma vertex vert
+				#pragma fragment frag
+				// make fog work
+				#pragma multi_compile_fog
+			//make shadows work
+			#pragma multi_compile_fwdbase
+
+			#include "AutoLight.cginc"
+	#include "UnityCG.cginc"
+
+
+			struct SHADERDATA
+			{
+			float2 uv : TEXCOORD0;
+			float2 uv2 : TEXCOORD2;
+				float4 _ShadowCoord : TEXCOORD1;
+				float4 position : SV_POSITION;
+			};
+
+
+			sampler2D _MainTex;
+			sampler2D _SecTex;
+			float4 _MainTex_ST;
+			float4 _SecTex_ST;
+			fixed4 _Color;
+			float4 _Alpha;
+			half _Light;
+			half _TexStr;
+			half _TexStr2;
+
+			SHADERDATA vert(float4 vertex:POSITION, float2 uv : TEXCOORD0, float2 uv2 : TEXCOORD0)
+			{
+				SHADERDATA vs;
+				vs.position = UnityObjectToClipPos(vertex);
+				vs.uv = TRANSFORM_TEX(uv, _MainTex);
+				vs.uv2 = TRANSFORM_TEX(uv2, _SecTex);
+				vs._ShadowCoord = ComputeScreenPos(vs.position);
+				return vs;
+			}
+
+			float4 frag(SHADERDATA ps) : SV_TARGET
+			{
+
+			float4 col = _Color + (tex2D(_MainTex, ps.uv)*(_TexStr))*(tex2D(_SecTex, ps.uv2)*(_TexStr2));
+			// 
+			col = col + _Light * lerp(float4(0, 0, 0, 1),_Color, step(0.2, SHADOW_ATTENUATION(ps)));
+			return col;
+			}
+
+			ENDCG
+		}
+			Pass
+			{
+				Name "ShadowCaster"
+				Tags { "LightMode" = "ShadowCaster" }
+
+				ZWrite On ZTest LEqual Cull Off
+				Offset 1, 1
 
 				CGPROGRAM
 				#pragma vertex vert
 				#pragma fragment frag
-				#pragma multi_compile_fog
-				fixed4 frag(v2f i) : SV_Target
+				#pragma multi_compile_shadowcaster
+				#pragma fragmentoption ARB_precision_hint_fastest
+				#include "UnityCG.cginc"
+
+				struct v2ff {
+					V2F_SHADOW_CASTER;
+				};
+
+				v2ff vert(appdata_base v)
 				{
-					UNITY_APPLY_FOG(i.fogCoord, i.color);
-					return i.color;
+					v2ff o;
+					TRANSFER_SHADOW_CASTER(o)
+					return o;
+				}
+
+				float4 frag(v2f i) : COLOR
+				{
+					SHADOW_CASTER_FRAGMENT(i)
 				}
 				ENDCG
-			}
+			}Pass {
+					Name "OUTLINE"
+					Tags { "LightMode" = "Always" }
+					Cull Front
+					ZWrite On
+					ColorMask RGB
+					Blend SrcAlpha OneMinusSrcAlpha
 
-				// End of Outline adding
-				// ----------------------
+					CGPROGRAM
+					#pragma vertex vert
+					#pragma fragment frag
+					#pragma multi_compile_fog
 
-
+					fixed4 frag(v2f i) : SV_Target
+					{
+						UNITY_APPLY_FOG(i.fogCoord, i.color);
+						return i.color;
+					}
+					ENDCG
 				}
-
-					FallBack "Standard"
-					CustomEditor "CustomStandardShaderGUI"
+		}
 }
