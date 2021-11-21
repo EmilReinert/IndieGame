@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class ToxicPersonBehavior : MonoBehaviour
 {
-    public FollowRoute follow;
+    public FollowRoute followRoute;
+    public TriggerManager visionTrigger;
+
+    private float visibleMatThreshold; // required alpha value to see object
     // Start is called before the first frame update
     void Start()
     {
-        
+        visibleMatThreshold = 0.2f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            follow.freeze = !follow.freeze;
+        // only if lake is visible continue
+        if (!visionTrigger.isEntered) {
+            followRoute.freeze = true; return; }
+        if (visionTrigger.triggerObject.GetComponent<Renderer>().material.color.a >= visibleMatThreshold)
+            followRoute.freeze = false;
+        else
+            followRoute.freeze = true;
     }
 }

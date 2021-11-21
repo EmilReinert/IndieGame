@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class FollowRoute : MonoBehaviour
 {
+
+    public GameObject optRotationBody; // body of person to be rotated to move direction
+
+    public bool freeze = false;
     [SerializeField]
     private Transform[] routes;
 
-    private int routeToGo;
+    private Quaternion startRotation;
+
+    private int routeIDX;
 
     private float tParam;
 
@@ -17,13 +23,14 @@ public class FollowRoute : MonoBehaviour
 
     private bool coroutineAllowed;
 
-    public bool freeze = false;
     // Start is called before the first frame update
     void Start()
     {
-        routeToGo = 0;
+        if(optRotationBody != null)
+            startRotation = optRotationBody.transform.rotation;
+        routeIDX = 0;
         tParam = 0f;
-        speedModifier = 0.5f;
+        speedModifier = 0.1f;
         coroutineAllowed = true;
     }
 
@@ -32,14 +39,13 @@ public class FollowRoute : MonoBehaviour
     {
         if (coroutineAllowed)
         {
-            StartCoroutine(GoByTheRoute(routeToGo));
+            StartCoroutine(GoByTheRoute(routeIDX));
         }
     }
 
     private IEnumerator GoByTheRoute(int routeNum)
     {
         coroutineAllowed = false;
-        if (freeze)  yield return null;
         Vector3 p0 = routes[routeNum].GetChild(0).position;
         Vector3 p1 = routes[routeNum].GetChild(1).position;
         Vector3 p2 = routes[routeNum].GetChild(2).position;
@@ -47,26 +53,36 @@ public class FollowRoute : MonoBehaviour
 
         while (tParam < 1)
         {
-            tParam += Time.deltaTime * speedModifier;
+            if (!freeze)
+            {
 
-            objectPosition = Mathf.Pow(1 - tParam, 3) * p0 + 
-                3 * Mathf.Pow(1 - tParam, 2) * tParam * p1 + 
-                3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2 + Mathf.Pow(tParam, 3) * p3;
+                objectPosition = Mathf.Pow(1 - tParam, 3) * p0 +
+                    3 * Mathf.Pow(1 - tParam, 2) * tParam * p1 +
+                    3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2 + Mathf.Pow(tParam, 3) * p3;
+                objectPosition.y = transform.position.y; // dont change height
+                if(optRotationBody != null)
+                    optRotationBody.transform.rotation =  Quaternion.LookRotation(objectPosition - transform.position)* startRotation;
+                transform.position = objectPosition;
+                yield return new WaitForEndOfFrame();
+                tParam += Time.deltaTime * speedModifier;
+            }
+            else
+                break;
+        }
+        if (tParam >= 1)
+        {
+            tParam = 0f;
 
-            transform.position = objectPosition;
-            yield return new WaitForEndOfFrame();
+            routeIDX += 1;
         }
 
-        tParam = 0f;
-
-        routeToGo += 1;
-
-        if (routeToGo > routes.Length - 1)
+        // reset path
+        if (routeIDX > routes.Length - 1)
         {
-            routeToGo = 0;
+            routeIDX = 0;
         }
 
         coroutineAllowed = true;
-
     }
+    
 }
