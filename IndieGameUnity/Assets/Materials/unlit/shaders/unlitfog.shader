@@ -1,4 +1,4 @@
-Shader "Emil/Double-sided shadow reciever color no fog"
+Shader "Emil/standard unlit"
 {
 	Properties
 	{
@@ -64,7 +64,7 @@ Shader "Emil/Double-sided shadow reciever color no fog"
 		float4 frag(SHADERDATA ps) : SV_TARGET
 		{
 
-		float4 col = _Color + (tex2D(_MainTex, ps.uv)*(_TexStr))*(tex2D(_SecTex, ps.uv2)*(_TexStr2));
+		float4 col = _Color * (tex2D(_MainTex, ps.uv)*(_TexStr))+(tex2D(_SecTex, ps.uv2)*(_TexStr2));
 		// 
 		col = col + _Light * lerp(float4(0, 0, 0, 1),_Color, step(0.2, SHADOW_ATTENUATION(ps)));
 		return col;

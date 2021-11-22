@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         float blend = anim.GetFloat("Blend");
         if (blend == goalpos) return;
 
-        float tempblend = moveStrength * (blend - to);
+        float tempblend = moveStrength * Time.deltaTime * (blend - to);
         anim.SetFloat("Blend", blend-tempblend);
        
     }
@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
             float blend = animLantern.GetFloat("Blend");
         if (blend == goalpos) return;
 
-        float tempblend = rotationStrength * (blend - to);
+        float tempblend = rotationStrength*Time.deltaTime * (blend - to);
         animLantern.SetFloat("Blend", blend - tempblend);
 
     }
