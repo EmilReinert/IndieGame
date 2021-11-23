@@ -41,7 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 4256f0b524147324ea8bf4661471ac83, type: 3}
-        m_Scale: {x: 0.2, y: 0.2}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -56,9 +56,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SecTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: 5a53676679c6b3e4aa63a2a8fe32b71c, type: 3}
+        m_Scale: {x: 0.37, y: 0.23}
+        m_Offset: {x: 0, y: 0.78}
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -67,7 +67,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Light: 0.408
+    - _Light: 0.283
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -76,10 +76,10 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TexStr: 0.351
-    - _TexStr2: 0
+    - _TexStr2: 0.164
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.08460896, g: 0.4339623, b: 0.20591223, a: 1}
+    - _Color: {r: 0, g: 0.8113208, b: 0.2825948, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

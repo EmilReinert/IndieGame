@@ -16,6 +16,6 @@ public class RotatingGround : MonoBehaviour
     {
         // rotate
 
-        transform.Rotate(0,rollSpeed / 100, 0);
+        transform.Rotate(0,rollSpeed*Time.deltaTime, 0);
     }
 }

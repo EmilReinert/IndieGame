@@ -1194,6 +1194,7 @@ GameObject:
   - component: {fileID: 6221564540929797671}
   - component: {fileID: 6221564540929797664}
   - component: {fileID: 1533322525}
+  - component: {fileID: 1903398816742977562}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1760,6 +1761,22 @@ ParticleSystemForceField:
         m_RotationOrder: 4
     m_MultiplyDragByParticleSize: 1
     m_MultiplyDragByParticleVelocity: 1
+--- !u!54 &1903398816742977562
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6221564540929797677}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &6221564541777561012
 GameObject:
   m_ObjectHideFlags: 0
