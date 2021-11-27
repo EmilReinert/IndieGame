@@ -4,21 +4,15 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    Animator animLantern;
     Animator anim;
     float goalpos;
-    float goallantern;
     public float moveStrength;
-    public float rotationStrength;
-    public GameObject lantern;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
-        animLantern = lantern.GetComponent<Animator>();
         SetPosition(0.5f);
-        SetLantern(0.5f);
     }
 
     // Update is called once per frame
@@ -35,16 +29,6 @@ public class PlayerMovement : MonoBehaviour
 
         SetPosition(goalpos);
 
-        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
-        {
-            if (Input.GetKey(KeyCode.Q)) goallantern = 0;
-            if (Input.GetKey(KeyCode.E)) goallantern = 1;
-        }
-
-        else
-            goallantern = 0.5f;
-
-            SetLantern(goallantern);
 
     }
 
@@ -56,15 +40,5 @@ public class PlayerMovement : MonoBehaviour
         float tempblend = moveStrength * Time.deltaTime * (blend - to);
         anim.SetFloat("Blend", blend-tempblend);
        
-    }
-    void SetLantern(float to)
-    {
-        if (lantern == null) return;
-            float blend = animLantern.GetFloat("Blend");
-        if (blend == goalpos) return;
-
-        float tempblend = rotationStrength*Time.deltaTime * (blend - to);
-        animLantern.SetFloat("Blend", blend - tempblend);
-
     }
 }

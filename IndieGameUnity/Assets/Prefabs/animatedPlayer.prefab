@@ -1229,9 +1229,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 3.0506525
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.15390825, z: 0}
 --- !u!114 &6221564540929797671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1245,8 +1245,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveStrength: 0.2
-  rotationStrength: 0.2
-  lantern: {fileID: 6843740195275907788}
 --- !u!95 &6221564540929797664
 Animator:
   serializedVersion: 3
@@ -1771,11 +1769,11 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1 &6221564541777561012
 GameObject:
@@ -6623,7 +6621,6 @@ GameObject:
   - component: {fileID: 6221564542637190472}
   - component: {fileID: 6221564542637190476}
   - component: {fileID: 6221564542637190477}
-  - component: {fileID: 6221564542637190478}
   - component: {fileID: 6221564542637190479}
   m_Layer: 0
   m_Name: body
@@ -6698,20 +6695,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6221564542637190478
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6221564542637190473}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &6221564542637190479
 Animator:
   serializedVersion: 3
@@ -7255,6 +7238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6843740195275907791}
   - component: {fileID: 6843740195275907790}
+  - component: {fileID: 4997499604714055083}
   m_Layer: 0
   m_Name: Lantern
   m_TagString: Untagged
@@ -7298,6 +7282,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4997499604714055083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6843740195275907788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6008ad91813a5dd4dbbb2b41764c20a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationStrength: 0.2
 --- !u!1 &6843740196024430658
 GameObject:
   m_ObjectHideFlags: 0
@@ -7745,6 +7742,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: character5animated
       objectReference: {fileID: 0}
+    - target: {fileID: 8567641720696034230, guid: e6e872bd7f793f446ac92b3de3ca93ad, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6e872bd7f793f446ac92b3de3ca93ad, type: 3}
 --- !u!4 &8425238970984349533 stripped
@@ -7891,13 +7892,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2825abe7dea7e964ca3b04251c77f446, type: 3}
---- !u!4 &8395893606183071725 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2825abe7dea7e964ca3b04251c77f446, type: 3}
-  m_PrefabInstance: {fileID: 8290719807431411718}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &9209830919701247319 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2825abe7dea7e964ca3b04251c77f446, type: 3}
+  m_PrefabInstance: {fileID: 8290719807431411718}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8395893606183071725 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2825abe7dea7e964ca3b04251c77f446, type: 3}
   m_PrefabInstance: {fileID: 8290719807431411718}
   m_PrefabAsset: {fileID: 0}
