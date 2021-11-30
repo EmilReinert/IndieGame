@@ -8,6 +8,9 @@ public class Lift : MonoBehaviour
     float rotationSpeed;
     float acceleration;
 
+    float minHeight; //lift boundaries
+    float maxHeight;
+
     Vector3 startPos;
     float prevRot; // previous rotation
     float travel; // travel distance
@@ -17,28 +20,49 @@ public class Lift : MonoBehaviour
         rotationSpeed = 10;
         acceleration = 0;
         startPos = transform.position;
+        minHeight = startPos.y;
+        maxHeight = 10;
     }
 
     // Update is called once per frame
     void Update()
     {
+        StartCoroutine(DecreaseAcc());
         //if (transform.position.y == startPos.y) { transform.position = startPos; return; }
+        float newAcceleration = acceleration;
         if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
         {
-            if (Input.GetKey(KeyCode.Q)) Rotate(90);
-            if (Input.GetKey(KeyCode.E)) Rotate(-90);
+            if (Input.GetKey(KeyCode.Q)) newAcceleration += Rotate(90);
+            if (Input.GetKey(KeyCode.E)) newAcceleration += Rotate(-90);
         }
 
-        //Rotate
-        wheel.transform.Rotate(0,0,acceleration * Time.deltaTime);
-        travel += acceleration/10000;
-        print(travel);
-        transform.position = startPos + new Vector3(0,travel,0);
+        //Rotate and translate
+        float newTravel =travel + acceleration / 10000;
+        
+        Vector3 newPos = startPos + new Vector3(0,newTravel,0);
+        print(newPos.y + " " + maxHeight + " " + minHeight);
+        if (newPos.y <= maxHeight && newPos.y>= minHeight)
+        {
+            travel = newTravel;
+            acceleration = newAcceleration;
 
-        StartCoroutine(DecreaseAcc());
+            wheel.transform.Rotate(0, 0, acceleration * Time.deltaTime);
+        }
+        else
+        {
+            acceleration = 0;
+            if (newPos.y > maxHeight) newPos.y = maxHeight;
+            if (newPos.y < minHeight) newPos.y = minHeight;
+        }
+
+        transform.position = newPos;
+
+
+
+
 
     }
-    void Rotate(float goalangle){
+    float Rotate(float goalangle){
         float current = wheel.transform.rotation.eulerAngles.z;
         if (current < 0) current += 360;
         if (goalangle < 0) goalangle += 360;
@@ -54,7 +78,7 @@ public class Lift : MonoBehaviour
             {
                 multi = 1;
             }
-            acceleration += rotationSpeed * multi * (Mathf.Abs(deltaRot) * 0.01f + 10);
+            return rotationSpeed * multi * (Mathf.Abs(deltaRot) * 0.01f + 10);
         }
         else
         {
@@ -68,7 +92,7 @@ public class Lift : MonoBehaviour
             {
                 multi = 1;
             }
-            acceleration += rotationSpeed * multi * (Mathf.Abs(deltaRot) * 0.01f + 10);
+            return rotationSpeed * multi * (Mathf.Abs(deltaRot) * 0.01f + 10);
 
         }
         
