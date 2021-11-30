@@ -5,7 +5,7 @@ using UnityEngine;
 public class Lift : MonoBehaviour
 {
     public GameObject wheel;
-    float rotationSpeed;
+    public float rotationSpeed;
     float acceleration;
 
     float minHeight; //lift boundaries
@@ -17,17 +17,16 @@ public class Lift : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rotationSpeed = 10;
         acceleration = 0;
         startPos = transform.position;
         minHeight = startPos.y;
-        maxHeight = 10;
+        maxHeight = 15;
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(DecreaseAcc());
+        DecreaseAcc();
         //if (transform.position.y == startPos.y) { transform.position = startPos; return; }
         float newAcceleration = acceleration;
         if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
@@ -37,7 +36,7 @@ public class Lift : MonoBehaviour
         }
 
         //Rotate and translate
-        float newTravel =travel + acceleration / 10000;
+        float newTravel =travel + ( newAcceleration / 200);
         
         Vector3 newPos = startPos + new Vector3(0,newTravel,0);
         print(newPos.y + " " + maxHeight + " " + minHeight);
@@ -46,7 +45,7 @@ public class Lift : MonoBehaviour
             travel = newTravel;
             acceleration = newAcceleration;
 
-            wheel.transform.Rotate(0, 0, acceleration * Time.deltaTime);
+            wheel.transform.Rotate(0, 0, acceleration );
         }
         else
         {
@@ -66,6 +65,7 @@ public class Lift : MonoBehaviour
         float current = wheel.transform.rotation.eulerAngles.z;
         if (current < 0) current += 360;
         if (goalangle < 0) goalangle += 360;
+        if (goalangle >= 360) goalangle = goalangle % 360;
         float deltaRot = (goalangle - current);
         int multi = 0;
         if (Mathf.Abs(deltaRot)<180)
@@ -78,7 +78,7 @@ public class Lift : MonoBehaviour
             {
                 multi = 1;
             }
-            return rotationSpeed * multi * (Mathf.Abs(deltaRot) * 0.01f + 10);
+            return rotationSpeed * multi * (Mathf.Abs(deltaRot) * 0.01f + 10)*Time.deltaTime;
         }
         else
         {
@@ -92,17 +92,16 @@ public class Lift : MonoBehaviour
             {
                 multi = 1;
             }
-            return rotationSpeed * multi * (Mathf.Abs(deltaRot) * 0.01f + 10);
+            return rotationSpeed * multi * (Mathf.Abs(deltaRot) * 0.01f + 10)*Time.deltaTime;
 
         }
         
 
     }
-    IEnumerator DecreaseAcc()
+    void DecreaseAcc()
     {
-        yield return new WaitForSeconds(0.1f);
-        acceleration = acceleration * 0.95f;
-        acceleration -= 10;
+        acceleration = acceleration *( 0.97f-Time.deltaTime);
+        acceleration -= 3*Time.deltaTime;
     }
 
 }
