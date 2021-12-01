@@ -11,7 +11,9 @@ public class Music2 : MonoBehaviour
     float minDist;
     float maxDist;
 
+    public GameObject particles;
     AudioSource audi;
+    bool hitNote;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +25,7 @@ public class Music2 : MonoBehaviour
 
         audi = GetComponent<AudioSource>();
         audi.Play();
+        hitNote = true;
     }
 
     // Update is called once per frame
@@ -36,6 +39,17 @@ public class Music2 : MonoBehaviour
         
 
         SetPosition(goalpos);
+
+        // when note is hit
+        if (Mathf.Abs(anim.GetFloat("Blend") - goalpos) < (dist * 0.5f) / 8&&!hitNote)
+        {
+            // tweak audio
+            audi.pitch = 1 + 1.9f * (goalpos - 0.5f);
+            audi.Play();
+            
+            particles.SetActive(true);
+            hitNote = true;
+        }
 
 
     }
@@ -54,6 +68,7 @@ public class Music2 : MonoBehaviour
         float newPos = goalpos + difference;
         if (newPos > maxDist || newPos < minDist) return;
         goalpos = newPos;
-        audi.pitch =1+ 2*(goalpos-0.5f);
+        hitNote = false;
+        particles.SetActive(false);
     }
 }
