@@ -3,7 +3,7 @@ Shader "Emil/standard unlit"
 	Properties
 	{
 		_Color("Color", Color) = (1,1,1,1)
-		_ShadowColor("Color", Color) = (0,0,0,1)
+		_ShadowColor("Shadow Color", Color) = (0,0,0,1)
 		_Light("Light", Range(0,1)) = 0.5
 		_MainTex("Texture", 2D) = "white" {}
 		_TexStr("Texture Strength", Range(0,1)) = 0.5
@@ -24,8 +24,6 @@ Shader "Emil/standard unlit"
 				CGPROGRAM
 				#pragma vertex vert
 				#pragma fragment frag
-			// make fog work
-			#pragma multi_compile_fog
 		//make shadows work
 		#pragma multi_compile_fwdbase
 
@@ -68,7 +66,7 @@ Shader "Emil/standard unlit"
 
 		float4 col = _Color * (tex2D(_MainTex, ps.uv)*(_TexStr))+(tex2D(_SecTex, ps.uv2)*(_TexStr2));
 		// 
-		col = col + _Light * lerp(_ShadowColor,_Color, step(0.5, SHADOW_ATTENUATION(ps)));
+		col = col + _Light * lerp(_ShadowColor,_Color, step(0.2, SHADOW_ATTENUATION(ps)));
 		return col;
 		}
 
