@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Music2 : MonoBehaviour
+public class Music2 : Puzzle
 {
     Animator anim;
     float goalpos;
@@ -16,7 +16,7 @@ public class Music2 : MonoBehaviour
     bool hitNote;
 
     // Start is called before the first frame update
-    void Start()
+    public override void StartPuzzle()
     {
         anim = GetComponent<Animator>();
         goalpos = 0.5f;
@@ -29,13 +29,8 @@ public class Music2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public override void UpdatePuzzle()
     {
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
-        {
-            if (Input.GetKeyDown(KeyCode.Q))SetGoalPos( -(dist*0.5f)/4);
-            if (Input.GetKeyDown(KeyCode.E)) SetGoalPos( + dist*0.5f/4);
-        }
         
 
         SetPosition(goalpos);
@@ -54,6 +49,19 @@ public class Music2 : MonoBehaviour
 
     }
 
+    public override void EndPuzzle()
+    {
+        audi.Stop();
+        particles.SetActive(false);
+    }
+
+    public override void Move(int i)
+    {
+        if(i==-1)
+        SetGoalPos(-(dist * 0.5f) / 4);
+        if(i==1)
+        SetGoalPos((dist * 0.5f) / 4);
+    }
     void SetPosition(float to)
     {
         float blend = anim.GetFloat("Blend");

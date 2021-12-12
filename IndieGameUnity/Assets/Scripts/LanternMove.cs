@@ -2,36 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LanternMove : MonoBehaviour
+public class LanternMove : Puzzle
 {
     Animator animLantern;
     public float rotationStrength;
     float goallantern;
-    // Start is called before the first frame update
-    void Start()
+
+    public override void StartPuzzle()
     {
         animLantern = GetComponent<Animator>();
-        SetLantern(0.5f);
+        goallantern = 0.5f;
+        SetLantern();
+
+        contiuous = true;
+    }
+
+    public override void EndPuzzle()
+    {
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Move(int i)
     {
-
-        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
-        {
-            if (Input.GetKey(KeyCode.Q)) goallantern = 0;
-            if (Input.GetKey(KeyCode.E)) goallantern = 1;
-        }
-
-        else
-            goallantern = 0.5f;
-
-        SetLantern(goallantern);
+        goallantern = (float)(i + 1) / 2;
     }
-    void SetLantern(float to)
+
+    public override void UpdatePuzzle()
     {
+        SetLantern();
+    }
+
+    void SetLantern()
+    {
+        float to = goallantern;
         float blend = animLantern.GetFloat("Blend");
         if (blend == goallantern) return;
 

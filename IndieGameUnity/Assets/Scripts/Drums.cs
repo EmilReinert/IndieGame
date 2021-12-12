@@ -2,19 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drums : MonoBehaviour
-{
-    /*
-    public AudioClip a;
-    public AudioClip b;
-    public AudioClip c;
-    */          
+public class Drums : Puzzle
+{      
     private AudioSource audi1;
     private AudioSource audi2;
     private AudioSource audi3;
     
-    // Start is called before the first frame update
-    void Start()
+
+    public override void StartPuzzle()
     {
         AudioSource[] audis = GetComponents<AudioSource>();
         audi1 = audis[0];
@@ -22,21 +17,19 @@ public class Drums : MonoBehaviour
         audi3 = audis[2];
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void EndPuzzle()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && Input.GetKeyDown(KeyCode.E))
-            audi3.Play();
-        else
-        {
-            
-            if (Input.GetKeyDown(KeyCode.Q))
-                audi1.Play();
-            if (Input.GetKeyDown(KeyCode.E))
-                audi2.Play();
-        }
     }
-    void PlaySound(AudioClip x)
+
+    public override void Move(int i)
+    {
+        if(i==-1)
+            audi1.Play();
+        if(i==1)
+            audi2.Play();   
+    }
+
+    public override void UpdatePuzzle()
     {
 
     }

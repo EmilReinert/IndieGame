@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lift : MonoBehaviour
+public class Lift : Puzzle
 {
-    public GameObject wheel;
+
+    private GameObject wheel;
+    public GameObject lift;
     public float rotationSpeed;
     float acceleration;
 
@@ -14,38 +16,52 @@ public class Lift : MonoBehaviour
     Vector3 startPos;
     float prevRot; // previous rotation
     float travel; // travel distance
-    // Start is called before the first frame update
-    void Start()
+   
+
+    void DecreaseAcc()
     {
-        acceleration = 0;
-        startPos = transform.position;
-        minHeight = startPos.y;
-        maxHeight = 15;
+        acceleration = acceleration *( 0.97f-Time.deltaTime);
+        acceleration -= 3*Time.deltaTime;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void StartPuzzle()
     {
-        DecreaseAcc();
-        //if (transform.position.y == startPos.y) { transform.position = startPos; return; }
-        float newAcceleration = acceleration;
-        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
-        {
-            if (Input.GetKey(KeyCode.Q)) newAcceleration += Rotate(90);
-            if (Input.GetKey(KeyCode.E)) newAcceleration += Rotate(-90);
-        }
+        contiuous = true;
 
-        //Rotate and translate
-        float newTravel =travel + ( newAcceleration / 200);
+        acceleration = 0;
+        startPos = lift.transform.position;
+        minHeight = startPos.y;
+        maxHeight = 15;
+        wheel = lift.transform.Find("wheel").gameObject;
+
+        lift.SetActive(true);
         
-        Vector3 newPos = startPos + new Vector3(0,newTravel,0);
-        print(newPos.y + " " + maxHeight + " " + minHeight);
-        if (newPos.y <= maxHeight && newPos.y>= minHeight)
+    }
+
+    public override void EndPuzzle()
+    {
+        lift.SetActive(false);
+    }
+
+    public override void Move(int i)
+    {
+        if(i==-1)
+        acceleration += Rotate(90);
+        if(i==1)
+        acceleration += Rotate(-90);
+    }
+
+    public override void UpdatePuzzle()
+    { 
+        //Rotate and translate
+        float newTravel = travel + (acceleration / 200);
+
+        Vector3 newPos = startPos + new Vector3(0, newTravel, 0);
+        if (newPos.y <= maxHeight && newPos.y >= minHeight)
         {
             travel = newTravel;
-            acceleration = newAcceleration;
 
-            wheel.transform.Rotate(0, 0, acceleration );
+            wheel.transform.Rotate(0, 0, acceleration);
         }
         else
         {
@@ -54,21 +70,20 @@ public class Lift : MonoBehaviour
             if (newPos.y < minHeight) newPos.y = minHeight;
         }
 
-        transform.position = newPos;
+        lift.transform.position = newPos;
 
-
-
-
-
+        DecreaseAcc();
     }
-    float Rotate(float goalangle){
+
+    float Rotate(float goalangle)
+    {
         float current = wheel.transform.rotation.eulerAngles.z;
         if (current < 0) current += 360;
         if (goalangle < 0) goalangle += 360;
         if (goalangle >= 360) goalangle = goalangle % 360;
         float deltaRot = (goalangle - current);
         int multi = 0;
-        if (Mathf.Abs(deltaRot)<180)
+        if (Mathf.Abs(deltaRot) < 180)
         {
             if (deltaRot < 0)
             {
@@ -78,7 +93,7 @@ public class Lift : MonoBehaviour
             {
                 multi = 1;
             }
-            return rotationSpeed * multi * (Mathf.Abs(deltaRot) * 0.01f + 10)*Time.deltaTime;
+            return rotationSpeed * multi * (Mathf.Abs(deltaRot) * 0.01f + 10) * Time.deltaTime;
         }
         else
         {
@@ -92,16 +107,10 @@ public class Lift : MonoBehaviour
             {
                 multi = 1;
             }
-            return rotationSpeed * multi * (Mathf.Abs(deltaRot) * 0.01f + 10)*Time.deltaTime;
+            return rotationSpeed * multi * (Mathf.Abs(deltaRot) * 0.01f + 10) * Time.deltaTime;
 
         }
-        
+
 
     }
-    void DecreaseAcc()
-    {
-        acceleration = acceleration *( 0.97f-Time.deltaTime);
-        acceleration -= 3*Time.deltaTime;
-    }
-
 }

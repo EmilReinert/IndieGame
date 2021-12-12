@@ -5525,10 +5525,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6067834881863170459}
+  - component: {fileID: 9014636621031138976}
   - component: {fileID: 6067834881863170462}
   - component: {fileID: 6067834881863170457}
   - component: {fileID: 4540168138339421147}
-  - component: {fileID: 9014636621031138976}
   - component: {fileID: 6982276866145321872}
   m_Layer: 0
   m_Name: flute
@@ -5552,6 +5552,21 @@ Transform:
   m_Father: {fileID: 4059785385841795572}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 3.341, y: -3.914, z: -1.071}
+--- !u!114 &9014636621031138976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6067834881863170458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21bc1c0f81b1f5a4f830741975e62416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveStrength: 10
+  dist: 0.4
+  particles: {fileID: 3623568802377680490}
 --- !u!33 &6067834881863170462
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5620,21 +5635,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &9014636621031138976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6067834881863170458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21bc1c0f81b1f5a4f830741975e62416, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveStrength: 10
-  dist: 0.4
-  particles: {fileID: 3623568802377680490}
 --- !u!82 &6982276866145321872
 AudioSource:
   m_ObjectHideFlags: 0
