@@ -6,7 +6,7 @@ public class Lift : Puzzle
 {
 
     private GameObject wheel;
-    public GameObject lift;
+    public GameObject player;
     public float rotationSpeed;
     float acceleration;
 
@@ -29,18 +29,18 @@ public class Lift : Puzzle
         contiuous = true;
 
         acceleration = 0;
-        startPos = lift.transform.position;
+        startPos = transform.position;
         minHeight = startPos.y;
-        maxHeight = 15;
-        wheel = lift.transform.Find("wheel").gameObject;
+        maxHeight = 7;
+        wheel = transform.Find("wheel").gameObject;
 
-        lift.SetActive(true);
+        player.transform.parent = transform;
         
     }
 
     public override void EndPuzzle()
     {
-        lift.SetActive(false);
+        player.transform.parent = null;
     }
 
     public override void Move(int i)
@@ -70,9 +70,10 @@ public class Lift : Puzzle
             if (newPos.y < minHeight) newPos.y = minHeight;
         }
 
-        lift.transform.position = newPos;
+        transform.position = newPos;
 
         DecreaseAcc();
+        if (newPos.y >= maxHeight) done = true;
     }
 
     float Rotate(float goalangle)

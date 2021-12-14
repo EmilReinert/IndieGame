@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Puzzle
 {
+    public GameObject player;
     Animator anim;
     float goalpos;
     public float moveStrength;
@@ -11,34 +12,45 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
-        SetPosition(0.5f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
-        {
-            if (Input.GetKey(KeyCode.A)) goalpos = 0;
-            if (Input.GetKey(KeyCode.D)) goalpos = 1;
-        }
 
-        else
-            goalpos = 0.5f;
-
-        SetPosition(goalpos);
 
 
     }
 
-    void SetPosition(float to)
+    void SetPosition()
     {
+        float to = goalpos;
         float blend = anim.GetFloat("Blend");
         if (blend == goalpos) return;
 
         float tempblend = moveStrength * Time.deltaTime * (blend - to);
         anim.SetFloat("Blend", blend-tempblend);
        
+    }
+
+    public override void StartPuzzle()
+    {
+        anim = player.GetComponent<Animator>();
+        goalpos = 0.5f;
+        SetPosition();
+    }
+
+    public override void EndPuzzle()
+    {
+    }
+
+    public override void Move(int i)
+    {
+        goalpos = (float)(i + 1) / 2;
+    }
+
+    public override void UpdatePuzzle()
+    {
+        SetPosition();
     }
 }

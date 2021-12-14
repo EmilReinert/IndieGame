@@ -6,6 +6,7 @@ public abstract class Puzzle: MonoBehaviour
 {
     [HideInInspector] // Hides var below
     public bool contiuous = false;
+    public bool done = false;
 
     public abstract void StartPuzzle();
 
