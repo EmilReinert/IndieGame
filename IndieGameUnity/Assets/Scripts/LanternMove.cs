@@ -19,7 +19,7 @@ public class LanternMove : Puzzle
 
     public override void EndPuzzle()
     {
-
+        gameObject.SetActive(false);
     }
 
     public override void Move(int i)

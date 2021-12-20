@@ -8,20 +8,7 @@ public class PlayerMovement : Puzzle
     Animator anim;
     float goalpos;
     public float moveStrength;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-
-
-    }
-
+    
     void SetPosition()
     {
         float to = goalpos;
@@ -36,12 +23,16 @@ public class PlayerMovement : Puzzle
     public override void StartPuzzle()
     {
         anim = player.GetComponent<Animator>();
+        anim.enabled = true;
         goalpos = 0.5f;
-        SetPosition();
+
+        anim.SetFloat("Blend", goalpos);
     }
 
     public override void EndPuzzle()
     {
+        if(anim!=null)
+            anim.enabled = false;
     }
 
     public override void Move(int i)

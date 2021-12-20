@@ -5,19 +5,27 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {
     public PuzzleManager pm;
-    public GameObject playerCollider;
+    public CameraManager cm;
+
+    private GameObject playerCollider;
+    private LevelManager levelmanager; // set by puzzlemanager
     bool playing = false;
+    bool end = false; // ending puzzle
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerCollider = GameObject.Find("Player");
+        levelmanager = GameObject.FindObjectOfType<LevelManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (playing)
+        {
             pm.UpdatePuzzles();
+            cm.UpdateCameraSettings();////// remove
+        }        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,7 +36,9 @@ public class Level : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject == playerCollider)
+        {
             EndLevel();
+        }
 
 
     }
@@ -37,11 +47,14 @@ public class Level : MonoBehaviour
     {
         playing = true;
         pm.StartPuzzles();
-
+        levelmanager.inPuzzle = true;
+        cm.UpdateCameraSettings();
     }
     void EndLevel()
     {
         playing = false;
         pm.EndPuzzles();
+        levelmanager.inPuzzle = false;
+        cm.UpdateDefaultSettings();
     }
 }

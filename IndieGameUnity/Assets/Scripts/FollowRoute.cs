@@ -59,7 +59,7 @@ public class FollowRoute : MonoBehaviour
                 objectPosition = Mathf.Pow(1 - tParam, 3) * p0 +
                     3 * Mathf.Pow(1 - tParam, 2) * tParam * p1 +
                     3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2 + Mathf.Pow(tParam, 3) * p3;
-                objectPosition.y = transform.position.y; // dont change height
+                //objectPosition.y = transform.position.y; // dont change height
                 if(optRotationBody != null)
                     optRotationBody.transform.rotation =  Quaternion.LookRotation(objectPosition - transform.position)* startRotation;
                 transform.position = objectPosition;

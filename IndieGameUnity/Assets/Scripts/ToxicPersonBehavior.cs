@@ -11,15 +11,17 @@ public class ToxicPersonBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        visibleMatThreshold = 0.2f;
+        visibleMatThreshold = 0.2f; followRoute.freeze = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         // only if lake is visible continue
-        if (!visionTrigger.isEntered) {
-            followRoute.freeze = true; return; }
+        if (!visionTrigger.isEntered)
+        {
+            followRoute.freeze = true; return;
+        }
         if (visionTrigger.triggerObject.GetComponent<Renderer>().material.color.a >= visibleMatThreshold)
             followRoute.freeze = false;
         else

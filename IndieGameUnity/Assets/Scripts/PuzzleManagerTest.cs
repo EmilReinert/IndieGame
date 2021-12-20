@@ -6,38 +6,36 @@ public class PuzzleManagerTest : MonoBehaviour
 {
     // External components
     public Puzzle[] puzzles;
-    public int IDX;
 
     public void Start()
-    {
-        if (IDX >= puzzles.Length || puzzles[IDX] == null) return;
-        puzzles[IDX].StartPuzzle();
+    {foreach(Puzzle p in puzzles)p.StartPuzzle();
     }
 
     public void Update()
     {
-        if (IDX >= puzzles.Length || puzzles[IDX] == null) return;
-        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
+        foreach (Puzzle p in puzzles)
         {
-            // continuous update
-            if (puzzles[IDX].contiuous)
+            if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
             {
-                if (Input.GetKey(KeyCode.Q)) { puzzles[IDX].Move(-1); }
-                if (Input.GetKey(KeyCode.E)) { puzzles[IDX].Move(1); }
+                // continuous update
+                if (p.contiuous)
+                {
+                    if (Input.GetKey(KeyCode.Q)) { p.Move(-1); }
+                    if (Input.GetKey(KeyCode.E)) { p.Move(1); }
+                }
+                // singular update
+                else
+                {
+                    if (Input.GetKeyDown(KeyCode.Q)) { p.Move(-1); }
+                    if (Input.GetKeyDown(KeyCode.E)) { p.Move(1); }
+                }
             }
-            // singular update
             else
-            {
-                if (Input.GetKeyDown(KeyCode.Q)) { puzzles[IDX].Move(-1); }
-                if (Input.GetKeyDown(KeyCode.E)) { puzzles[IDX].Move(1); }
-            }
+                p.Move(0); //reset
+
+            //puzzle update
+            p.UpdatePuzzle();
         }
-        else
-            puzzles[IDX].Move(0); //reset
-
-        //puzzle update
-        puzzles[IDX].UpdatePuzzle();
-
     }
 
 }

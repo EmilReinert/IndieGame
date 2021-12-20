@@ -27,7 +27,6 @@ public class LakeBehaviour : MonoBehaviour
         mat[0] = ren.material;
         for (int i = 1; i < mat.Length; i++)
         {
-            print(i);
             mat[i] = sublakes[i-1].GetComponent<Renderer>().material;
         }
         SetAlpha(0);

@@ -16,7 +16,15 @@ public class Lift : Puzzle
     Vector3 startPos;
     float prevRot; // previous rotation
     float travel; // travel distance
-   
+
+    private void Start()
+    {
+
+        wheel = transform.Find("wheel").gameObject;
+        startPos = transform.position;
+        minHeight = startPos.y;
+        maxHeight = 7;
+    }
 
     void DecreaseAcc()
     {
@@ -29,10 +37,6 @@ public class Lift : Puzzle
         contiuous = true;
 
         acceleration = 0;
-        startPos = transform.position;
-        minHeight = startPos.y;
-        maxHeight = 7;
-        wheel = transform.Find("wheel").gameObject;
 
         player.transform.parent = transform;
         

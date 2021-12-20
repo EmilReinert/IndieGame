@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public bool inPuzzle;
     // Start is called before the first frame update
     void Start()
     {

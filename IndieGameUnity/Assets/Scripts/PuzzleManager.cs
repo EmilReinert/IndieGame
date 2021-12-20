@@ -10,7 +10,6 @@ public class PuzzleManager : MonoBehaviour
 
     public void Start()
     {
-        EndPuzzles();
     }
 
     public void StartPuzzles()
@@ -26,19 +25,20 @@ public class PuzzleManager : MonoBehaviour
     public void EndPuzzles()
     {
 
-        if (puzzleObjects != null)
-            puzzleObjects.SetActive(false);
+        if (puzzleObjects != null) {
+            //puzzleObjects.SetActive(false);
+        }
         foreach (Puzzle p in puzzles)
         {
             p.EndPuzzle();
-            p.gameObject.SetActive(false);
-        }
+                //p.gameObject.SetActive(false);
+            }
     }
     public void UpdatePuzzles()
     {
         foreach (Puzzle p in puzzles)
         {
-            if (p.done) { p.EndPuzzle();return; }
+            if (p.done && !p.ended) { p.EndPuzzle(); p.ended = true; return;}
 
             if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
             {
