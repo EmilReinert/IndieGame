@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : Puzzle
 {
-    public GameObject player;
-    Animator anim;
+    public Animator anim;
     float goalpos;
     public float moveStrength;
     
@@ -22,7 +21,6 @@ public class PlayerMovement : Puzzle
 
     public override void StartPuzzle()
     {
-        anim = player.GetComponent<Animator>();
         anim.enabled = true;
         goalpos = 0.5f;
 
@@ -33,6 +31,7 @@ public class PlayerMovement : Puzzle
     {
         if(anim!=null)
             anim.enabled = false;
+        
     }
 
     public override void Move(int i)

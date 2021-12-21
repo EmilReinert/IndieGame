@@ -8,6 +8,7 @@ public abstract class Puzzle: MonoBehaviour
     public bool contiuous = false;
     public bool done = false;
     public bool ended = false;
+    public bool hideObject = true;
 
     public abstract void StartPuzzle();
 

@@ -34,6 +34,7 @@ public class Lift : Puzzle
 
     public override void StartPuzzle()
     {
+        hideObject = false;
         contiuous = true;
 
         acceleration = 0;

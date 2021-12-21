@@ -8,6 +8,7 @@ public class PlayerLakeBehavior : Puzzle
     public GameObject followWho;
     public int distanceOffset;
     public GameObject player;
+
     // Start is called before the first frame update
     IEnumerator UpdateWalk()
     {
@@ -26,14 +27,14 @@ public class PlayerLakeBehavior : Puzzle
 
     public override void StartPuzzle()
     {
+        hideObject = false;
         player = this.gameObject;
         followRoute.freeze = false;
-        player.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     public override void EndPuzzle()
     {
-        player.GetComponent<Rigidbody>().isKinematic = false;
+        
     }
 
     public override void Move(int i)

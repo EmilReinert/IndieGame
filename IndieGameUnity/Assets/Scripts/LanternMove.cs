@@ -25,6 +25,7 @@ public class LanternMove : Puzzle
     public override void Move(int i)
     {
         goallantern = (float)(i + 1) / 2;
+        print(goallantern);
     }
 
     public override void UpdatePuzzle()
@@ -35,11 +36,11 @@ public class LanternMove : Puzzle
     void SetLantern()
     {
         float to = goallantern;
-        float blend = animLantern.GetFloat("Blend");
+        float blend = animLantern.GetFloat("lantern");
         if (blend == goallantern) return;
 
         float tempblend = rotationStrength * Time.deltaTime * (blend - to);
-        animLantern.SetFloat("Blend", blend - tempblend);
+        animLantern.SetFloat("lantern", blend - tempblend);
 
     }
 }

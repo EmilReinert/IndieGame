@@ -19,6 +19,7 @@ public class PuzzleManager : MonoBehaviour
         foreach (Puzzle p in puzzles)
         {
             p.gameObject.SetActive(true);
+            p.enabled = true;
             p.StartPuzzle();
         }
     }
@@ -31,8 +32,9 @@ public class PuzzleManager : MonoBehaviour
         foreach (Puzzle p in puzzles)
         {
             p.EndPuzzle();
-                //p.gameObject.SetActive(false);
-            }
+            if (p.hideObject)
+                p.gameObject.SetActive(false);
+        }
     }
     public void UpdatePuzzles()
     {
