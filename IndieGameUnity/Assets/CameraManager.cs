@@ -34,7 +34,13 @@ public class CameraManager : MonoBehaviour
 
     public void UpdateCameraSettings()
     {
-        stickyCam.enabled = true;
+        stickyCam.transition = true ;
+        stickyCam.offset = GetCameraOff();
+        stickyCam.fov = fov;
+
+    }
+    public void RemainCameraSettings()
+    {
         stickyCam.offset = GetCameraOff();
         stickyCam.fov = fov;
 
@@ -42,6 +48,7 @@ public class CameraManager : MonoBehaviour
 
     public void UpdateDefaultSettings()
     {
+        stickyCam.transition = true;
         stickyCam.enabled = true;
         stickyCam.ResetOffset();
     }

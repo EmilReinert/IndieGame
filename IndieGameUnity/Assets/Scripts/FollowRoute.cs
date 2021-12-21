@@ -51,7 +51,7 @@ public class FollowRoute : MonoBehaviour
         Vector3 p2 = routes[routeNum].GetChild(2).position;
         Vector3 p3 = routes[routeNum].GetChild(3).position;
 
-        while (tParam < 1)
+        while (tParam <= 1)
         {
             if (!freeze)
             {

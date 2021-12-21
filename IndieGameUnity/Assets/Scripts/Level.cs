@@ -24,7 +24,7 @@ public class Level : MonoBehaviour
         if (playing)
         {
             pm.UpdatePuzzles();
-            cm.UpdateCameraSettings();////// remove
+            cm.RemainCameraSettings();////// remove
         }        
     }
 

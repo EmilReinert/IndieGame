@@ -25,7 +25,6 @@ public class LanternMove : Puzzle
     public override void Move(int i)
     {
         goallantern = (float)(i + 1) / 2;
-        print(goallantern);
     }
 
     public override void UpdatePuzzle()

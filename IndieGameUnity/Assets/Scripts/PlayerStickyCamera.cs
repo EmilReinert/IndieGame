@@ -7,7 +7,7 @@ public class PlayerStickyCamera : MonoBehaviour
     private GameObject cam;
     public float stickDelay = 0.5f;
     public float speedModifier = 0.1f;
-
+    public bool transition;
     public Vector3 offset;
     private Vector3 startOffset;
     private float startFOV;
@@ -21,35 +21,57 @@ public class PlayerStickyCamera : MonoBehaviour
         startFOV = fov = cam.GetComponent<Camera>().fieldOfView;
         startOffset = offset = player.transform.position - cam.transform.position;
         cam.transform.parent = null;
+        transition = false;
     }
 
      void Update()
     {
+            StartCoroutine(
+                Transition(
+                    player.transform.position - offset));
 
-        StartCoroutine(
-            UpdateCamPos(
-                player.transform.position - offset
-                ));
 
     }
-    public IEnumerator UpdateCamPos(Vector3 targetPosition)
+    public IEnumerator Transition(Vector3 targetPosition)
     {
-        yield return new WaitForSeconds(stickDelay);
         Vector3 startCamPosition = cam.transform.position;
         Quaternion startCamRotation = cam.transform.rotation;
-        Quaternion targetRotation = Quaternion.LookRotation( player.transform.position-transform.position );
+        Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position);
 
-        float tempFOV =cam.GetComponent<Camera>().fieldOfView;
+        float tempFOV = cam.GetComponent<Camera>().fieldOfView;
 
         float tParam = 0;
         while (tParam < 1)
         {
             tParam += Time.deltaTime * speedModifier;
             cam.transform.position = Vector3.Lerp(startCamPosition, targetPosition, tParam);
-            cam.transform.rotation = Quaternion.Lerp(startCamRotation, targetRotation , tParam*2);
-            cam.GetComponent<Camera>().fieldOfView = Mathf.Lerp(tempFOV,fov ,tParam);
+            cam.transform.rotation = Quaternion.LookRotation(player.transform.position - transform.position);// = Quaternion.Lerp(startCamRotation, targetRotation, tParam * 2);
+            cam.GetComponent<Camera>().fieldOfView = Mathf.Lerp(tempFOV, fov, tParam);
             yield return new WaitForEndOfFrame();
         }
+        transition = false;
+
+    }
+    public IEnumerator SetPosition(Vector3 targetPosition)
+    {
+        yield return new WaitForSeconds(stickDelay);
+        Vector3 startCamPosition = cam.transform.position;
+        
+
+        float tempFOV = cam.GetComponent<Camera>().fieldOfView;
+        
+            cam.transform.position = targetPosition;
+        cam.GetComponent<Camera>().fieldOfView = fov;
+
+        float tParam = 0;
+        while (tParam <= 1)
+        {
+            tParam += Time.deltaTime * speedModifier;
+            cam.transform.position = Vector3.Lerp(startCamPosition, targetPosition, tParam);
+            cam.GetComponent<Camera>().fieldOfView = Mathf.Lerp(tempFOV, fov, tParam);
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForEndOfFrame();
     }
 
     public void ResetOffset()

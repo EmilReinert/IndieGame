@@ -158,6 +158,11 @@ Transform:
   m_Father: {fileID: 881468680}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &87350894 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6920146378329632808, guid: 06aad510579647c45a56e96e85a643fb, type: 3}
+  m_PrefabInstance: {fileID: 6920146376616235303}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &118203314
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,7 +1129,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 823490287}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7389e7afecf55b24794795d966ee6cb3, type: 2}
   m_CullingMode: 0
@@ -2275,6 +2280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickDelay: 0.03
   speedModifier: 3
+  transition: 0
   offset: {x: 0, y: 0, z: 0}
   fov: 0
 --- !u!1001 &1515257626
@@ -4124,6 +4130,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerRelPosRot
       objectReference: {fileID: 0}
+    - target: {fileID: 7019349366945877135, guid: 06aad510579647c45a56e96e85a643fb, type: 3}
+      propertyPath: rotationBody
+      value: 
+      objectReference: {fileID: 87350894}
     - target: {fileID: 7367415931406733891, guid: 06aad510579647c45a56e96e85a643fb, type: 3}
       propertyPath: m_Drag
       value: 0
