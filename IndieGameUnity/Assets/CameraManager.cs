@@ -27,7 +27,7 @@ public class CameraManager : MonoBehaviour
         stickyCam = mainCam.GetComponent<PlayerStickyCamera>();
         if (fov == 0) fov = 60;
         if (tilt == 0) tilt = 20;
-        if (distance == 0) distance = 15;
+        if (distance == 0) distance = 20;
         UpdateDefaultSettings();
     }
 

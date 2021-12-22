@@ -26,9 +26,9 @@ public class PlayerStickyCamera : MonoBehaviour
 
      void Update()
     {
-            StartCoroutine(
-                Transition(
-                    player.transform.position - offset));
+        StartCoroutine(
+            Transition(
+                player.transform.position - offset-new Vector3(0,2,0)));
 
 
     }
@@ -52,6 +52,7 @@ public class PlayerStickyCamera : MonoBehaviour
         transition = false;
 
     }
+    ///
     public IEnumerator SetPosition(Vector3 targetPosition)
     {
         yield return new WaitForSeconds(stickDelay);

@@ -45,7 +45,8 @@ Shader "Emil/standard unlit"
 		float4 _MainTex_ST;
 		float4 _SecTex_ST;
 		fixed4 _Color;
-		fixed4 _ShadowColor;
+		fixed4 _ShadowColor; 
+		fixed4 _LightColor0;
 		float4 _Alpha;
 		half _Light;
 		half _TexStr;
@@ -66,7 +67,8 @@ Shader "Emil/standard unlit"
 
 		float4 col = _Color * (tex2D(_MainTex, ps.uv)*(_TexStr))+(tex2D(_SecTex, ps.uv2)*(_TexStr2));
 		// 
-		col = col + _Light * lerp(_ShadowColor,_Color, step(0.2, SHADOW_ATTENUATION(ps)));
+		col =
+			_LightColor0* col + _Light * lerp(_ShadowColor,_Color, step(0.2, SHADOW_ATTENUATION(ps)));
 		return col;
 		}
 

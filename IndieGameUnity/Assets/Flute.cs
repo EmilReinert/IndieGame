@@ -85,7 +85,6 @@ public class Flute : Puzzle
 
     public override void EndPuzzle()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void Move(int i)

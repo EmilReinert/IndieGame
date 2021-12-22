@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    public PuzzleManager pm;
-    public CameraManager cm;
+    private PuzzleManager pm;
+    private CameraManager cm;
 
     private GameObject playerCollider;
     private LevelManager levelmanager; // set by puzzlemanager
@@ -16,6 +16,8 @@ public class Level : MonoBehaviour
     {
         playerCollider = GameObject.Find("Player");
         levelmanager = GameObject.FindObjectOfType<LevelManager>();
+        pm = GetComponent<PuzzleManager>();
+        cm = GetComponent<CameraManager>();
     }
 
     // Update is called once per frame

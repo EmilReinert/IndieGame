@@ -7,14 +7,12 @@ public class Walk : MonoBehaviour
     float walkSpeed;
     public GameObject
      rotationBody;
-    public float delay;
     
     
     // Start is called before the first frame update
     void Start()
     {
-        walkSpeed = 400;
-        delay = 0.1f;
+        walkSpeed = 500;
     }
 
     // Update is called once per frame
@@ -57,7 +55,7 @@ public class Walk : MonoBehaviour
         {
             tParam += Time.deltaTime ;
             transform.position = Vector3.Lerp(startPos, startPos+nextstep+new Vector3(0,1,0), tParam);
-            transform.rotation = Quaternion.Lerp(startRot, Quaternion.LookRotation(nextstep), tParam*2);
+            transform.rotation = Quaternion.Lerp(startRot, Quaternion.LookRotation(nextstep), tParam*3);
 
             yield return new WaitForEndOfFrame();
         }
