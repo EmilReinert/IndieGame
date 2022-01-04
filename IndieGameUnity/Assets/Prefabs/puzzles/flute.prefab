@@ -86,6 +86,7 @@ MonoBehaviour:
   contiuous: 0
   done: 0
   ended: 0
+  hideObject: 1
   moveStrength: 10
   dist: 0.4
   particles: {fileID: 3623568802377680490}
@@ -301,6 +302,7 @@ MonoBehaviour:
   contiuous: 0
   done: 0
   ended: 0
+  hideObject: 1
   body: {fileID: 696167488669161933}
   notePrefab: {fileID: 7644194990203279264, guid: 301346296a94caf45a6b1d7daffcd828, type: 3}
   tubes:
@@ -398,6 +400,10 @@ PrefabInstance:
     - target: {fileID: 3078619830304680347, guid: 80eb5b38610670c4da862f7c2ffa3bf3, type: 3}
       propertyPath: m_Name
       value: fluteblow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3078619830304680347, guid: 80eb5b38610670c4da862f7c2ffa3bf3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7750004086099606585, guid: 80eb5b38610670c4da862f7c2ffa3bf3, type: 3}
       propertyPath: m_RootOrder
