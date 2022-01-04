@@ -8,7 +8,6 @@ public class Conversation : MonoBehaviour
 {
     public Text text;
     public string textpath;
-
     private List<string> paragraphs;
     private int paragraphIDX;
     private bool currentlyReading;
