@@ -36,7 +36,7 @@ public class PlayerStickyCamera : MonoBehaviour
     {
         Vector3 startCamPosition = cam.transform.position;
         Quaternion startCamRotation = cam.transform.rotation;
-        Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+        Quaternion targetRotation = Quaternion.LookRotation((player.transform.position + new Vector3(0,5,0)) - transform.position); // slightly above head
 
         float tempFOV = cam.GetComponent<Camera>().fieldOfView;
 
@@ -45,7 +45,7 @@ public class PlayerStickyCamera : MonoBehaviour
         {
             tParam += Time.deltaTime * speedModifier;
             cam.transform.position = Vector3.Lerp(startCamPosition, targetPosition, tParam);
-            cam.transform.rotation = Quaternion.LookRotation(player.transform.position - transform.position);// = Quaternion.Lerp(startCamRotation, targetRotation, tParam * 2);
+            cam.transform.rotation = Quaternion.LookRotation((player.transform.position + new Vector3(0, 5, 0)) - transform.position);// = Quaternion.Lerp(startCamRotation, targetRotation, tParam * 2);
             cam.GetComponent<Camera>().fieldOfView = Mathf.Lerp(tempFOV, fov, tParam);
             yield return new WaitForEndOfFrame();
         }
