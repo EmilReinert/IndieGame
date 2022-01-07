@@ -8,12 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: glowlake
-  m_Shader: {fileID: 4800000, guid: 42bbd8ac609d3a14b93d972dccd86c89, type: 3}
+  m_Shader: {fileID: 4800000, guid: de2a194c18405ae4eb1bba9487895091, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2450
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -40,9 +40,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f831c4f7a63a2c949851d9f0c0e91d2c, type: 3}
-        m_Scale: {x: 3.03, y: 5}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 0.5, y: 0.5}
+        m_Offset: {x: 0.25, y: 0.25}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -56,9 +56,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SecTex:
-        m_Texture: {fileID: 2800000, guid: e3e0322175105c94c82389b2fcfc893a, type: 3}
-        m_Scale: {x: 0.01, y: 2.32}
-        m_Offset: {x: 0.05, y: -0.23}
+        m_Texture: {fileID: 2800000, guid: 354abd73e21f29d4c82deebd2cf9d9cf, type: 3}
+        m_Scale: {x: 0.4, y: 0.4}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -75,11 +75,12 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TexStr: 0.285
-    - _TexStr2: 0.774
+    - _TexStr: 1
+    - _TexStr2: 0.103
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.20981622, b: 1, a: 0.5803922}
+    - _Color: {r: 0, g: 0.20981622, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

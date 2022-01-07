@@ -68,7 +68,7 @@ Shader "Emil/standard unlit"
 		float4 col = _Color * (tex2D(_MainTex, ps.uv)*(_TexStr))+(tex2D(_SecTex, ps.uv2)*(_TexStr2));
 		// 
 		col =
-			_LightColor0* col + _Light * lerp(_ShadowColor,_Color, step(0.2, SHADOW_ATTENUATION(ps)));
+			_LightColor0* (col + _Light * lerp(_ShadowColor,_Color, step(0.2, SHADOW_ATTENUATION(ps))));
 		return col;
 		}
 
