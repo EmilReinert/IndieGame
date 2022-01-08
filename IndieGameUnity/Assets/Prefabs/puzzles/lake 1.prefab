@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2110080701679891599}
   - component: {fileID: 2110080701679891596}
   - component: {fileID: 8134419162696247507}
+  - component: {fileID: 7686992388365154757}
   m_Layer: 0
   m_Name: lake 1
   m_TagString: Untagged
@@ -115,3 +116,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.85300326
   m_Center: {x: -0.044409607, y: -0.0046272725, z: -0.08799378}
+--- !u!114 &7686992388365154757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110080701679891586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 744b22c93b640ce458f2d4bedf2ac8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 1
+  moveSpeed: 1
+  modifier: {x: 1, y: 0}

@@ -11,8 +11,9 @@ public class LakeBehaviour : MonoBehaviour
     public float increaseSpeed = 1;
     public float decreaseSpeed = 0.002f;
     public float distance;
-    private float maxIntensity = 0.5f;
-    
+    private float maxIntensity = 1;
+    private float minIntensity = 0.22f;
+
     private bool isColliding;
     private bool lightOn;
     private Renderer ren;
@@ -29,7 +30,7 @@ public class LakeBehaviour : MonoBehaviour
         {
             mat[i] = sublakes[i-1].GetComponent<Renderer>().material;
         }
-        SetAlpha(0);
+        SetAlpha(minIntensity);
     }
 
     // Update is called once per frame
@@ -61,7 +62,7 @@ public class LakeBehaviour : MonoBehaviour
     }
     IEnumerator IncreaseLight()
     {
-        if (mat[0].color.a >= maxIntensity)
+        if (mat[0].GetFloat("_A2") >= maxIntensity)
         {
             SetAlpha(maxIntensity);
             yield return new WaitForEndOfFrame();
@@ -71,40 +72,43 @@ public class LakeBehaviour : MonoBehaviour
             lightOn = true;
             float distanceMultiplyer = Vector3.Distance(playerRoot.transform.position, transform.position);
             distanceMultiplyer = -0.009f * distanceMultiplyer + 1;
-            distance = mat[0].color.a;
+            distance = mat[0].GetFloat("_A2"); // mat[0].color.a;
             if (distanceMultiplyer <= 0) distanceMultiplyer = 0;
             float maxBright = distanceMultiplyer * maxIntensity;
-            if (mat[0].color.a >= maxBright)
+            if (mat[0].GetFloat("_A2") >= maxBright)
             {
                 SetAlpha(maxBright);
                 yield return new WaitForEndOfFrame();
             }
             else
             {
-                SetAlpha(mat[0].color.a + increaseSpeed * Time.deltaTime);
+                SetAlpha(mat[0].GetFloat("_A2") + increaseSpeed * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
             }
         }
     }
     IEnumerator DecreaseLight()
     {
-        if (mat[0].color.a <= 0.004)
+        if (mat[0].GetFloat("_A2") <= minIntensity)
         {
 
-            SetAlpha(0);  lightOn = false;
+            SetAlpha(minIntensity);  lightOn = false;
         }
         else
         {
-            SetAlpha(mat[0].color.a * (1 - decreaseSpeed * Time.deltaTime));
+            SetAlpha(mat[0].GetFloat("_A2") * (1 - decreaseSpeed * Time.deltaTime));
         }
         yield return new WaitForEndOfFrame();
     }
 
     void SetAlpha(float goal)
-    {
+    {/*
         Color tempCol = mat[0].color;
         tempCol.a =goal;
         foreach(Material m in mat)
-            m.color = tempCol;
+            m.color = tempCol;*/
+        mat[0].SetFloat("_A2",goal);
+        foreach (Material m in mat)
+            m.SetFloat("_A2", goal);
     }
 }
