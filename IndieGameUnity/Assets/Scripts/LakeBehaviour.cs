@@ -8,11 +8,11 @@ public class LakeBehaviour : MonoBehaviour
     public GameObject playerRoot;
     public GameObject[] sublakes;
 
-    public float increaseSpeed = 1;
+    public float increaseSpeed = 2;
     public float decreaseSpeed = 0.002f;
     public float distance;
     private float maxIntensity = 1;
-    private float minIntensity = 0.22f;
+    private float minIntensity = 0;
 
     private bool isColliding;
     private bool lightOn;
