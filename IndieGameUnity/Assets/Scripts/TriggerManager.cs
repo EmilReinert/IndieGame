@@ -4,25 +4,32 @@ using UnityEngine;
 
 public class TriggerManager : MonoBehaviour
 {
-    public GameObject triggerObject;
+    public GameObject showtriggerObject;
     public bool isEntered;
-    
+
+    public GameObject requiredObject;
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer != 4) return; //Environment 
-        if (isEntered) return; // only first triggerd object taken
 
+        if (requiredObject != null)
+        {
+            if (other.gameObject != requiredObject) return;
+        }
+        
+        if (other.gameObject.layer == 3) return; //Environment 
+        if (isEntered) return; // only first triggerd object taken
+        
         isEntered = true;
-        triggerObject = other.gameObject;
+        showtriggerObject = other.gameObject;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(triggerObject == other.gameObject)
+        if(showtriggerObject == other.gameObject)
         {
             isEntered = false;
-            triggerObject = null;
+            showtriggerObject = null;
         }
     }
 

@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Drums : Puzzle
 {      
-    private AudioSource audi1;
-    private AudioSource audi2;
-    private AudioSource audi3;
+    [HideInInspector]
+    public AudioSource audi1;
+    [HideInInspector]
+    public AudioSource audi2;
+    [HideInInspector]
+    public AudioSource audi3;
     
 
     public override void StartPuzzle()
