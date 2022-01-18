@@ -22,7 +22,7 @@ public class ToxicPersonBehavior : MonoBehaviour
         {
             followRoute.freeze = true; return;
         }
-        if (visionTrigger.triggerObject.GetComponent<Renderer>().material.color.a >= visibleMatThreshold)
+        if (visionTrigger.showtriggerObject.GetComponent<Renderer>().material.color.a >= visibleMatThreshold)
             followRoute.freeze = false;
         else
             followRoute.freeze = true;
