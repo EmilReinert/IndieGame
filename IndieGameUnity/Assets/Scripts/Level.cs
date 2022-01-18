@@ -55,7 +55,7 @@ public class Level : MonoBehaviour
     void EndLevel()
     {
         playing = false;
-        pm.EndPuzzles();
+        //pm.EndPuzzles();
         levelmanager.inPuzzle = false;
         cm.UpdateDefaultSettings();
     }

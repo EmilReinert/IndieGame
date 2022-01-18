@@ -22,6 +22,7 @@ public class CrystalPost : Puzzle
 
     public override void EndPuzzle()
     {
+
     }
 
     public override void Move(int i)

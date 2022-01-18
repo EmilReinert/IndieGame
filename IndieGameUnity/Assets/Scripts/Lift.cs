@@ -57,7 +57,8 @@ public class Lift : Puzzle
     }
 
     public override void UpdatePuzzle()
-    { 
+    {
+        if (done) return;
         //Rotate and translate
         float newTravel = travel + (acceleration / 200);
 
