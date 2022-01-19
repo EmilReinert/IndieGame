@@ -6,6 +6,7 @@ public class InsectStone : Puzzle
 {
     public GameObject insects;
     public GameObject insectStone;
+    public ToxicPersonBehavior t;
     public override void EndPuzzle()
     {
         insects.SetActive(false);
@@ -20,6 +21,7 @@ public class InsectStone : Puzzle
     {
         insects.SetActive(true);
         insectStone.SetActive(true);
+        t.walkAnyway = true;
     }
 
     public override void UpdatePuzzle()
@@ -27,7 +29,7 @@ public class InsectStone : Puzzle
     }
     private void Start()
     {
-
+        
         insects.SetActive(false);
         insectStone.SetActive(false);
     }

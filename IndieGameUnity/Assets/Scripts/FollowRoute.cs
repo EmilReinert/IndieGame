@@ -12,7 +12,7 @@ public class FollowRoute : MonoBehaviour
     private GameObject route;
     [SerializeField]
     private Transform[] routes;
-
+    public bool UseStartRotation = false;
     private Quaternion startRotation;
 
     private int routeIDX;
@@ -70,7 +70,12 @@ public class FollowRoute : MonoBehaviour
                     3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2 + Mathf.Pow(tParam, 3) * p3;
                 //objectPosition.y = transform.position.y; // dont change height
                 if (optRotationBody != null)
-                    optRotationBody.transform.rotation = Quaternion.LookRotation(objectPosition - transform.position)* startRotation;
+                {
+                    if (UseStartRotation)
+                        optRotationBody.transform.rotation = Quaternion.LookRotation(objectPosition - transform.position) * startRotation;
+                    else
+                        optRotationBody.transform.rotation = Quaternion.LookRotation(objectPosition - transform.position);// * startRotation;
+                }
                 transform.position = objectPosition;
                 yield return new WaitForEndOfFrame();
                 tParam += Time.deltaTime * speedModifier;

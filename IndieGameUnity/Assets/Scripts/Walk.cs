@@ -7,17 +7,22 @@ public class Walk : MonoBehaviour
     float walkSpeed;
     public GameObject
      rotationBody;
+    [SerializeField]
+    private bool freeze = false;
     
     
     // Start is called before the first frame update
     void Start()
     {
         walkSpeed = 500;
+        freeze = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (freeze) return;
+
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             Vector2 nextStep = Vector2.zero;
@@ -43,7 +48,7 @@ public class Walk : MonoBehaviour
             StopAllCoroutines();
 
     }
-    public IEnumerator A(Vector3 nextstep)
+    public IEnumerator A(Vector3 nextstep, bool rotate =true)
         {
         Quaternion startRot = rotationBody.transform.rotation;
         Vector3 startPos = rotationBody.transform.position;
@@ -55,9 +60,33 @@ public class Walk : MonoBehaviour
         {
             tParam += Time.deltaTime ;
             transform.position = Vector3.Lerp(startPos, startPos+nextstep+new Vector3(0,1,0), tParam);
-            transform.rotation = Quaternion.Lerp(startRot, Quaternion.LookRotation(nextstep), tParam*3);
+            if(rotate) transform.rotation = Quaternion.Lerp(startRot, Quaternion.LookRotation(nextstep), tParam*3);
 
             yield return new WaitForEndOfFrame();
         }
+
+    }
+    public void Freeze(bool b)
+    {
+        if (b)
+        {
+            //freeze 
+            freeze = true;
+            GetComponent<Rigidbody>().useGravity = false;
+        }
+        else
+        {
+
+            //unfreeze 
+            freeze = false;
+            GetComponent<Rigidbody>().useGravity = true;
+        }
+    }
+
+    public void SetPosition(Vector3 pos)
+    {
+
+        StartCoroutine(
+            A(pos-transform.position,false));
     }
 }

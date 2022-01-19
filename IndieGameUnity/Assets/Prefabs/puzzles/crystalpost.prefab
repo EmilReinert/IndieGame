@@ -325,6 +325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showtriggerObject: {fileID: 0}
   isEntered: 0
+  collisionLayer: 0
   requiredObject: {fileID: 0}
 --- !u!1 &4596233445726198533
 GameObject:
@@ -451,6 +452,10 @@ PrefabInstance:
     - target: {fileID: 1226735637808833568, guid: 1662393bb5fa7e64fba85c5b75a3a76f, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1226735637808833568, guid: 1662393bb5fa7e64fba85c5b75a3a76f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5233
       objectReference: {fileID: 0}
     - target: {fileID: 1226735637808833568, guid: 1662393bb5fa7e64fba85c5b75a3a76f, type: 3}
       propertyPath: m_LocalPosition.x

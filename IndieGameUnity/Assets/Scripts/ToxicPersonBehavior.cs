@@ -7,6 +7,7 @@ public class ToxicPersonBehavior : Puzzle
     public FollowRoute f;
     public GameObject player;
     public float maxDist = 20;
+    public bool walkAnyway = false;
     
     public TriggerManager visionTrigger;
 
@@ -36,6 +37,10 @@ public class ToxicPersonBehavior : Puzzle
         f.speedModifier = speed;
         */
         // only if lake is visible continue
+        if (walkAnyway)
+        {
+            f.freeze = false; return;
+        }
         if (!visionTrigger.isEntered)
         {
             f.freeze = true; return;

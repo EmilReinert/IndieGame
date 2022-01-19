@@ -46,7 +46,7 @@ public class CameraManager : MonoBehaviour
             stickyCam.Enable(false);
         }
         if (lookAt != null) stickyCam.lookAt = lookAt;
-        else stickyCam.lookAt = player;
+        else { stickyCam.lookAt = player; stickyCam.on = true; }
 
 
     }
