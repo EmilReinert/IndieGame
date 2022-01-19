@@ -9,6 +9,8 @@ public class FollowRoute : MonoBehaviour
 
     public bool freeze = false;
     [SerializeField]
+    private GameObject route;
+    [SerializeField]
     private Transform[] routes;
 
     private Quaternion startRotation;
@@ -19,9 +21,10 @@ public class FollowRoute : MonoBehaviour
 
     private Vector3 objectPosition;
 
-    private float speedModifier;
+    public  float speedModifier=0.1f;
 
     private bool coroutineAllowed;
+    private bool done = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,8 +33,14 @@ public class FollowRoute : MonoBehaviour
             startRotation = optRotationBody.transform.rotation;
         routeIDX = 0;
         tParam = 0f;
-        speedModifier = 0.1f;
         coroutineAllowed = true;
+        if (route != null)
+        {
+            routes = new Transform[route.GetComponentsInChildren<Route>().Length];
+            Route[] rs = route.GetComponentsInChildren<Route>();
+            for (int i = 0; i < routes.Length; i++)
+                routes[i] = rs[i].transform;
+        }
     }
 
     // Update is called once per frame
@@ -60,8 +69,8 @@ public class FollowRoute : MonoBehaviour
                     3 * Mathf.Pow(1 - tParam, 2) * tParam * p1 +
                     3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2 + Mathf.Pow(tParam, 3) * p3;
                 //objectPosition.y = transform.position.y; // dont change height
-                if(optRotationBody != null)
-                    optRotationBody.transform.rotation =  Quaternion.LookRotation(objectPosition - transform.position)* startRotation;
+                if (optRotationBody != null)
+                    optRotationBody.transform.rotation = Quaternion.LookRotation(objectPosition - transform.position)* startRotation;
                 transform.position = objectPosition;
                 yield return new WaitForEndOfFrame();
                 tParam += Time.deltaTime * speedModifier;
@@ -76,13 +85,17 @@ public class FollowRoute : MonoBehaviour
             routeIDX += 1;
         }
 
+        coroutineAllowed = true;
+
+
         // reset path
         if (routeIDX > routes.Length - 1)
         {
-            routeIDX = 0;
+            //routeIDX = 0;
+            done = true;
+            freeze = true;
+            coroutineAllowed = false;
         }
-
-        coroutineAllowed = true;
     }
     
 }

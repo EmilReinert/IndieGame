@@ -5,8 +5,7 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {   
     public enum CameraPos {Front, Back, Left, Right, TopFront };
-
-    public bool playerAttached;
+    public GameObject lookAt;
     
     public CameraPos cameraPosition;
     public float distance;
@@ -22,13 +21,17 @@ public class CameraManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         player = GameObject.Find("Player");
         mainCam = GameObject.Find("Main Camera");
         stickyCam = mainCam.GetComponent<PlayerStickyCamera>();
         if (fov == 0) fov = 60;
         if (tilt == 0) tilt = 20;
         if (distance == 0) distance = 20;
-        UpdateDefaultSettings();
+        stickyCam.transition = true;
+        stickyCam.enabled = true;
+        stickyCam.Enable(true);
+
     }
 
 
@@ -37,6 +40,14 @@ public class CameraManager : MonoBehaviour
         stickyCam.transition = true ;
         stickyCam.offset = GetCameraOff();
         stickyCam.fov = fov;
+
+        if (copyCam != null)
+        {
+            stickyCam.Enable(false);
+        }
+        if (lookAt != null) stickyCam.lookAt = lookAt;
+        else stickyCam.lookAt = player;
+
 
     }
     public void RemainCameraSettings()
@@ -48,13 +59,18 @@ public class CameraManager : MonoBehaviour
 
     public void UpdateDefaultSettings()
     {
+        stickyCam.ResetOffset();
         stickyCam.transition = true;
         stickyCam.enabled = true;
-        stickyCam.ResetOffset();
+        stickyCam.Enable(true);
     }
     Vector3 GetCameraOff()
     {
         CameraPosition off;
+        if (copyCam != null)
+        {
+            return copyCam.transform.position;
+        }
         switch (cameraPosition)
         {
             case CameraPos.Front: off = new CameraPosition(0, tilt, distance); break;
@@ -64,6 +80,7 @@ public class CameraManager : MonoBehaviour
             case CameraPos.TopFront: off = new CameraPosition(0, 70, distance); break;
             default: off = new CameraPosition(); break;
         }
-        return off.GetOffsetAngle();
+        return
+                    player.transform.position - off.GetOffsetAngle() - new Vector3(0, 2, 0);
     }
 }

@@ -2,20 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level : MonoBehaviour
+public class Level : GamePart
 {
     private PuzzleManager pm;
     private CameraManager cm;
+    private GameManager GM;
 
     private GameObject playerCollider;
-    private LevelManager levelmanager; // set by puzzlemanager
-    bool playing = false;
-    bool end = false; // ending puzzle
+
+    public bool playing = false;
+
+    public Puzzle endrequirement;
+
     // Start is called before the first frame update
     void Start()
     {
+        GM = GameObject.FindObjectOfType<GameManager>();
         playerCollider = GameObject.Find("Player");
-        levelmanager = GameObject.FindObjectOfType<LevelManager>();
+        //levelmanager = GameObject.FindObjectOfType<LevelManager>();
         pm = GetComponent<PuzzleManager>();
         cm = GetComponent<CameraManager>();
     }
@@ -33,30 +37,32 @@ public class Level : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == playerCollider)
-            StartLevel();
+            GM.SetLevel(this);
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject == playerCollider)
         {
-            EndLevel();
+            //EndLevel();
         }
 
 
     }
 
-    void StartLevel()
+    public void StartLevel()
     {
         playing = true;
         pm.StartPuzzles();
-        levelmanager.inPuzzle = true;
+        //levelmanager.inPuzzle = true;
         cm.UpdateCameraSettings();
     }
-    void EndLevel()
+    public void EndLevel()
     {
+        if (endrequirement!=null &&!endrequirement.done) return;
+
         playing = false;
-        //pm.EndPuzzles();
-        levelmanager.inPuzzle = false;
+        pm.EndPuzzles();
+        //levelmanager.inPuzzle = false;
         cm.UpdateDefaultSettings();
     }
 }

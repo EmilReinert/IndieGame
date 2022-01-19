@@ -15,12 +15,14 @@ public class HitPattern : Puzzle
     public Drums drums;
     public LanternMove stick;
     public  ParticleSystem stickparticles;
+    public GameObject door;
 
     public override void EndPuzzle()
     {
         print("done");
         var main = stickparticles.main;
         main.loop = true;ShowTrail(Color.yellow);
+        door.GetComponent<Animator>().enabled = true;
     }
 
     public override void Move(int i)
@@ -82,6 +84,11 @@ public class HitPattern : Puzzle
         StartCoroutine(PlayPattern());
 
 
+    }
+    private void Start()
+    {
+
+        door.GetComponent<Animator>().enabled = false;
     }
 
     public override void UpdatePuzzle()

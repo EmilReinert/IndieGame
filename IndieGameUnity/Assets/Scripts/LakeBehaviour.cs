@@ -5,6 +5,7 @@ using UnityEngine;
 public class LakeBehaviour : MonoBehaviour
 {
     [HideInInspector]
+    private GameObject player;
     public bool decreaseByTime;
     public GameObject lantern;
     public GameObject playerRoot;
@@ -23,6 +24,7 @@ public class LakeBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player");
         lightOn = false;
         isColliding = false;
         ren = GetComponent<Renderer>();

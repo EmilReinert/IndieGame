@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3105358262168493422}
   - component: {fileID: 935769792591194532}
   - component: {fileID: 1349385637867598258}
-  - component: {fileID: 8688862170740310290}
   - component: {fileID: 5745366072662969889}
+  - component: {fileID: 1234789667102405330}
   m_Layer: 0
   m_Name: lake
   m_TagString: Untagged
@@ -98,27 +98,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338caf17236353b4e81b7a8c08674f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decreaseByTime: 0
   lantern: {fileID: 0}
   playerRoot: {fileID: 0}
   sublakes:
   - {fileID: 9131696085685713823}
   increaseSpeed: 0.5
   decreaseSpeed: 0.9
-  distance: 0
---- !u!64 &8688862170740310290
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1728390339185592433}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4106051408255034447, guid: 4f190463fb4ee594bb79c7c03d06bb1e, type: 3}
 --- !u!95 &5745366072662969889
 Animator:
   serializedVersion: 3
@@ -138,6 +124,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!135 &1234789667102405330
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728390339185592433}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.68
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9131696085685713823
 GameObject:
   m_ObjectHideFlags: 0

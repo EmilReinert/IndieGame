@@ -13,30 +13,42 @@ public class PlayerStickyCamera : MonoBehaviour
     private float startFOV;
     public  float fov;
     private GameObject player;
+    public GameObject lookAt;
+
+    public bool on;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
         cam = this.gameObject;
         startFOV = fov = cam.GetComponent<Camera>().fieldOfView;
-        startOffset = offset = player.transform.position - cam.transform.position;
+        startOffset =player.transform.position- cam.transform.position ;
+        offset = player.transform.position - startOffset    ;
         cam.transform.parent = null;
         transition = false;
+        on = false;
+        lookAt = player;
     }
 
      void Update()
     {
-        StartCoroutine(
-            Transition(
-                player.transform.position - offset-new Vector3(0,2,0)));
-
+        if (transition)
+            StartCoroutine(
+                Transition(offset));
+        else
+        {
+            if (!on) return;
+            StartCoroutine(
+                SetPosition(
+                    offset));
+        }
 
     }
-    public IEnumerator Transition(Vector3 targetPosition)
+    private IEnumerator Transition(Vector3 targetPosition)
     {
         Vector3 startCamPosition = cam.transform.position;
         Quaternion startCamRotation = cam.transform.rotation;
-        Quaternion targetRotation = Quaternion.LookRotation((player.transform.position + new Vector3(0,5,0)) - transform.position); // slightly above head
+        Quaternion targetRotation = Quaternion.LookRotation((lookAt.transform.position + new Vector3(0,5,0)) - transform.position); // slightly above head
 
         float tempFOV = cam.GetComponent<Camera>().fieldOfView;
 
@@ -45,7 +57,7 @@ public class PlayerStickyCamera : MonoBehaviour
         {
             tParam += Time.deltaTime * speedModifier;
             cam.transform.position = Vector3.Lerp(startCamPosition, targetPosition, tParam);
-            cam.transform.rotation = Quaternion.LookRotation((player.transform.position + new Vector3(0, 5, 0)) - transform.position);// = Quaternion.Lerp(startCamRotation, targetRotation, tParam * 2);
+            cam.transform.rotation = Quaternion.LookRotation((lookAt.transform.position + new Vector3(0, 5, 0)) - transform.position);// = Quaternion.Lerp(startCamRotation, targetRotation, tParam * 2);
             cam.GetComponent<Camera>().fieldOfView = Mathf.Lerp(tempFOV, fov, tParam);
             yield return new WaitForEndOfFrame();
         }
@@ -53,7 +65,7 @@ public class PlayerStickyCamera : MonoBehaviour
 
     }
     ///
-    public IEnumerator SetPosition(Vector3 targetPosition)
+    private IEnumerator SetPosition(Vector3 targetPosition)
     {
         yield return new WaitForSeconds(stickDelay);
         Vector3 startCamPosition = cam.transform.position;
@@ -78,6 +90,12 @@ public class PlayerStickyCamera : MonoBehaviour
     public void ResetOffset()
     {
         fov = startFOV;
-        offset = startOffset;
+        offset =player.transform.position -startOffset;
+        lookAt = player;
+    }
+
+    public void Enable(bool b)
+    {
+        on = b;
     }
 }
