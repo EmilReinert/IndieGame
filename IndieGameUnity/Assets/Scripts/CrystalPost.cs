@@ -45,7 +45,7 @@ public class CrystalPost : Puzzle
             foreach (LakeBehaviour l in lakes)
             {
                 distance = Vector3.Distance(l.transform.position, crystal.transform.position);
-                float distanceMultiplyer = -0.07f * (distance - 5) + 1;
+                float distanceMultiplyer = -0.07f * (distance - 5) + 5;
                 l.decreaseByTime = false;
                 l.IncreaseLight(distanceMultiplyer);
             }

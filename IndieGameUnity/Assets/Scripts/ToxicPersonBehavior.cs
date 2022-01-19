@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class ToxicPersonBehavior : Puzzle
 {
-    public FollowRoute followRoute;
+    public FollowRoute f;
+    public GameObject player;
+    public float maxDist = 20;
+    
     public TriggerManager visionTrigger;
 
     private float visibleMatThreshold; // required alpha value to see object
 
     public override void EndPuzzle()
     {
-        followRoute.freeze = true;
+        f.freeze = true;
     }
 
     public override void Move(int i)
@@ -25,21 +28,28 @@ public class ToxicPersonBehavior : Puzzle
 
     public override void UpdatePuzzle()
     {
+        float currentDistance = Vector3.Distance(player.transform.position, f.transform.position);
+        float speed = -(1 / maxDist) * currentDistance + 1;
+        /*
+        if (speed < 0.01f) f.freeze = true;
+        else f.freeze = false;
+        f.speedModifier = speed;
+        */
         // only if lake is visible continue
         if (!visionTrigger.isEntered)
         {
-            followRoute.freeze = true; return;
+            f.freeze = true; return;
         }
         if (visionTrigger.showtriggerObject.GetComponent<Renderer>().material.GetFloat("_A2") >= visibleMatThreshold)
-            followRoute.freeze = false;
+            f.freeze = false;
         else
-            followRoute.freeze = true;
+            f.freeze = true;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        visibleMatThreshold = 0.2f; followRoute.freeze = true;
+        visibleMatThreshold = 0.2f; f.freeze = true;
     }
     
 }
