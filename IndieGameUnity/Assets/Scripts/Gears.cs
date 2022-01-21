@@ -32,9 +32,6 @@ public class Gears : Puzzle
 
     public override void StartPuzzle()
     {
-        pointer = 0;
-        foreach (GameObject g in gears)
-            g.SetActive(false);
     }
 
     public override void EndPuzzle()

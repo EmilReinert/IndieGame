@@ -14,7 +14,7 @@ public class Walk : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        walkSpeed = 500;
+        walkSpeed = 1000;
         freeze = false;
     }
 
