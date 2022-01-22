@@ -12,7 +12,7 @@ public abstract class Puzzle: MonoBehaviour
 
     public abstract void StartPuzzle();
 
-    public abstract void EndPuzzle();
+    public abstract void EndPuzzle(); // called in puzzlemanager aftre Done = true
 
     public abstract void Move(int i); // -1 left 0 default 1 right 
     

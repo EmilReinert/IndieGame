@@ -26,6 +26,8 @@ public class GrabWallPuzzle : Puzzle
     {
         walk.Freeze(true);
         MoveNext(grabs[0]);
+        foreach (GrabWall g in grabs)
+            g.active = true;
     }
 
     public override void UpdatePuzzle()
