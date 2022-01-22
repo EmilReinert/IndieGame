@@ -13,6 +13,9 @@ public class Level : GamePart
     public bool playing = false;
 
     public Puzzle endrequirement;
+    public Level next;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +32,10 @@ public class Level : GamePart
     {
         if (playing)
         {
-            pm.UpdatePuzzles();
+            if (pm != null)
+                pm.UpdatePuzzles();
             cm.RemainCameraSettings();////// remove
-        }        
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -52,17 +56,23 @@ public class Level : GamePart
     public void StartLevel()
     {
         playing = true;
-        pm.StartPuzzles();
+        if (pm != null)
+            pm.StartPuzzles();
         //levelmanager.inPuzzle = true;
         cm.UpdateCameraSettings();
     }
     public void EndLevel()
     {
-        if (endrequirement!=null &&!endrequirement.done) return;
+        if (!playing) return;
+        if (endrequirement != null && !endrequirement.done) return;
 
         playing = false;
-        pm.EndPuzzles();
+        if (pm != null)
+            pm.EndPuzzles();
         //levelmanager.inPuzzle = false;
-        cm.UpdateDefaultSettings();
+
+        if (next != null)
+            GM.SetLevel(next);
+        else cm.UpdateDefaultSettings();
     }
 }

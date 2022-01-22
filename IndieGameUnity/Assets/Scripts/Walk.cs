@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Walk : MonoBehaviour
 {
-    float walkSpeed;
+    public float walkSpeed;
     public GameObject
      rotationBody;
     [SerializeField]
@@ -14,7 +14,7 @@ public class Walk : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        walkSpeed = 1000;
+        walkSpeed = 4;
         freeze = false;
     }
 
@@ -39,7 +39,7 @@ public class Walk : MonoBehaviour
             if (Input.GetKey(KeyCode.D))
                 nextStep.x += 1;
 
-            nextStep = nextStep * walkSpeed * Time.deltaTime;
+            nextStep = nextStep * walkSpeed;// * Time.deltaTime;
             Vector3 next = new Vector3(nextStep.x, 0, nextStep.y);
             StartCoroutine(
                 A(next));

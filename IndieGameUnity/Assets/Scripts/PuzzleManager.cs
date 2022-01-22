@@ -7,9 +7,13 @@ public class PuzzleManager : MonoBehaviour
     // External components
     public GameObject puzzleObjects;
     public Puzzle[] puzzles;
+    public bool ended = false;
+    private Level l;
 
     public void Start()
     {
+        l = GetComponent<Level>();
+        ended = false;
     }
 
     public void StartPuzzles()
@@ -26,21 +30,25 @@ public class PuzzleManager : MonoBehaviour
     }
     public void EndPuzzles()
     {
+        if (ended) return;
 
-        if (puzzleObjects != null) {
-            //puzzleObjects.SetActive(false);
-        }
+       // if (puzzleObjects != null) {            puzzleObjects.SetActive(false);        }
         foreach (Puzzle p in puzzles)
         {
             p.EndPuzzle();
+                p.ended = true;
             //  if (p.hideObject)                p.gameObject.SetActive(false);
         }
+        ended = true;
+
+        l.EndLevel();
+
     }
     public void UpdatePuzzles()
     {
         foreach (Puzzle p in puzzles)
         {
-            if (p.done && !p.ended) { p.EndPuzzle(); p.ended = true; return;}
+            if (p.done && !p.ended) { EndPuzzles(); return;}
 
             if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
             {
