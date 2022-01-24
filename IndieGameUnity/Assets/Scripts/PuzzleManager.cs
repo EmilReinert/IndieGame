@@ -9,9 +9,12 @@ public class PuzzleManager : MonoBehaviour
     public Puzzle[] puzzles;
     public bool ended = false;
     private Level l;
+    public int move;
+    GameManager GM;
 
     public void Start()
     {
+        GM = GameObject.FindObjectOfType<GameManager>();
         l = GetComponent<Level>();
         ended = false;
     }
@@ -46,6 +49,7 @@ public class PuzzleManager : MonoBehaviour
     }
     public void UpdatePuzzles()
     {
+        move = 0;
         foreach (Puzzle p in puzzles)
         {
             if (p.done && !p.ended) { EndPuzzles(); return;}
@@ -55,21 +59,21 @@ public class PuzzleManager : MonoBehaviour
                 // continuous update
                 if (p.contiuous)
                 {
-                    if (Input.GetKey(KeyCode.Q)) { p.Move(-1); }
-                    if (Input.GetKey(KeyCode.E)) { p.Move(1); }
+                    if (Input.GetKey(KeyCode.Q)) { move = -1; }
+                    if (Input.GetKey(KeyCode.E)) { move = 1; }
                 }
                 // singular update
                 else
                 {
-                    if (Input.GetKeyDown(KeyCode.Q)) { p.Move(-1); }
-                    if (Input.GetKeyDown(KeyCode.E)) { p.Move(1); }
+                    if (Input.GetKeyDown(KeyCode.Q)) { move = -1; }
+                    if (Input.GetKeyDown(KeyCode.E)) { move = 1; }
                 }
             }
-            else
-                p.Move(0); //reset
-
+            //input in puzzle
+            p.Move(move);
             //puzzle update
             p.UpdatePuzzle();
+            GM.UpdateGUI(move);
         }
 
     }

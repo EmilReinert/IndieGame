@@ -58,8 +58,9 @@ public class Walk : MonoBehaviour
         float tParam = 0;
         while (tParam <= 1)
         {
+            if (freeze && rotate) break;
             tParam += Time.deltaTime ;
-            transform.position = Vector3.Lerp(startPos, startPos+nextstep+new Vector3(0,1,0), tParam);
+            transform.position = Vector3.Lerp(startPos, startPos+nextstep+new Vector3(0,2,0), tParam);
             if(rotate) transform.rotation = Quaternion.Lerp(startRot, Quaternion.LookRotation(nextstep), tParam*3);
 
             yield return new WaitForEndOfFrame();
@@ -68,11 +69,15 @@ public class Walk : MonoBehaviour
     }
     public void Freeze(bool b)
     {
+
         if (b)
         {
+
             //freeze 
+            StopAllCoroutines();    
             freeze = true;
             GetComponent<Rigidbody>().useGravity = false;
+            GetComponent<Collider>().enabled = false;
         }
         else
         {
@@ -80,6 +85,7 @@ public class Walk : MonoBehaviour
             //unfreeze 
             freeze = false;
             GetComponent<Rigidbody>().useGravity = true;
+            GetComponent<Collider>().enabled = true;
         }
     }
 

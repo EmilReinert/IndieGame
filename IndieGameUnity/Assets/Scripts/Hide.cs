@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Hide : Puzzle
 {
-    public GameObject player;
+    public GameObject playerBody;
+    private GameObject player;
+    private Walk playerWalk;
     
 
    int oneheld; // both hands need to be held. this stores whetehr one is held at the moment 
@@ -15,7 +17,7 @@ public class Hide : Puzzle
     Vector3 startPos;
     public override void EndPuzzle()
     {
-        player.transform.localPosition = startPos;
+        playerBody.transform.localPosition = startPos;
     }
 
     public override void Move(int i)
@@ -28,8 +30,11 @@ public class Hide : Puzzle
 
     public override void StartPuzzle()
     {
+        player = GameObject.Find("Player");
+        playerWalk = player.GetComponent<Walk>();
         oneheld = 0; fullhiding = false;
-        startPos = player.transform.localPosition;
+        startPos = playerBody.transform.localPosition;
+        playerWalk.Freeze(false);
     }
 
     public override void UpdatePuzzle()
@@ -39,8 +44,8 @@ public class Hide : Puzzle
     // Start is called before the first frame update
     void Start()
     {
-        contiuous = true;     
-        
+        contiuous = true;
+
     }
 
     // Update is called once per frame
@@ -57,9 +62,10 @@ public class Hide : Puzzle
             {
                 // reset 
                 //player.GetComponent<Walk>().enabled = true;
+                playerWalk.Freeze(false);
                 fullhiding = false;
                 oneheld = 0;
-                player.transform.localPosition = tempStartPos;
+                playerBody.transform.localPosition = tempStartPos;
             }
         }
         else
@@ -68,15 +74,17 @@ public class Hide : Puzzle
             {
                 // first depth
                 //player.GetComponent<Walk>().enabled = true;
-                tempStartPos = player.transform.localPosition;
+                playerWalk.Freeze(true);
+                tempStartPos = playerBody.transform.localPosition;
                 oneheld = i;
-                player.transform.localPosition = tempStartPos - new Vector3(0, 1, 0);
+                playerBody.transform.localPosition = tempStartPos - new Vector3(0, 1, 0);
             }
             if (oneheld!=i&&!fullhiding)
             {
                 //second depth
+                playerWalk.Freeze(true);
                 fullhiding = true;
-                player.transform.localPosition = tempStartPos - new Vector3(0, 2, 0);
+                playerBody.transform.localPosition = tempStartPos - new Vector3(0, 2, 0);
             }
         }
     }

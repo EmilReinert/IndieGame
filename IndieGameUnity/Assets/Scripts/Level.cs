@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Level : GamePart
 {
-    private PuzzleManager pm;
+    [HideInInspector]
+    public PuzzleManager pm;
     private CameraManager cm;
     private GameManager GM;
 
@@ -33,8 +34,11 @@ public class Level : GamePart
         if (playing)
         {
             if (pm != null)
+            {
                 pm.UpdatePuzzles();
+            }
             cm.RemainCameraSettings();////// remove
+            
         }
     }
 

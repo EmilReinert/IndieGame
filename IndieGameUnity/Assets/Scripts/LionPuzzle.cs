@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class LionPuzzle : Puzzle
 {
-    public GameObject[] bushes;
+    public GameObject bushContainer;
+    private GameObject[] bushes;
     public GameObject lionBody;
-    public Hide hide;
+    private Hide hide;
 
+    private void Start()
+    {
+        TriggerManager[] t = bushContainer.GetComponentsInChildren<TriggerManager>();
+        bushes = new GameObject[t.Length];
+        for (int i = 0; i < t.Length; i++)
+            bushes[i] = t[i].gameObject;
+
+    }
     public override void EndPuzzle()
     {
     }
@@ -18,6 +27,7 @@ public class LionPuzzle : Puzzle
 
     public override void StartPuzzle()
     {
+        hide = GameObject.FindObjectOfType<Hide>();
     }
 
     public override void UpdatePuzzle()
