@@ -14,11 +14,11 @@ public class GrabWall : MonoBehaviour
     private Animator ani;
     bool playing; // playing whole coroutine
     public bool animalOut;
-    public bool active;
+    public bool active = false;
 
     private void Start()
     {
-        active = false;
+        //active = false;
         playing = false;
         animalOut = false;
         animal = transform.Find("Animal").gameObject; // TODO ANIMATE

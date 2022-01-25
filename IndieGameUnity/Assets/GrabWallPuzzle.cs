@@ -24,10 +24,13 @@ public class GrabWallPuzzle : Puzzle
 
     public override void StartPuzzle()
     {
+        Start();
         walk.Freeze(true);
         MoveNext(grabs[0]);
         foreach (GrabWall g in grabs)
-            g.active = true;
+        {
+            g.active = true; print("Hi");
+        }
     }
 
     public override void UpdatePuzzle()
