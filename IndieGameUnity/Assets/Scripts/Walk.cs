@@ -7,8 +7,11 @@ public class Walk : MonoBehaviour
     public float walkSpeed;
     public GameObject
      rotationBody;
+    public Animator main;
     [SerializeField]
     private bool freeze = false;
+
+
     
     
     // Start is called before the first frame update
@@ -21,11 +24,15 @@ public class Walk : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (freeze) return;
+        if (freeze)
+        {
+            main.SetBool("Cwalking", false); return;
+        }
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             Vector2 nextStep = Vector2.zero;
+            main.SetBool("Cwalking", true);
 
             if (Input.GetKey(KeyCode.W))
                 nextStep.y += 1;
@@ -38,16 +45,19 @@ public class Walk : MonoBehaviour
 
             if (Input.GetKey(KeyCode.D))
                 nextStep.x += 1;
-
-            nextStep = nextStep * walkSpeed;// * Time.deltaTime;
-            Vector3 next = new Vector3(nextStep.x, 0, nextStep.y);
-            StartCoroutine(
-                A(next));
+            
+                nextStep = nextStep * walkSpeed;// * Time.deltaTime;
+                Vector3 next = new Vector3(nextStep.x, 0, nextStep.y);
+                StartCoroutine(
+                    A(next));
+            
         }
-        else
+        else {
             StopAllCoroutines();
+            main.SetBool("Cwalking", false);
+            } 
 
-    }
+        }
     public IEnumerator A(Vector3 nextstep, bool rotate =true)
         {
         Quaternion startRot = rotationBody.transform.rotation;
@@ -60,7 +70,7 @@ public class Walk : MonoBehaviour
         {
             if (freeze && rotate) break;
             tParam += Time.deltaTime ;
-            transform.position = Vector3.Lerp(startPos, startPos+nextstep+new Vector3(0,2,0), tParam);
+            transform.position = Vector3.Lerp(startPos, startPos+nextstep+new Vector3(0,0,0), tParam);
             if(rotate) transform.rotation = Quaternion.Lerp(startRot, Quaternion.LookRotation(nextstep), tParam*3);
 
             yield return new WaitForEndOfFrame();

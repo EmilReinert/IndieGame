@@ -16,6 +16,7 @@ public class Level : GamePart
     public Puzzle endrequirement;
     public Level next;
 
+    private bool done;
 
 
     // Start is called before the first frame update
@@ -45,7 +46,10 @@ public class Level : GamePart
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == playerCollider)
-            GM.SetLevel(this);
+        {
+            if (!done)
+                GM.SetLevel(this);
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -59,6 +63,7 @@ public class Level : GamePart
 
     public void StartLevel()
     {
+        done = false;
         playing = true;
         if (pm != null)
             pm.StartPuzzles();
@@ -78,5 +83,6 @@ public class Level : GamePart
         if (next != null)
             GM.SetLevel(next);
         else cm.UpdateDefaultSettings();
+        done = true;
     }
 }

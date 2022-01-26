@@ -25,6 +25,7 @@ public class CutScene : Puzzle
 
     public override void StartPuzzle()
     {
+        Start();
         talk.StartNew(filePath);
         playerWalk.Freeze(true);
         talk.continuous = true;
