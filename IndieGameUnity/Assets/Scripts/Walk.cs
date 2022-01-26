@@ -11,12 +11,14 @@ public class Walk : MonoBehaviour
     [SerializeField]
     private bool freeze = false;
 
-
+    public bool camDirection;
+    private PlayerStickyCamera cam;
     
     
     // Start is called before the first frame update
     void Start()
     {
+        cam = GameObject.FindObjectOfType<PlayerStickyCamera>();
         walkSpeed = 4;
         freeze = false;
     }
@@ -31,26 +33,52 @@ public class Walk : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
-            Vector2 nextStep = Vector2.zero;
-            main.SetBool("Cwalking", true);
+            Vector3 next = Vector3.zero;
+            if (camDirection)
+            {
+                Vector2 nextStep = Vector2.zero;
+                main.SetBool("Cwalking", true);
 
-            if (Input.GetKey(KeyCode.W))
-                nextStep.y += 1;
+                if (Input.GetKey(KeyCode.W))
+                    nextStep.x += 1;
 
-            if (Input.GetKey(KeyCode.S))
-                nextStep.y -= 1;
+                if (Input.GetKey(KeyCode.S))
+                    nextStep.x -= 1;
 
-            if (Input.GetKey(KeyCode.A))
-                nextStep.x -= 1;
+                if (Input.GetKey(KeyCode.A))
+                    nextStep.y -= 1;
 
-            if (Input.GetKey(KeyCode.D))
-                nextStep.x += 1;
-            
-                nextStep = nextStep * walkSpeed;// * Time.deltaTime;
-                Vector3 next = new Vector3(nextStep.x, 0, nextStep.y);
-                StartCoroutine(
-                    A(next));
-            
+                if (Input.GetKey(KeyCode.D))
+                    nextStep.y += 1;
+                float angle = Vector2.Angle(new Vector2(1,0), nextStep);
+
+                nextStep = nextStep ;// * Time.deltaTime;
+                next = new Vector3(nextStep.x, 0, nextStep.y);
+
+                next = (Quaternion.Euler(0,angle,0) ) *new Vector3(1,0,0) ;
+            }
+            else
+            {
+                Vector2 nextStep = Vector2.zero;
+                main.SetBool("Cwalking", true);
+
+                if (Input.GetKey(KeyCode.W))
+                    nextStep.y += 1;
+
+                if (Input.GetKey(KeyCode.S))
+                    nextStep.y -= 1;
+
+                if (Input.GetKey(KeyCode.A))
+                    nextStep.x -= 1;
+
+                if (Input.GetKey(KeyCode.D))
+                    nextStep.x += 1;
+
+                nextStep = nextStep ;// * Time.deltaTime;
+                next = new Vector3(nextStep.x, 0, nextStep.y);
+            }
+            StartCoroutine(
+                A(next * walkSpeed));
         }
         else {
             StopAllCoroutines();

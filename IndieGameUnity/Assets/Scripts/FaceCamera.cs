@@ -11,7 +11,7 @@ public class FaceCamera : MonoBehaviour
     {
 
         if (cam == null)
-            cam = GameObject.Find("Main Camera");
+            cam = GameObject.Find("cam");
     }
 
     // Update is called once per frame
