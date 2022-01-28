@@ -19,7 +19,7 @@ public class HoldRequirement : MonoBehaviour
 
         if (other.gameObject == gw.gameObject)
         {
-            print(requirement.done);
+            //print(requirement.done);
             if (requirement.done) { 
                 done = true;
                 gw.Freeze(false);

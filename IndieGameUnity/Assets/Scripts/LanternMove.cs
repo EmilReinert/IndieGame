@@ -16,7 +16,7 @@ public class LanternMove : Puzzle
 
         GameObject.FindObjectOfType<Walk>().main.SetBool("Cflash", true);
 
-        contiuous = true;
+        //contiuous = true;
     }
 
     public override void EndPuzzle()

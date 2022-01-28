@@ -57,8 +57,10 @@ public class Walk : MonoBehaviour
                 
                 next = new Vector3(nextStep.x, 0, nextStep.y);
             next.Normalize();
-            if (camDirection) next = Quaternion.LookRotation( cam.LookDir() )* next;
-            StartCoroutine(A(next * walkSpeed * Time.deltaTime));
+            if (camDirection) next = Quaternion.LookRotation( cam.LookDir() )* next; // camera look direction
+            float w = walkSpeed;
+            if (Input.GetKey(KeyCode.LeftShift)) w *= 5; // speed buff
+            StartCoroutine(A(next * w * Time.deltaTime));
         }
         else {
             main.SetBool("Cwalking", false);
@@ -96,7 +98,7 @@ public class Walk : MonoBehaviour
             StopAllCoroutines();    
             freeze = true;
             GetComponent<Rigidbody>().useGravity = false;
-            GetComponent<Collider>().enabled = false;
+            //GetComponent<Collider>().enabled = false; // forgot why i did this
         }
         else
         {
@@ -104,7 +106,7 @@ public class Walk : MonoBehaviour
             //unfreeze 
             freeze = false;
             GetComponent<Rigidbody>().useGravity = true;
-            GetComponent<Collider>().enabled = true;
+            //GetComponent<Collider>().enabled = true; // forgot why i did this
         }
     }
     public void Hurt()

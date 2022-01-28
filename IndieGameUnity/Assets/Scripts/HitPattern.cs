@@ -22,6 +22,7 @@ public class HitPattern : Puzzle
         print("done");
         var main = stickparticles.main;
         main.loop = true;ShowTrail(Color.yellow);
+        if(door!=null)
         door.GetComponent<Animator>().enabled = true;
     }
 
@@ -29,16 +30,19 @@ public class HitPattern : Puzzle
     {
         if (i == 0) return;
         if (!ongoing) // official start after first input
-        { // reset
-            bool requiremnet2 = pattern[0] == i; //right tone
+        {
+            // reset
+            bool requiremnet = pattern[0] == i; //right tone
             IDX = 0;
-            if (requiremnet2)
+            if (requiremnet)
             {
+                print("hit");
                 ongoing = true;
                 ShowTrail(Color.green);
             }
             else
             {
+                print("restart");
                 //play sound
                 StopAllCoroutines();
                 StartCoroutine(PlayPattern());
@@ -51,7 +55,9 @@ public class HitPattern : Puzzle
             bool requirement1 = Mathf.Abs(error) < errorTime; // right time
             bool requiremnet2 = pattern[IDX] == i; //right tone
             if ( requirement1&&requiremnet2 )
-            {//note hit correctly
+            {
+                print("hit");
+                //note hit correctly
                 if (IDX >= pattern.Length-1)
                 {// done
                     done = true;
@@ -59,7 +65,9 @@ public class HitPattern : Puzzle
                 ShowTrail(Color.green);
             }
             else
-            { //note hit incorrectly restarat
+            {
+                print("fail");
+                //note hit incorrectly restarat
                 ongoing = false;
                 ShowTrail( Color.red);
                 Move(1);
@@ -87,7 +95,8 @@ public class HitPattern : Puzzle
     }
     private void Start()
     {
-
+        contiuous = false;
+        if (door!=null)
         door.GetComponent<Animator>().enabled = false;
     }
 
@@ -109,7 +118,7 @@ public class HitPattern : Puzzle
 
     IEnumerator PlayPattern()
     {
-        yield return new WaitForSeconds(2*requiredInterval);
+        yield return new WaitForSecondsRealtime(2*requiredInterval);
         foreach (int i in pattern)
         {
             if (i == 1)
@@ -117,7 +126,7 @@ public class HitPattern : Puzzle
             else
                 drums.audi1.Play();
             print("sound played");
-            yield return new WaitForSeconds(requiredInterval);
+            yield return new WaitForSecondsRealtime(requiredInterval);
         }
         yield return null;
     }

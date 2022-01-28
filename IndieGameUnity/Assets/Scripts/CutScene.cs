@@ -6,8 +6,10 @@ public class CutScene : Puzzle
 {
     GameObject player;
     Walk playerWalk;
+    public GameObject grandperson;
     public Conversation talk;
     public string filePath;
+    public bool disappearOld;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,7 @@ public class CutScene : Puzzle
         playerWalk = player.GetComponent<Walk>();
         doneAnimation = false;
 
+        talk = grandperson.GetComponentInChildren<Conversation>();
     }
 
     // Update is called once per frame
@@ -27,6 +30,7 @@ public class CutScene : Puzzle
     public override void StartPuzzle()
     {
         Start();
+        if (filePath == null || filePath == "") done = true;
         talk.StartNew(filePath);
         playerWalk.Freeze(true);
         talk.continuous = true;
@@ -37,6 +41,8 @@ public class CutScene : Puzzle
     {
         playerWalk.Freeze(false);
         talk.Reset();
+        if (disappearOld)
+            grandperson.SetActive(false);
     }
 
     public override void Move(int i)

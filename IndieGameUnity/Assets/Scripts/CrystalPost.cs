@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CrystalPost : Puzzle
 {
-    public GameObject next;
-    public GameObject build;
+    public bool startPost=false;
+    public CrystalPost next;
     public GameObject crystal;
     public GameObject ray;
 
@@ -33,7 +33,12 @@ public class CrystalPost : Puzzle
 
     public override void StartPuzzle()
     {
-        ray.SetActive(false);
+        //turn on ray
+        if (startPost)
+        {
+            ray.SetActive(true);
+            StartGlow();
+        }
         lakes = GameObject.FindObjectsOfType<LakeBehaviour>();
     }
 
@@ -67,22 +72,19 @@ public class CrystalPost : Puzzle
     }
     
 
-    void StartGlow()
+    public void StartGlow()
     {
         // TODO animate
 
         //turn on crystal
         crystal.GetComponent<Renderer>().material.color =new Color(229, 105, 0, 0.3f); // orange
 
-        //turn on ray
-        if(next!=null)
-            ray.SetActive(true);
 
         glow = true;
 
     }
 
-    void GlowOff()
+    public void GlowOff()
     {
 
         glow = false;
@@ -92,24 +94,27 @@ public class CrystalPost : Puzzle
         {
             l.decreaseByTime = true;
         }
-
-        ray.SetActive(false);
     }
 
     void Rotate(int dir )
     {
-        build.transform.Rotate(0, dir *(369/rotationRange), 0);
+        transform.Rotate(0, dir *(369/rotationRange), 0);
         currentRotation += dir;
         if (currentRotation < 0) currentRotation = rotationRange - 1;
         if (currentRotation >= rotationRange) currentRotation = 0;
 
         if(currentRotation == goalRotation)
         {
-            StartGlow();
+            if (next != null)
+            {
+                next.StartGlow();
+                next.ray.SetActive(true);
+            }
         }
         else
         {
-            GlowOff();
+            if (next != null)
+                next.GlowOff();
         }
            
     }

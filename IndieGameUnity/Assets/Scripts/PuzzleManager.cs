@@ -21,14 +21,17 @@ public class PuzzleManager : MonoBehaviour
 
     public void StartPuzzles()
     {
-        
+        Start();
         if(puzzleObjects!=null)
             puzzleObjects.SetActive(true);
         foreach (Puzzle p in puzzles)
         {
-            p.gameObject.SetActive(true);
-            p.enabled = true;
-            p.StartPuzzle();
+            if (p != null && p.gameObject != null)
+            {
+                p.gameObject.SetActive(true);
+                p.enabled = true;
+                p.StartPuzzle();
+            }
         }
     }
     public void EndPuzzles()
@@ -44,6 +47,7 @@ public class PuzzleManager : MonoBehaviour
         }
         ended = true;
 
+        if (l != null) 
         l.EndLevel();
 
     }
@@ -52,28 +56,32 @@ public class PuzzleManager : MonoBehaviour
         move = 0;
         foreach (Puzzle p in puzzles)
         {
-            if (p.done && !p.ended) { EndPuzzles(); return;}
 
-            if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
+            if (p != null && p.gameObject != null)
             {
-                // continuous update
-                if (p.contiuous)
+                if (p.done && !p.ended) { EndPuzzles(); return; }
+
+                if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
                 {
-                    if (Input.GetKey(KeyCode.Q)) { move = -1; }
-                    if (Input.GetKey(KeyCode.E)) { move = 1; }
+                    // continuous update
+                    if (p.contiuous)
+                    {
+                        if (Input.GetKey(KeyCode.Q)) { move = -1; }
+                        if (Input.GetKey(KeyCode.E)) { move = 1; }
+                    }
+                    // singular update
+                    else
+                    {
+                        if (Input.GetKeyDown(KeyCode.Q)) { move = -1; }
+                        if (Input.GetKeyDown(KeyCode.E)) { move = 1; }
+                    }
                 }
-                // singular update
-                else
-                {
-                    if (Input.GetKeyDown(KeyCode.Q)) { move = -1; }
-                    if (Input.GetKeyDown(KeyCode.E)) { move = 1; }
-                }
+                //input in puzzle
+                p.Move(move);
+                //puzzle update
+                p.UpdatePuzzle();
+                GM.UpdateGUI(move);
             }
-            //input in puzzle
-            p.Move(move);
-            //puzzle update
-            p.UpdatePuzzle();
-            GM.UpdateGUI(move);
         }
 
     }

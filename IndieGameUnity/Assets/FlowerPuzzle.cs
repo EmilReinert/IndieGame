@@ -4,24 +4,48 @@ using UnityEngine;
 
 public class FlowerPuzzle : Puzzle
 {
+    public Flower good;
+    public Flower bad;
+
+    private Animator ani; // player ani
+
     public override void EndPuzzle()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void Move(int i)
     {
-        throw new System.NotImplementedException();
+        if (i == 0) return;
+        if(i==-1) // cut
+        {
+            print("hi");
+            //bad cuz good
+            if (good.playerEntered)
+                good.PlayIncorrectAnimation();
+            //good cuz bad
+            if (bad.playerEntered)
+                bad.PlayCorrectAnimation();
+        }
+        if(i == 1) // water
+        {
+            //good cuz good
+            if (good.playerEntered)
+                good.PlayCorrectAnimation();
+            //bad cuz bad
+            if (bad.playerEntered)
+                bad.PlayIncorrectAnimation();
+
+            }
+            if (good.done && bad.done) done = true;
     }
 
     public override void StartPuzzle()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void UpdatePuzzle()
     {
-        throw new System.NotImplementedException();
+
     }
 
     // Start is called before the first frame update

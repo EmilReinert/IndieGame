@@ -13,8 +13,8 @@ public class Level : GamePart
 
     public bool playing = false;
 
-    public Puzzle endrequirement;
     public Level next;
+    public Puzzle endrequirement;
 
     private bool done;
 
