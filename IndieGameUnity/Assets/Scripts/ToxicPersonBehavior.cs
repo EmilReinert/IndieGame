@@ -15,7 +15,8 @@ public class ToxicPersonBehavior : Puzzle
 
     public override void EndPuzzle()
     {
-        f.freeze = true;
+
+        f.Freeze(true);
     }
 
     public override void Move(int i)
@@ -39,22 +40,27 @@ public class ToxicPersonBehavior : Puzzle
         // only if lake is visible continue
         if (walkAnyway)
         {
-            f.freeze = false; return;
+
+            f.Freeze(false); return;
         }
         if (!visionTrigger.isEntered)
         {
-            f.freeze = true; return;
+
+            f.Freeze(true); return;
         }
         if (visionTrigger.showtriggerObject.GetComponent<Renderer>().material.GetFloat("_A2") >= visibleMatThreshold)
-            f.freeze = false;
+
+            f.Freeze(false);
         else
-            f.freeze = true;
+
+            f.Freeze(true); 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        visibleMatThreshold = 0.2f; f.freeze = true;
+        visibleMatThreshold = 0.99f;
+        f.Freeze(true);
     }
     
 }

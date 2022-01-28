@@ -8,12 +8,12 @@ public class Interrupt : StateMachineBehaviour
     public bool required2B;
     
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        if(animator.GetBool(param)== required2B)
-        {
-        }
-    }
+  //  override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+   // {
+        //if(animator.GetBool(param)== required2B)
+   //     {
+    //    }
+    //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

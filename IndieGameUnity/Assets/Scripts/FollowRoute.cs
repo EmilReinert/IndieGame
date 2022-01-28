@@ -6,11 +6,11 @@ public class FollowRoute : MonoBehaviour
 {
 
     public GameObject optRotationBody; // body of person to be rotated to move direction
-
-    public bool freeze = false;
+    public Animator ani;
+    [SerializeField]
+    private bool freeze = false;
     [SerializeField]
     private GameObject route;
-    [SerializeField]
     private Transform[] routes;
     public bool UseStartRotation = false;
     private Quaternion startRotation;
@@ -98,8 +98,27 @@ public class FollowRoute : MonoBehaviour
         {
             //routeIDX = 0;
             done = true;
-            freeze = true;
+            Freeze(true);
             coroutineAllowed = false;
+        }
+    }
+
+    public void Freeze(bool b)
+    {
+
+        if (b)
+        {
+
+            //freeze 
+            freeze = true;
+            ani.SetBool("walk", false);
+        }
+        else
+        {
+
+            //unfreeze 
+            freeze = false;
+            ani.SetBool("walk", true);
         }
     }
     

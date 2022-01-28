@@ -6,6 +6,7 @@ public class PlayerStickyCamera : MonoBehaviour
 {
     private GameObject cambase;
     private Camera cam;
+    public bool mouseRotate =false;
     public float stickDelay = 0.5f;
     public float speedModifier = 0.1f;
     public bool transition;
@@ -41,7 +42,10 @@ public class PlayerStickyCamera : MonoBehaviour
 
      void Update()
     {
-        //if (Input.GetAxis("Mouse X") != 0)            cambase.transform.Rotate(0, Input.GetAxis("Mouse X"), 0);
+        //
+        if(mouseRotate)if (Input.GetAxis("Mouse X") != 0)            cambase.transform.Rotate(0, Input.GetAxis("Mouse X"), 0);
+            else { cambase.transform.rotation = Quaternion.Euler(0, 0, 0); }
+        //
         if (transition)
             StartCoroutine(
                 Transition(lookAt.transform.position));
@@ -72,6 +76,7 @@ public class PlayerStickyCamera : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         transition = false;
+        cambase.transform.position = targetPosition;
 
     }
     ///
@@ -84,7 +89,6 @@ public class PlayerStickyCamera : MonoBehaviour
 
         float tempFOV = cam.fieldOfView;
 
-        cambase.transform.position = targetPosition;
         cam.fieldOfView = fov;
 
         float tParam = 0;
@@ -92,23 +96,30 @@ public class PlayerStickyCamera : MonoBehaviour
         {
             tParam += Time.deltaTime * speedModifier;
             cambase.transform.position = Vector3.Lerp(startCamPosition, targetPosition, tParam);
-            cam.transform.position = Vector3.Lerp(startCamPosition2, transform.rotation* offset , tParam);
+            //cam.transform.position = Vector3.Lerp(startCamPosition2,Quaternion.Inverse( transform.rotation)* offset , tParam);
             cam.transform.rotation = Quaternion.LookRotation((lookAt.transform.position - cam.transform.position));
             cam.fieldOfView = Mathf.Lerp(tempFOV, fov, tParam);
             yield return new WaitForEndOfFrame();
         }
         yield return new WaitForEndOfFrame();
+        cambase.transform.position = targetPosition;
     }
 
     public void ResetOffset()
     {
         fov = startFOV;
-        offset =player.transform.position -startOffset;
+        offset = startOffset;
         lookAt = player;
     }
 
     public void Enable(bool b)
     {
         on = b;
+    }
+    public Vector3 LookDir()
+    {
+        Vector3 v = cambase.transform.position - cam.transform.position;
+        v.y = 0;
+        return v;
     }
 }

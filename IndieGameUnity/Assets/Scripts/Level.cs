@@ -84,5 +84,6 @@ public class Level : GamePart
             GM.SetLevel(next);
         else cm.UpdateDefaultSettings();
         done = true;
+        if(endrequirement != null && endrequirement.doneAnimation)  GameObject.Find("Player").GetComponentInChildren<Emotions>().PlayHappy();
     }
 }

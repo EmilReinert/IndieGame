@@ -18,7 +18,7 @@ public class Route : MonoBehaviour
                 3 * (1 - t) * Mathf.Pow(t, 2) * controlPoints[2].position + 
                 Mathf.Pow(t, 3) * controlPoints[3].position;
             //gizmosPosition.y = 0;
-            Gizmos.DrawSphere(gizmosPosition, 0.25f);
+            Gizmos.DrawSphere(gizmosPosition, 1);
         }
 
         Gizmos.DrawLine(new Vector3(controlPoints[0].position.x, controlPoints[0].position.y, controlPoints[0].position.z),

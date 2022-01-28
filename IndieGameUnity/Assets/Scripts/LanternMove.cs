@@ -14,11 +14,14 @@ public class LanternMove : Puzzle
         goallantern = 0.5f;
         SetLantern();
 
+        GameObject.FindObjectOfType<Walk>().main.SetBool("Cflash", true);
+
         contiuous = true;
     }
 
     public override void EndPuzzle()
     {
+        GameObject.FindObjectOfType<Walk>().main.SetBool("Cflash", false);
         gameObject.SetActive(false);
     }
 

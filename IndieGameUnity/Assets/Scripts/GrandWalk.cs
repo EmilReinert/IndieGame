@@ -5,12 +5,15 @@ using UnityEngine;
 public class GrandWalk : Puzzle
 {
     public FollowRoute f;
-    public GameObject player;
+    GameObject player;
     public float  maxDist = 5;
+
+    [SerializeField]
+    bool localFreeze;
 
     public override void EndPuzzle()
     {
-        f.freeze = true;
+        f.Freeze(true);
     }
 
     public override void Move(int i)
@@ -20,23 +23,31 @@ public class GrandWalk : Puzzle
 
     public override void StartPuzzle()
     {
-        f.freeze = false;
+        f.Freeze(false);
+        localFreeze = false;
+        player = GameObject.Find("Player");
     }
 
     public override void UpdatePuzzle()
     {
+        if (localFreeze) return;
+
         float currentDistance =Vector3.Distance( player.transform.position,f.transform.position);
         float speed = -(1 / maxDist) * currentDistance + 1;
-        if (speed < 0.01f)f.freeze = true;
-        else f.freeze = false;
+        if (speed < 0.01f)
+            f.Freeze(true);
+        else
+            f.Freeze(false);
         f.speedModifier = speed;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        f.freeze = true;
+
+        f.Freeze(true);
         f.speedModifier = 0.2f;
+
     }
 
     // Update is called once per frame
@@ -44,4 +55,12 @@ public class GrandWalk : Puzzle
     {
         
     }
+
+    public void Freeze(bool b)
+    {
+        localFreeze = b;
+        f.Freeze(b);
+    }
+
+
 }

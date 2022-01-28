@@ -9,6 +9,8 @@ public abstract class Puzzle: MonoBehaviour
     public bool done = false; // task done
     public bool ended = false; // puzzle ended by puzzlemanager
     public bool hideObject = true;
+    [HideInInspector]
+    public bool doneAnimation = true; // happy animation when done
 
     public abstract void StartPuzzle();
 

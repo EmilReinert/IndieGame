@@ -7,7 +7,6 @@ public class LakeBehaviour : MonoBehaviour
     [HideInInspector]
     private GameObject player;
     public bool decreaseByTime;
-    public GameObject lantern;
     public GameObject playerRoot;
     public GameObject[] sublakes;
 
@@ -49,13 +48,16 @@ public class LakeBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == lantern)
+        if (other.gameObject.name =="visual")
             isColliding = true;
+        if (other.gameObject == player)
+            player.GetComponent<Walk>().Hurt();
+
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject == lantern)
+        if (other.gameObject.name == "visual")
         {
             float distance = Vector3.Distance(playerRoot.transform.position, transform.position);
             float distanceMultiplyer = -0.007f * (distance - 10) + 1.5f;
@@ -64,7 +66,7 @@ public class LakeBehaviour : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == lantern)
+        if (other.gameObject.name == "visual")
             isColliding = false;
     }
 

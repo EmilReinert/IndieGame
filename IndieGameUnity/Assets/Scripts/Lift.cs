@@ -6,12 +6,13 @@ public class Lift : Puzzle
 {
 
     private GameObject wheel;
-    public GameObject player;
+    private GameObject player;
     public float rotationSpeed;
     float acceleration;
+    public bool up = true;
 
     float minHeight; //lift boundaries
-    float maxHeight;
+    public float maxHeight;
 
     Vector3 startPos;
     float prevRot; // previous rotation
@@ -19,21 +20,31 @@ public class Lift : Puzzle
 
     private void Start()
     {
-
+        player = GameObject.Find("Player");
         wheel = transform.Find("wheel").gameObject;
-        startPos = transform.position;
+        startPos = transform.localPosition;
         minHeight = startPos.y;
-        maxHeight = 7;
+        //maxHeight = 7;
     }
 
-    void DecreaseAcc()
+    void DecreaseAcc(bool b = true)
     {
-        acceleration = acceleration *( 0.97f-Time.deltaTime);
-        acceleration -= 3*Time.deltaTime;
+        if (b)
+        {
+            //acceleration = acceleration * (0.97f - Time.deltaTime);
+            acceleration -= 3 * Time.deltaTime;
+        }
+        else
+        {
+            //acceleration = acceleration * (0.97f - Time.deltaTime);
+            acceleration += 3 * Time.deltaTime;
+
+        }
     }
 
     public override void StartPuzzle()
     {
+        Start();
         hideObject = false;
         contiuous = true;
 
@@ -59,27 +70,54 @@ public class Lift : Puzzle
     public override void UpdatePuzzle()
     {
         if (done) return;
-        //Rotate and translate
-        float newTravel = travel + (acceleration / 200);
-
-        Vector3 newPos = startPos + new Vector3(0, newTravel, 0);
-        if (newPos.y <= maxHeight && newPos.y >= minHeight)
+        if (up)
         {
-            travel = newTravel;
+            //Rotate and translate
+            float newTravel = travel + (acceleration / 200);
 
-            wheel.transform.Rotate(0, 0, acceleration);
+            Vector3 newPos = startPos + new Vector3(0, newTravel, 0);
+            if (newPos.y <= maxHeight && newPos.y >= minHeight)
+            {
+                travel = newTravel;
+
+                wheel.transform.Rotate(0, 0, acceleration);
+            }
+            else
+            {
+                acceleration = 0;
+                if (newPos.y > maxHeight) newPos.y = maxHeight;
+                if (newPos.y < minHeight) newPos.y = minHeight;
+            }
+
+            transform.localPosition = newPos;
+
+            DecreaseAcc();
+            if (newPos.y >= maxHeight) done = true;
         }
         else
         {
-            acceleration = 0;
-            if (newPos.y > maxHeight) newPos.y = maxHeight;
-            if (newPos.y < minHeight) newPos.y = minHeight;
+            //Rotate and translate
+            float newTravel = travel - (acceleration / 200);
+
+            Vector3 newPos = startPos + new Vector3(0, newTravel, 0);
+            if (newPos.y >= -maxHeight && newPos.y <= minHeight)
+            {
+                travel = newTravel;
+
+                wheel.transform.Rotate(0, 0, -acceleration);
+            }
+            else
+            {
+                acceleration = 0;
+                if (newPos.y < -maxHeight) newPos.y = -maxHeight;
+                if (newPos.y > minHeight) newPos.y = minHeight;
+            }
+
+            transform.localPosition = newPos;
+
+            DecreaseAcc(false);
+            if (newPos.y <= -maxHeight) done = true;
         }
-
-        transform.position = newPos;
-
-        DecreaseAcc();
-        if (newPos.y >= maxHeight) done = true;
     }
 
     float Rotate(float goalangle)

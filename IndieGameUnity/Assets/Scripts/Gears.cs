@@ -12,7 +12,7 @@ public class Gears : Puzzle
     
     
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if(other.gameObject == player)
         {
@@ -24,10 +24,10 @@ public class Gears : Puzzle
 
     void PlaceGear()
     {
-        if (pointer >= gears.Length) { done = true; return; }
         gears[pointer].SetActive(true);
-        pointer++;
         playergear.SetActive(false);  // releasing gear
+        if (pointer >= gears.Length-1) { done = true; return; }
+        pointer++;
     }
 
     public override void StartPuzzle()

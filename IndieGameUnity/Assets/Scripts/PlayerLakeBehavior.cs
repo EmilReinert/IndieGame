@@ -14,9 +14,9 @@ public class PlayerLakeBehavior : Puzzle
     {
         yield return new WaitForSeconds(0.5f); // reduce stuttering
         if (Vector3.Distance(followWho.transform.position, transform.position) < distanceOffset)
-            followRoute.freeze = true;
+            followRoute.Freeze(true);
         else
-            followRoute.freeze = false;
+            followRoute.Freeze(false);
     }
 
     IEnumerator UpdateRotation()
@@ -29,7 +29,7 @@ public class PlayerLakeBehavior : Puzzle
     {
         hideObject = false;
         player = this.gameObject;
-        followRoute.freeze = false;
+        followRoute.Freeze(false);
     }
 
     public override void EndPuzzle()

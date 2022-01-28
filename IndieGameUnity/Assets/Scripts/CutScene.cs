@@ -14,6 +14,7 @@ public class CutScene : Puzzle
     {
         player = GameObject.Find("Player");
         playerWalk = player.GetComponent<Walk>();
+        doneAnimation = false;
 
     }
 

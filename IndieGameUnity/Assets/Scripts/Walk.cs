@@ -5,22 +5,28 @@ using UnityEngine;
 public class Walk : MonoBehaviour
 {
     public float walkSpeed;
+    private float startWalkSpeed;
     public GameObject
      rotationBody;
     public Animator main;
     [SerializeField]
     private bool freeze = false;
 
+    private Emotions emo;
+
     public bool camDirection;
     private PlayerStickyCamera cam;
+    
     
     
     // Start is called before the first frame update
     void Start()
     {
         cam = GameObject.FindObjectOfType<PlayerStickyCamera>();
-        walkSpeed = 4;
+        walkSpeed = 400;
+        startWalkSpeed = walkSpeed;
         freeze = false;
+        emo = GetComponentInChildren<Emotions>();
     }
 
     // Update is called once per frame
@@ -31,34 +37,9 @@ public class Walk : MonoBehaviour
             main.SetBool("Cwalking", false); return;
         }
 
+        Vector3 next = Vector3.zero;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
-            Vector3 next = Vector3.zero;
-            if (camDirection)
-            {
-                Vector2 nextStep = Vector2.zero;
-                main.SetBool("Cwalking", true);
-
-                if (Input.GetKey(KeyCode.W))
-                    nextStep.x += 1;
-
-                if (Input.GetKey(KeyCode.S))
-                    nextStep.x -= 1;
-
-                if (Input.GetKey(KeyCode.A))
-                    nextStep.y -= 1;
-
-                if (Input.GetKey(KeyCode.D))
-                    nextStep.y += 1;
-                float angle = Vector2.Angle(new Vector2(1,0), nextStep);
-
-                nextStep = nextStep ;// * Time.deltaTime;
-                next = new Vector3(nextStep.x, 0, nextStep.y);
-
-                next = (Quaternion.Euler(0,angle,0) ) *new Vector3(1,0,0) ;
-            }
-            else
-            {
                 Vector2 nextStep = Vector2.zero;
                 main.SetBool("Cwalking", true);
 
@@ -73,16 +54,16 @@ public class Walk : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.D))
                     nextStep.x += 1;
-
-                nextStep = nextStep ;// * Time.deltaTime;
+                
                 next = new Vector3(nextStep.x, 0, nextStep.y);
-            }
-            StartCoroutine(
-                A(next * walkSpeed));
+            next.Normalize();
+            if (camDirection) next = Quaternion.LookRotation( cam.LookDir() )* next;
+            StartCoroutine(A(next * walkSpeed * Time.deltaTime));
         }
         else {
-            StopAllCoroutines();
             main.SetBool("Cwalking", false);
+            StopAllCoroutines();
+            walkSpeed = startWalkSpeed;
             } 
 
         }
@@ -125,6 +106,27 @@ public class Walk : MonoBehaviour
             GetComponent<Rigidbody>().useGravity = true;
             GetComponent<Collider>().enabled = true;
         }
+    }
+    public void Hurt()
+    {
+        StopCoroutine(SlowDown(3.0f));
+        walkSpeed = startWalkSpeed;
+        print("endhurting");
+
+        StartCoroutine(SlowDown(3.0f));
+    }
+
+    IEnumerator SlowDown(float time)
+    {
+        walkSpeed =startWalkSpeed/ 5;
+        emo.PlayHurt();
+        print("hurting");
+        yield return new WaitForSecondsRealtime(time);
+            
+        walkSpeed = startWalkSpeed;
+        print("endhurting");
+
+
     }
 
     public void SetPosition(Vector3 pos)

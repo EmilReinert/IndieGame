@@ -91,7 +91,7 @@ SphereCollider:
   m_GameObject: {fileID: 549449702740824642}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.50000006
   m_Center: {x: 2.2737368e-13, y: 0, z: 0}
@@ -106,6 +106,8 @@ GameObject:
   - component: {fileID: 5478275578883747447}
   - component: {fileID: 847997214}
   - component: {fileID: 847997215}
+  - component: {fileID: 136168327903452913}
+  - component: {fileID: 8478192347584776670}
   m_Layer: 0
   m_Name: xonstuction person
   m_TagString: Untagged
@@ -163,11 +165,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   optRotationBody: {fileID: 5478275578883747446}
+  ani: {fileID: 5478275580222856792}
   freeze: 0
   route: {fileID: 0}
   routes: []
   UseStartRotation: 0
   speedModifier: 0
+--- !u!65 &136168327903452913
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5478275578883747446}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 3.7277546, z: 1}
+  m_Center: {x: 0, y: 6.4788446, z: 0}
+--- !u!54 &8478192347584776670
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5478275578883747446}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &5478275578726637166
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -252,6 +284,11 @@ PrefabInstance:
 --- !u!4 &121299997237374890 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5595809576485401028, guid: fd87611856887c24aab577dbe6d97750, type: 3}
+  m_PrefabInstance: {fileID: 5478275578726637166}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5478275580222856792 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1867743286, guid: fd87611856887c24aab577dbe6d97750, type: 3}
   m_PrefabInstance: {fileID: 5478275578726637166}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5478275578746679374

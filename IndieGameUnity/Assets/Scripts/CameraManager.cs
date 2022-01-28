@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
-{   
-    public enum CameraPos {Front, Back, Left, Right, TopFront };
+{
+    public enum CameraPos { Front, Back, Left, Right, TopFront };
     public GameObject lookAt;
-    
+
     public CameraPos cameraPosition;
     public float distance;
     public float fov;
@@ -21,7 +21,7 @@ public class CameraManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
         player = GameObject.Find("Player");
         mainCam = GameObject.Find("Main Camera");
         stickyCam = mainCam.GetComponent<PlayerStickyCamera>();
@@ -37,7 +37,7 @@ public class CameraManager : MonoBehaviour
 
     public void UpdateCameraSettings()
     {
-        stickyCam.transition = true ;
+        stickyCam.transition = true;
         stickyCam.offset = GetCameraOff();
         stickyCam.fov = fov;
 
@@ -80,7 +80,6 @@ public class CameraManager : MonoBehaviour
             case CameraPos.TopFront: off = new CameraPosition(0, 70, distance); break;
             default: off = new CameraPosition(); break;
         }
-        return
-                    player.transform.position - off.GetOffsetAngle() - new Vector3(0, 2, 0);
+        return player.transform.position - off.GetOffsetAngle() - new Vector3(0, 2, 0);
     }
 }
