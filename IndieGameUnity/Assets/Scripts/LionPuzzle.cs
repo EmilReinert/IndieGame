@@ -7,7 +7,10 @@ public class LionPuzzle : Puzzle
     public GameObject bushContainer;
     private GameObject[] bushes;
     public GameObject lionBody;
+    public FollowRoute realLion;
     private Hide hide;
+    private bool inbush;
+    private bool seeing; // lion seeing player
 
     private void Start()
     {
@@ -15,7 +18,9 @@ public class LionPuzzle : Puzzle
         bushes = new GameObject[t.Length];
         for (int i = 0; i < t.Length; i++)
             bushes[i] = t[i].gameObject;
-
+        realLion.Freeze(true);
+        inbush = false;
+        seeing = false;
     }
     public override void EndPuzzle()
     {
@@ -27,17 +32,28 @@ public class LionPuzzle : Puzzle
 
     public override void StartPuzzle()
     {
+        realLion.Freeze(false);
         hide = GameObject.FindObjectOfType<Hide>();
+        hide.gameObject.SetActive(true);
     }
 
     public override void UpdatePuzzle()
     {
-        bool inbush = false;
+        inbush = false;
         foreach(GameObject b in bushes)
         {
             if (b.GetComponent<TriggerManager>().isEntered) inbush = true;
         }
+
+        if (seeing)
+        {
+            if (hide.GetHiding() == 2 && inbush) { Reaction(0); }//still hidden
+            else { Reaction(2); }
+        }
+        else { Reaction(1); }
         //print(        hide.GetHiding() +""+ inbush);
+
+        /*
         if (inbush)
         {
             if (hide.GetHiding()==0) Reaction(1);
@@ -51,6 +67,7 @@ public class LionPuzzle : Puzzle
             if (hide.GetHiding() == 2) Reaction(1);
 
         }
+        */
     }
 
     void Reaction(int i)
@@ -60,5 +77,22 @@ public class LionPuzzle : Puzzle
         if (1==i) lionBody.GetComponent<Renderer>().material.color = Color.yellow;
         if (2==i) lionBody.GetComponent<Renderer>().material.color = Color.red;
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Player")
+        {
+            seeing = true;
+
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "Player")
+        {
+            seeing = false;
+
+        }
+    }
+
 }

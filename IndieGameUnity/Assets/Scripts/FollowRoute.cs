@@ -25,6 +25,7 @@ public class FollowRoute : MonoBehaviour
 
     private bool coroutineAllowed;
     private bool done = false;
+    public bool loop = false;
 
     // Start is called before the first frame update
     void Start()
@@ -96,10 +97,14 @@ public class FollowRoute : MonoBehaviour
         // reset path
         if (routeIDX > routes.Length - 1)
         {
-            //routeIDX = 0;
-            done = true;
-            Freeze(true);
-            coroutineAllowed = false;
+            if (loop)
+                routeIDX = 0;
+            else
+            {
+                done = true;
+                Freeze(true);
+                coroutineAllowed = false;
+            }
         }
     }
 
@@ -111,14 +116,16 @@ public class FollowRoute : MonoBehaviour
 
             //freeze 
             freeze = true;
-            ani.SetBool("walk", false);
+            if (ani != null)
+                ani.SetBool("walk", false);
         }
         else
         {
 
             //unfreeze 
             freeze = false;
-            ani.SetBool("walk", true);
+            if (ani != null)
+                ani.SetBool("walk", true);
         }
     }
     
