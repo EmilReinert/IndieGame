@@ -9,7 +9,7 @@ public class FireSpin : Puzzle
     public GameObject leftHand;
     public GameObject effect1;
     public GameObject effect2;
-    public GameObject positionSphere;
+
     private Walk player;
     private Animator playerani;
 
@@ -52,8 +52,6 @@ public class FireSpin : Puzzle
         effect2.SetActive(false);
         playerani.SetBool("Cfire", true);
 
-        player.transform.position = positionSphere.transform.position;
-        player.transform.rotation = positionSphere.transform.rotation;
         player.Freeze(true);
         rotationStick.SetActive(true);
     }

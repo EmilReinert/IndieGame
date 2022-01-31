@@ -9,7 +9,7 @@ public class GrabWallPuzzle : Puzzle
     public GrabWall current;
     bool block = false;
     bool fail = false;
-
+    public bool moving = false;
     public override void EndPuzzle()
     {
 
@@ -35,12 +35,13 @@ public class GrabWallPuzzle : Puzzle
         {
             g.active = true;
         }
+        moving = false;
     }
 
     public override void UpdatePuzzle()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-            MovePrevious();
+        if (Input.GetAxis("Vertical")<0&&!moving)
+            StartCoroutine(MovePrevious());
 
         if (current.animalOut&&!fail) StartCoroutine(Fail());
     }
@@ -62,13 +63,17 @@ public class GrabWallPuzzle : Puzzle
         if (current.finalGrab) done = true;
     }
 
-    void MovePrevious()
+    IEnumerator MovePrevious()
     {
         // todo animation
-        if (current.previous == null) return;
-
-        current = current.previous;
-        walk.SetPosition(current.transform.position - new Vector3(0, 3, 0));
+        if (current.previous != null)
+        {
+            moving = true;
+            current = current.previous;
+            walk.SetPosition(current.transform.position - new Vector3(0, 3, 0));
+            yield return new WaitForSeconds(1);
+            moving = false;
+        }
     }
 
     IEnumerator Fail()
@@ -77,7 +82,8 @@ public class GrabWallPuzzle : Puzzle
         block = true;
         // todo animation
         yield return new WaitForSeconds(1);
-        MovePrevious();
+        StartCoroutine(MovePrevious());
+
         block = false;
         fail = false;
 

@@ -16,6 +16,8 @@ public class Walk : MonoBehaviour
 
     public bool camDirection;
     private PlayerStickyCamera cam;
+
+    private RigidbodyConstraints constraints;
     
     
     
@@ -27,6 +29,7 @@ public class Walk : MonoBehaviour
         startWalkSpeed = walkSpeed;
         freeze = false;
         emo = GetComponentInChildren<Emotions>();
+        constraints = GetComponent<Rigidbody>().constraints;
     }
 
     // Update is called once per frame
@@ -38,6 +41,26 @@ public class Walk : MonoBehaviour
         }
 
         Vector3 next = Vector3.zero;
+        if (Input.GetAxis("Horizontal")!=0 ||Input.GetAxis("Vertical")!=0) {
+            Vector2 nextStep = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            main.SetBool("Cwalking", true);
+            
+
+            next = new Vector3(nextStep.x, 0, nextStep.y);
+            next.Normalize();
+            if (camDirection) next = Quaternion.LookRotation(cam.LookDir()) * next; // camera look direction
+            float w = walkSpeed;
+            if (Input.GetButton("Fire3")) w *= 5; // speed buff
+            //if (Input.GetKey(KeyCode.LeftShift)) w *= 5; // speed buff
+            StartCoroutine(A(next * w * Time.deltaTime));
+        }
+        else
+        {
+            main.SetBool("Cwalking", false);
+            StopAllCoroutines();
+            walkSpeed = startWalkSpeed;
+        }
+/*
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
                 Vector2 nextStep = Vector2.zero;
@@ -67,6 +90,7 @@ public class Walk : MonoBehaviour
             StopAllCoroutines();
             walkSpeed = startWalkSpeed;
             } 
+            */
 
         }
     public IEnumerator A(Vector3 nextstep, bool rotate =true)
@@ -108,6 +132,27 @@ public class Walk : MonoBehaviour
             GetComponent<Collider>().enabled = true; // forgot why i did this
         }
     }
+
+    public void Drop(bool b)
+    {
+
+        if (b)
+        {
+
+            //freeze 
+            StopAllCoroutines();
+            freeze = true;
+            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        }
+        else
+        {
+
+            //unfreeze 
+            freeze = false;
+            GetComponent<Rigidbody>().constraints = constraints;
+        }
+    }
+
     public void Hurt()
     {
         StopCoroutine(SlowDown(3.0f));

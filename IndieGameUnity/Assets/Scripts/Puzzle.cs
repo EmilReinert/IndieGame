@@ -12,6 +12,8 @@ public abstract class Puzzle: MonoBehaviour
     public bool hideObject = true;
     [HideInInspector]
     public bool doneAnimation = true; // happy animation when done
+    [HideInInspector]
+    public bool faily = false;
 
     public abstract void StartPuzzle();
 

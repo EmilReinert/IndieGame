@@ -12315,6 +12315,10 @@ PrefabInstance:
       propertyPath: endcut
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8134184914198991629, guid: 1580f3518e67c544da0005fb6da47e00, type: 3}
+      propertyPath: positionSphere
+      value: 
+      objectReference: {fileID: 1880654063}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1580f3518e67c544da0005fb6da47e00, type: 3}
 --- !u!4 &488691410 stripped
@@ -60196,6 +60200,7 @@ MonoBehaviour:
   - {fileID: 954938164}
   ended: 0
   endcut: 0
+  positionSphere: {fileID: 0}
 --- !u!4 &1679318271724932566
 Transform:
   m_ObjectHideFlags: 0

@@ -12,9 +12,9 @@ public class BalancePuzzle : Puzzle
     private Quaternion startRotationB;
     public float changer;
     private GameObject player;
-    private Vector3 startPos;
+    public GameObject startPos;
     public GameObject rotationBody;
-
+    private bool failing = false;
     public override void EndPuzzle()
     {
 
@@ -27,12 +27,9 @@ public class BalancePuzzle : Puzzle
 
     public override void StartPuzzle()
     {
-        player = GameObject.Find("Player");
-        startRotation = rotatingelement.transform.rotation;
-        startRotationB = rotatingelement.transform.rotation;
-        startPos = player.transform.position;
         moveRadius = 30; // equals cylinders
         ResetPos();
+        failing = false;
     }
     private void ResetPos()
     {
@@ -40,17 +37,18 @@ public class BalancePuzzle : Puzzle
         randoming = false;
         StopAllCoroutines();
         rotatingelement.transform.rotation = startRotation;
-        rotationBody.transform.rotation = startRotationB;
-        player.transform.position = startPos;
+        rotationBody.transform.rotation = startPos.transform.rotation;
+        player.transform.position = startPos.transform.position;
         currentAngle = 0;
         player.GetComponent<Walk>().Freeze(false);
+        failing = false;
 
     }
 
     public override void UpdatePuzzle()
     {
         float randomdirection = (Random.value - 0.5f)*moveRadius;
-        if (!randoming)
+        if (!randoming&&!failing)
         {
             StartCoroutine(
             MoveAbout(randomdirection));
@@ -81,11 +79,17 @@ public class BalancePuzzle : Puzzle
 
                 currentAngle += Time.deltaTime * (i / steps)  * 40;
                 currentAngle += Time.deltaTime * (changer / steps)  * 40;
-                
+
 
                 //fail
                 if (Mathf.Abs(currentAngle) > moveRadius)
-                    ResetPos();
+                {
+                    if (currentAngle < -moveRadius)
+                        StartCoroutine(Fail(true));
+                    else
+                        StartCoroutine(Fail(false));    
+                }
+                
 
 
                 yield return new WaitForEndOfFrame();
@@ -99,6 +103,22 @@ public class BalancePuzzle : Puzzle
     void Start()
     {
         contiuous = true;
+        player = GameObject.Find("Player");
+        startRotation = rotatingelement.transform.rotation;
+        startRotationB = rotatingelement.transform.rotation;
+
     }
     
+    IEnumerator Fail(bool left)
+    {
+        failing = true;
+        player.GetComponent<Walk>().Drop(true);
+        if(left)
+            player.GetComponent<Rigidbody>().velocity = new Vector3(10, 0, 0);
+        else
+            player.GetComponent<Rigidbody>().velocity = new Vector3(-10, 0, 0);
+        yield return new WaitForSeconds(2);
+        player.GetComponent<Walk>().Drop(false);
+        faily = true;
+    }
 }
