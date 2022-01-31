@@ -14,6 +14,14 @@ public class Flute : Puzzle
     public GameObject[] tubes;
     private List<Note> noteObjects;
 
+    public ParticleSystem success;
+    public ParticleSystem fail;
+
+
+    int necessaryhits;
+    public int currenthits;
+    public int notecount;
+
     float moveSpeed = 0.33f;
 
     public override void StartPuzzle()
@@ -56,7 +64,15 @@ public class Flute : Puzzle
 
         InvokeRepeating("CreateNote", 1, 0.66f);// last one is playing speed
 
+        currenthits = 0;
+        notecount = 0;
 
+        GameObject.FindObjectOfType<Walk>().Freeze(true);
+
+        success.gameObject.SetActive(true); success.Stop();
+        fail.gameObject.SetActive(true); fail.Stop();
+
+        GameObject.Find("Player").GetComponentInChildren<Animator>().SetBool("Cfront", true);
     }
 
     public override void UpdatePuzzle()
@@ -73,18 +89,32 @@ public class Flute : Puzzle
             {
                 noteObjects.Remove(n);
                 Destroy(n.gameObject);
+                currenthits++;
+                StartCoroutine(Hit());
             }
             //fail
             if (n.done)
             {
+                noteObjects.Remove(n);
+                Destroy(n.gameObject);
+                StartCoroutine(Miss());
 
             }
         }
+
+        if(notecount>1&&notecount == song.Length)
+        {
+            // evaluate level todo
+            done = true;
+        }
+
 
     }
 
     public override void EndPuzzle()
     {
+        GameObject.Find("Player").GetComponentInChildren<Animator>().SetBool("Cfront", false);
+        GameObject.FindObjectOfType<Walk>().Freeze(false);
     }
 
     public override void Move(int i)
@@ -129,4 +159,22 @@ public class Flute : Puzzle
 
     }
     
+    IEnumerator Hit()
+    {
+        success.gameObject.SetActive(true);
+        success.Play();
+        yield return new WaitForSeconds(0.5f);
+        success.Pause();
+        success.gameObject.SetActive(false);
+        notecount++;
+    }
+    IEnumerator Miss()
+    {
+        fail.gameObject.SetActive(true);
+        fail.Play();
+        yield return new WaitForSeconds(0.5f);
+        fail.Pause();
+        fail.gameObject.SetActive(false);
+        notecount++;
+    }
 }

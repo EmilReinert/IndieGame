@@ -6,7 +6,7 @@ public class Gears : Puzzle
 {
     public GameObject player;
     public GameObject playergear;
-
+    public Animator ani;
     public GameObject[] gears;
     int pointer;
     
@@ -26,6 +26,8 @@ public class Gears : Puzzle
     {
         gears[pointer].SetActive(true);
         playergear.SetActive(false);  // releasing gear
+
+        ani.SetBool("Cfront", false);
         if (pointer >= gears.Length-1) { done = true; return; }
         pointer++;
     }

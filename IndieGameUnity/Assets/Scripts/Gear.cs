@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gear : MonoBehaviour
 {
     public GameObject playergear;
+    public Animator playerani;
 
     public GameObject player;
 
@@ -15,6 +16,7 @@ public class Gear : MonoBehaviour
             if (playergear.activeSelf) return;
             gameObject.SetActive(false); // taking gear
             playergear.SetActive(true); // carrying gear
+            playerani.SetBool("Cfront", true);
         }
 
     }

@@ -37,7 +37,11 @@ public class GameManager : MonoBehaviour
     public void SetLevel(Level l)
     {
         if (l == currentLevel) return;
-        if (currentLevel != null) { currentLevel.EndLevel();
+        if (currentLevel != null) {
+            currentLevel.EndLevel();
+
+            if (currentLevel.pm.endcut) Cut();
+
             if (currentLevel.playing) return;
         }
         currentLevel = l;
@@ -117,4 +121,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Cut()
+    {
+        transform.GetComponentInChildren<Animator>().SetTrigger("cut");
+    }
 }

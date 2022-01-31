@@ -90,7 +90,6 @@ public class Walk : MonoBehaviour
     }
     public void Freeze(bool b)
     {
-
         if (b)
         {
 
@@ -98,7 +97,7 @@ public class Walk : MonoBehaviour
             StopAllCoroutines();    
             freeze = true;
             GetComponent<Rigidbody>().useGravity = false;
-            //GetComponent<Collider>().enabled = false; // forgot why i did this
+            GetComponent<Collider>().enabled = false; // forgot why i did this
         }
         else
         {
@@ -106,7 +105,7 @@ public class Walk : MonoBehaviour
             //unfreeze 
             freeze = false;
             GetComponent<Rigidbody>().useGravity = true;
-            //GetComponent<Collider>().enabled = true; // forgot why i did this
+            GetComponent<Collider>().enabled = true; // forgot why i did this
         }
     }
     public void Hurt()

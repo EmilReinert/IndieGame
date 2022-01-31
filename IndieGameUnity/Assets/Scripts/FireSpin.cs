@@ -9,7 +9,9 @@ public class FireSpin : Puzzle
     public GameObject leftHand;
     public GameObject effect1;
     public GameObject effect2;
-   
+    public GameObject positionSphere;
+    private Walk player;
+    private Animator playerani;
 
     public Vector3 startRight;
     public Vector3 startLeft;
@@ -27,6 +29,10 @@ public class FireSpin : Puzzle
 
         effect1.SetActive(false);
         effect2.SetActive(true);
+        playerani.SetBool("Cfire", false);
+        player.Freeze(false);
+        rotationStick.SetActive(false);
+
 
     }
 
@@ -44,6 +50,12 @@ public class FireSpin : Puzzle
         playtime = 0;
         effect1.SetActive(true);
         effect2.SetActive(false);
+        playerani.SetBool("Cfire", true);
+
+        player.transform.position = positionSphere.transform.position;
+        player.transform.rotation = positionSphere.transform.rotation;
+        player.Freeze(true);
+        rotationStick.SetActive(true);
     }
 
     public override void UpdatePuzzle()
@@ -55,19 +67,20 @@ public class FireSpin : Puzzle
         if (nextRot < 360-maxRot && nextRot > maxRot)
         {
             // stop rotation
-            axil = 0;
+            //axil = 0;
         }
         else
             rotationStick.transform.Rotate(0,axil , 0);
 
         //hand positions
-        float moveFrame = 0.3f;
+        float moveFrame = 0.5f;
         float handPosition;
 
         if (rotationStick.transform.eulerAngles.y < 180)
             handPosition = moveFrame * (rotationStick.transform.eulerAngles.y / maxRot);
         else
             handPosition =- moveFrame * ((360-rotationStick.transform.eulerAngles.y) / maxRot);
+        playerani.SetFloat("fire", handPosition + 0.5f);
 
         Vector3 r = startRight; r.z += handPosition;
         rightHand.transform.localPosition = r;
@@ -100,6 +113,12 @@ public class FireSpin : Puzzle
         
         effect2.SetActive(false);
         effect1.SetActive(false);
+
+        player = GameObject.FindObjectOfType<Walk>();
+        playerani = GameObject.Find("Player").GetComponentInChildren<Animator>();
+
+
+        rotationStick.SetActive(false);
     }
 
     void Spin(int i)

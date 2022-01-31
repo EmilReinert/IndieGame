@@ -13,7 +13,7 @@ public class Conversation : MonoBehaviour
     private bool currentlyReading;
     public bool continuous;
     private float talkspeed; //  == waiting betweeen words
-    private GameObject canvas;
+    public GameObject canvas;
 
     public bool textOver; // true when last line is read
 
@@ -60,7 +60,9 @@ public class Conversation : MonoBehaviour
     {
         if (paragraphIDX >= paragraphs.Count) {
             text.text = ""; textOver = true;
-            canvas.SetActive(false); return; }
+            canvas.SetActive(false);
+
+            return; }
         if (currentlyReading)
             Abort();
         StartCoroutine(

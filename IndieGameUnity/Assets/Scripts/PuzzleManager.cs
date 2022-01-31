@@ -9,8 +9,9 @@ public class PuzzleManager : MonoBehaviour
     public Puzzle[] puzzles;
     public bool ended = false;
     private Level l;
-    public int move;
+    private int move;
     GameManager GM;
+    public bool endcut = false;
 
     public void Start()
     {
@@ -41,8 +42,11 @@ public class PuzzleManager : MonoBehaviour
        // if (puzzleObjects != null) {            puzzleObjects.SetActive(false);        }
         foreach (Puzzle p in puzzles)
         {
-            p.EndPuzzle();
+            if (p != null)
+            {
+                p.EndPuzzle();
                 p.ended = true;
+            }
             //  if (p.hideObject)                p.gameObject.SetActive(false);
         }
         ended = true;

@@ -9,9 +9,11 @@ public class BalancePuzzle : Puzzle
     private bool randoming;
     public GameObject rotatingelement;
     private Quaternion startRotation;
+    private Quaternion startRotationB;
     public float changer;
     private GameObject player;
     private Vector3 startPos;
+    public GameObject rotationBody;
 
     public override void EndPuzzle()
     {
@@ -27,19 +29,23 @@ public class BalancePuzzle : Puzzle
     {
         player = GameObject.Find("Player");
         startRotation = rotatingelement.transform.rotation;
+        startRotationB = rotatingelement.transform.rotation;
         startPos = player.transform.position;
         moveRadius = 30; // equals cylinders
-        Reset();
+        ResetPos();
     }
-    private void Reset()
+    private void ResetPos()
     {
-
+        player.GetComponent<Walk>().Freeze(true);
         randoming = false;
         StopAllCoroutines();
         rotatingelement.transform.rotation = startRotation;
+        rotationBody.transform.rotation = startRotationB;
         player.transform.position = startPos;
         currentAngle = 0;
-}
+        player.GetComponent<Walk>().Freeze(false);
+
+    }
 
     public override void UpdatePuzzle()
     {
@@ -66,13 +72,20 @@ public class BalancePuzzle : Puzzle
             while (Mathf.Abs(start) <= Mathf.Abs(i))
             {
                 start += Time.deltaTime * (i / steps) * 40;
+
                 rotatingelement.transform.Rotate(Time.deltaTime * (i / steps) * eulerRot * 40);
                 rotatingelement.transform.Rotate(Time.deltaTime * (changer / steps) * eulerRot * 40);
+
+                rotationBody.transform.Rotate(Time.deltaTime * (i / steps) * eulerRot * 40);
+                rotationBody.transform.Rotate(Time.deltaTime * (changer / steps) * eulerRot * 40);
+
                 currentAngle += Time.deltaTime * (i / steps)  * 40;
                 currentAngle += Time.deltaTime * (changer / steps)  * 40;
+                
+
                 //fail
                 if (Mathf.Abs(currentAngle) > moveRadius)
-                    Reset();
+                    ResetPos();
 
 
                 yield return new WaitForEndOfFrame();

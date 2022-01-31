@@ -60,7 +60,7 @@ public class PlayerStickyCamera : MonoBehaviour
     }
     private IEnumerator Transition(Vector3 targetPosition)
     {
-        player.GetComponent<Walk>().Freeze(true); // freezing player during transition
+      //  player.GetComponent<Walk>().Freeze(true); // freezing player during transition
 
         Vector3 startCamPosition = cambase.transform.position;
         Vector3 startCamPosition2 = cam.transform.position;
@@ -80,7 +80,7 @@ public class PlayerStickyCamera : MonoBehaviour
         transition = false;
         cambase.transform.position = targetPosition;
 
-        player.GetComponent<Walk>().Freeze(false);
+       // player.GetComponent<Walk>().Freeze(false);
     }
     ///
     private IEnumerator SetPosition(Vector3 targetPosition)
