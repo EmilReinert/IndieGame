@@ -112,6 +112,26 @@ public class Walk : MonoBehaviour
         }
 
     }
+    public IEnumerator A(Vector3 nextstep, Quaternion targetRot)
+    {
+        Quaternion startRot = rotationBody.transform.rotation;
+        Vector3 startPos = rotationBody.transform.position;
+
+
+
+        float tParam = 0;
+        while (tParam <= 1)
+        {
+
+            tParam += Time.deltaTime/2;
+            transform.position = Vector3.Lerp(startPos, startPos + nextstep + new Vector3(0, 0, 0), tParam);
+            transform.rotation = Quaternion.Lerp(startRot, targetRot, tParam);
+
+            yield return new WaitForEndOfFrame();
+        }
+
+    }
+
     public void Freeze(bool b)
     {
         if (b)
@@ -180,5 +200,11 @@ public class Walk : MonoBehaviour
 
         StartCoroutine(
             A(pos-transform.position,false));
+    }
+    public void SetPosition(Vector3 pos, Quaternion rot)
+    {
+
+        StartCoroutine(
+            A(pos - transform.position, rot));
     }
 }

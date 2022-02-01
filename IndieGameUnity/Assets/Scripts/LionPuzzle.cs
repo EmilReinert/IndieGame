@@ -11,7 +11,10 @@ public class LionPuzzle : Puzzle
     private Hide hide;
     private bool inbush;
     private bool seeing; // lion seeing player
+    private bool failing=false;
+    public GameObject goalsphere;
 
+    public GameObject steak;
     private void Start()
     {
         TriggerManager[] t = bushContainer.GetComponentsInChildren<TriggerManager>();
@@ -21,6 +24,8 @@ public class LionPuzzle : Puzzle
         realLion.Freeze(true);
         inbush = false;
         seeing = false;
+        steak.SetActive(false);
+        GetComponent<Animator>().enabled = false;
     }
     public override void EndPuzzle()
     {
@@ -35,6 +40,10 @@ public class LionPuzzle : Puzzle
         realLion.Freeze(false);
         hide = GameObject.FindObjectOfType<Hide>();
         hide.gameObject.SetActive(true);
+        steak.SetActive(true);
+        GetComponent<Animator>().enabled = false;
+        realLion.Re();
+        failing = false;
     }
 
     public override void UpdatePuzzle()
@@ -48,7 +57,7 @@ public class LionPuzzle : Puzzle
         if (seeing)
         {
             if (hide.GetHiding() == 2 && inbush) { Reaction(0); }//still hidden
-            else { Reaction(2); }
+            else {if(!failing) StartCoroutine(Fail()); }
         }
         else { Reaction(1); }
         //print(        hide.GetHiding() +""+ inbush);
@@ -68,6 +77,8 @@ public class LionPuzzle : Puzzle
 
         }
         */
+
+        if (goalsphere.GetComponent<TriggerManager>().isEntered) done = true;
     }
 
     void Reaction(int i)
@@ -95,4 +106,17 @@ public class LionPuzzle : Puzzle
         }
     }
 
+    IEnumerator Fail()
+    {
+
+        failing = true;
+        Reaction(2);
+        if (GetComponent<Animator>().enabled)
+            GetComponent<Animator>().SetTrigger("lioncome");
+        else
+            GetComponent<Animator>().enabled = true;
+        yield return new WaitForSeconds(1);
+        faily = true;
+        failing = false;
+    }
 }

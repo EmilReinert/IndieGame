@@ -18,6 +18,8 @@ public class Hide : Puzzle
     public override void EndPuzzle()
     {
         playerBody.transform.localPosition = startPos;
+        player.GetComponentInChildren<Animator>().SetBool("hide2", false);
+        player.GetComponentInChildren<Animator>().SetBool("hide1", false);
     }
 
     public override void Move(int i)
@@ -35,6 +37,9 @@ public class Hide : Puzzle
         oneheld = 0; fullhiding = false;
         startPos = playerBody.transform.localPosition;
         playerWalk.Freeze(false);
+
+        player.GetComponentInChildren<Animator>().SetBool("hide2", false);
+        player.GetComponentInChildren<Animator>().SetBool("hide1", false);
     }
 
     public override void UpdatePuzzle()
@@ -65,7 +70,11 @@ public class Hide : Puzzle
                 playerWalk.Freeze(false);
                 fullhiding = false;
                 oneheld = 0;
-                playerBody.transform.localPosition = tempStartPos;
+                //playerBody.transform.localPosition = tempStartPos;
+
+
+                player.GetComponentInChildren<Animator>().SetBool("hide2", false);
+                player.GetComponentInChildren<Animator>().SetBool("hide1", false);
             }
         }
         else
@@ -77,14 +86,21 @@ public class Hide : Puzzle
                 playerWalk.Freeze(true);
                 tempStartPos = playerBody.transform.localPosition;
                 oneheld = i;
-                playerBody.transform.localPosition = tempStartPos - new Vector3(0, 1, 0);
+                //playerBody.transform.localPosition = tempStartPos - new Vector3(0, 1, 0);
+
+                player.GetComponentInChildren<Animator>().SetBool("hide1",true);
+                player.GetComponentInChildren<Animator>().SetBool("hide2", false);
             }
             if (oneheld!=i&&!fullhiding)
             {
                 //second depth
                 playerWalk.Freeze(true);
                 fullhiding = true;
-                playerBody.transform.localPosition = tempStartPos - new Vector3(0, 2, 0);
+                //playerBody.transform.localPosition = tempStartPos - new Vector3(0, 2, 0);
+
+
+                player.GetComponentInChildren<Animator>().SetBool("hide2", true);
+                player.GetComponentInChildren<Animator>().SetBool("hide1", false);
             }
         }
     }

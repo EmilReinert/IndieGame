@@ -11,6 +11,7 @@ public class CameraManager : MonoBehaviour
     public float distance;
     public float fov;
     public int tilt;
+    public bool followRotation = false;
 
     public GameObject copyCam;
     private GameObject mainCam;
@@ -46,7 +47,10 @@ public class CameraManager : MonoBehaviour
             stickyCam.Enable(false);
         }
         if (lookAt != null) stickyCam.lookAt = lookAt;
-        else { stickyCam.lookAt = player; stickyCam.on = true; }
+        else { stickyCam.lookAt = player; stickyCam.on = true;
+            if (followRotation) stickyCam.followRotation = true;
+            else stickyCam.followRotation = false;
+        }
 
 
     }

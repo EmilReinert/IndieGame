@@ -91,7 +91,7 @@ public class Lift : Puzzle
 
             transform.localPosition = newPos;
 
-            DecreaseAcc();
+            //DecreaseAcc();
             if (newPos.y >= maxHeight) done = true;
         }
         else
@@ -115,7 +115,7 @@ public class Lift : Puzzle
 
             transform.localPosition = newPos;
 
-            DecreaseAcc(false);
+            //DecreaseAcc(false);
             if (newPos.y <= -maxHeight) done = true;
         }
     }

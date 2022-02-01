@@ -14,6 +14,7 @@ public class FollowRoute : MonoBehaviour
     private Transform[] routes;
     public bool UseStartRotation = false;
     private Quaternion startRotation;
+    private Vector3 startPos;
 
     private int routeIDX;
 
@@ -30,6 +31,7 @@ public class FollowRoute : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startPos = transform.position;
         if(optRotationBody != null)
             startRotation = optRotationBody.transform.rotation;
         routeIDX = 0;
@@ -61,7 +63,7 @@ public class FollowRoute : MonoBehaviour
         Vector3 p2 = routes[routeNum].GetChild(2).position;
         Vector3 p3 = routes[routeNum].GetChild(3).position;
 
-        while (tParam <= 1)
+        while (tParam < 1)
         {
             if (!freeze)
             {
@@ -70,12 +72,12 @@ public class FollowRoute : MonoBehaviour
                     3 * Mathf.Pow(1 - tParam, 2) * tParam * p1 +
                     3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2 + Mathf.Pow(tParam, 3) * p3;
                 //objectPosition.y = transform.position.y; // dont change height
-                if (optRotationBody != null)
+                if (optRotationBody != null&&tParam!=0)
                 {
                     if (UseStartRotation)
-                        optRotationBody.transform.rotation = Quaternion.LookRotation(objectPosition - transform.position) * startRotation;
+                        optRotationBody.transform.rotation = Quaternion.LookRotation(objectPosition - transform.position+transform.forward) * startRotation;
                     else
-                        optRotationBody.transform.rotation = Quaternion.LookRotation(objectPosition - transform.position);// * startRotation;
+                        optRotationBody.transform.rotation = Quaternion.LookRotation(objectPosition - transform.position + transform.forward);// * startRotation;
                 }
                 transform.position = objectPosition;
                 yield return new WaitForEndOfFrame();
@@ -128,5 +130,16 @@ public class FollowRoute : MonoBehaviour
                 ani.SetBool("walk", true);
         }
     }
-    
+
+    public void Re()
+    {
+        StopAllCoroutines();
+        print("re");
+        routeIDX = 0;
+        tParam = 0f;
+        coroutineAllowed = true;
+        transform.position = startPos;
+
+    }
+
 }

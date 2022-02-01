@@ -98,7 +98,8 @@ public class CrystalPost : Puzzle
 
     void Rotate(int dir )
     {
-        transform.Rotate(0, dir *(369/rotationRange), 0);
+        if (!glow) return;
+        transform.Rotate(0, dir *(360/rotationRange), 0);
         currentRotation += dir;
         if (currentRotation < 0) currentRotation = rotationRange - 1;
         if (currentRotation >= rotationRange) currentRotation = 0;
@@ -114,7 +115,10 @@ public class CrystalPost : Puzzle
         else
         {
             if (next != null)
+            {
                 next.GlowOff();
+                next.ray.SetActive(false);
+            }
         }
            
     }

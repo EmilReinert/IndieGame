@@ -21,6 +21,8 @@ public class InsectStone : Puzzle
         insects3.SetActive(false);
 
         insectStone.SetActive(false);
+        GameObject.Find("Player").GetComponentInChildren<Animator>().SetBool("Ctop", false);
+
     }
 
     public override void Move(int i)
@@ -35,6 +37,8 @@ public class InsectStone : Puzzle
 
         insectStone.SetActive(true);
         t.walkAnyway = true;
+
+        GameObject.Find("Player").GetComponentInChildren<Animator>().SetBool("Ctop", true);
     }
 
     public override void UpdatePuzzle()

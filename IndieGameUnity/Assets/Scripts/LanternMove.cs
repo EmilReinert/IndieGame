@@ -8,6 +8,8 @@ public class LanternMove : Puzzle
     public float rotationStrength;
     float goallantern;
 
+    bool move = false;
+
     public override void StartPuzzle()
     {
         animLantern = GetComponent<Animator>();
@@ -17,6 +19,7 @@ public class LanternMove : Puzzle
         GameObject.FindObjectOfType<Walk>().main.SetBool("Cflash", true);
 
         //contiuous = true;
+        move = false;
     }
 
     public override void EndPuzzle()
@@ -27,7 +30,14 @@ public class LanternMove : Puzzle
 
     public override void Move(int i)
     {
-        goallantern = (float)(i + 1) / 2;
+        if (!move)
+        {
+            if (i == 0)
+                StartCoroutine(SetPos((float)(i + 1) / 2, false));
+            else
+                StartCoroutine(SetPos((float)(i + 1) / 2, true));
+
+        }
     }
 
     public override void UpdatePuzzle()
@@ -44,5 +54,14 @@ public class LanternMove : Puzzle
         float tempblend = rotationStrength * Time.deltaTime * (blend - to);
         animLantern.SetFloat("lantern", blend - tempblend);
 
+
+    }
+    IEnumerator SetPos(float pos, bool wait)
+    {
+        move = true;
+        goallantern = pos;
+        if (wait)
+            yield return new WaitForSeconds(0.1f);
+        move = false;
     }
 }

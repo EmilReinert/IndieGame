@@ -10,6 +10,9 @@ public class CutScene : Puzzle
     public Conversation talk;
     public string filePath;
     public bool disappearOld;
+    
+    public Animator ani;
+    public string aniName;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +22,8 @@ public class CutScene : Puzzle
         doneAnimation = false;
 
         talk = grandperson.GetComponentInChildren<Conversation>();
+        if (ani != null) 
+        { ani.speed = 0; ani.SetBool(aniName, false); }
     }
 
     // Update is called once per frame
@@ -35,6 +40,8 @@ public class CutScene : Puzzle
         playerWalk.Freeze(true);
         talk.continuous = true;
         talk.ReadNextLine(); // triggers full dialogue with continous = true
+
+        if (ani != null) { ani.speed = 1;ani.SetBool(aniName, true); }
     }
 
     public override void EndPuzzle()
@@ -43,6 +50,8 @@ public class CutScene : Puzzle
         talk.Reset();
         if (disappearOld)
             grandperson.SetActive(false);
+        if (ani != null)
+        {ani.SetBool(aniName, false); }
     }
 
     public override void Move(int i)

@@ -16,6 +16,7 @@ public class PlayerStickyCamera : MonoBehaviour
     public  float fov;
     private GameObject player;
     public GameObject lookAt;
+    public bool followRotation = false;
 
     public float rotation=0;
 
@@ -82,13 +83,15 @@ public class PlayerStickyCamera : MonoBehaviour
 
        // player.GetComponent<Walk>().Freeze(false);
     }
-    ///
+
+
+
     private IEnumerator SetPosition(Vector3 targetPosition)
     {
         yield return new WaitForSeconds(stickDelay);
         Vector3 startCamPosition = cambase.transform.position;
         Vector3 startCamPosition2 = cam.transform.position;
-        
+
 
         float tempFOV = cam.fieldOfView;
 
@@ -99,6 +102,7 @@ public class PlayerStickyCamera : MonoBehaviour
         {
             tParam += Time.deltaTime * speedModifier;
             cambase.transform.position = Vector3.Lerp(startCamPosition, targetPosition, tParam);
+            if (followRotation) cambase.transform.rotation = player.transform.rotation;
             //cam.transform.position = Vector3.Lerp(startCamPosition2,Quaternion.Inverse( transform.rotation)* offset , tParam);
             cam.transform.rotation = Quaternion.LookRotation((lookAt.transform.position - cam.transform.position));
             cam.fieldOfView = Mathf.Lerp(tempFOV, fov, tParam);
