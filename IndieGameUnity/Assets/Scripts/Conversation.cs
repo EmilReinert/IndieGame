@@ -37,7 +37,7 @@ public class Conversation : MonoBehaviour
         currentlyReading = false;
     }
     public void StartNew(string file_path){
-        file_path = textpath;
+        textpath= file_path;
         Reset();
     }
 
@@ -85,11 +85,12 @@ public class Conversation : MonoBehaviour
             yield return new WaitForSeconds(time);
         }
         currentlyReading = false;
+        /*
         if (continuous)
         {
             yield return new WaitForSeconds(0.5f);
             ReadNextLine();
-        }
+        }*/
     }
 
     void ReadTextFile(string file_path)

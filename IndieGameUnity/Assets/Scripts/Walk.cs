@@ -132,7 +132,7 @@ public class Walk : MonoBehaviour
 
     }
 
-    public void Freeze(bool b)
+    public void Freeze(bool b, bool hideCol = true)
     {
         if (b)
         {
@@ -141,7 +141,8 @@ public class Walk : MonoBehaviour
             StopAllCoroutines();    
             freeze = true;
             GetComponent<Rigidbody>().useGravity = false;
-            GetComponent<Collider>().enabled = false; // forgot why i did this
+            if(hideCol)
+                GetComponent<Collider>().enabled = false; // forgot why i did this
         }
         else
         {

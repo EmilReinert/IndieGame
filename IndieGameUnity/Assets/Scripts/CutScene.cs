@@ -6,7 +6,8 @@ public class CutScene : Puzzle
 {
     GameObject player;
     Walk playerWalk;
-    public GameObject grandperson;
+    public bool freezePlayer;
+    public GameObject grandperson; // root
     public Conversation talk;
     public string filePath;
     public bool disappearOld;
@@ -14,7 +15,6 @@ public class CutScene : Puzzle
     public Animator ani;
     public string aniName;
     public bool resetAfter = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +43,7 @@ public class CutScene : Puzzle
         talk.ReadNextLine(); // triggers full dialogue with continous = true
 
         if (ani != null) { ani.SetBool(aniName, true); }
+        if (freezePlayer) playerWalk.Freeze(true,false);
     }
 
     public override void EndPuzzle()
@@ -52,6 +53,7 @@ public class CutScene : Puzzle
         if (disappearOld)
             grandperson.SetActive(false);
         if (ani != null && resetAfter)        { ani.SetBool(aniName, false); }
+        if (freezePlayer) playerWalk.Freeze(false);
     }
 
     public override void Move(int i)
@@ -60,9 +62,9 @@ public class CutScene : Puzzle
 
     public override void UpdatePuzzle()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) done = true;
+        //if (Input.GetKeyDown(KeyCode.Space)) done = true;
         if (talk.textOver) done = true;
         
-        if (Input.GetButtonDown("Fire3")) talk.ReadNextLine();
+        if (Input.GetButtonDown("Fire3")|| Input.GetKeyDown(KeyCode.Space)) talk.ReadNextLine();
     }
 }
