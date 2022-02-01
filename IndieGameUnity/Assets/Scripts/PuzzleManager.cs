@@ -69,7 +69,8 @@ public class PuzzleManager : MonoBehaviour
 
             if (p != null && p.gameObject != null)
             {
-                if (p.done && !p.ended) { EndPuzzles(); return; }
+                if (p.done && !p.ended) { p.EndPuzzle();
+                    l.EndLevel(); return; }
 
                 if (p.faily && !p.ended) { p.faily = false; GM.Cut(); StartPuzzles(); return; }
 

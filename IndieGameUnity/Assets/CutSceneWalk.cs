@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CutScene : Puzzle
-{
+public class CutSceneWalk : Puzzle
+{ 
+
     GameObject player;
     Walk playerWalk;
     public GameObject grandperson;
     public Conversation talk;
     public string filePath;
-    public bool disappearOld;
-    
+
     public Animator ani;
     public string aniName;
-    public bool resetAfter = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,14 +22,14 @@ public class CutScene : Puzzle
         doneAnimation = false;
 
         talk = grandperson.GetComponentInChildren<Conversation>();
-        if (ani != null) 
-        {  ani.SetBool(aniName, false); }
+        if (ani != null)
+        { ani.SetBool(aniName, false); }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public override void StartPuzzle()
@@ -49,9 +48,8 @@ public class CutScene : Puzzle
     {
 
         talk.Reset();
-        if (disappearOld)
-            grandperson.SetActive(false);
-        if (ani != null && resetAfter)        { ani.SetBool(aniName, false); }
+        if (ani != null)
+        { ani.SetBool(aniName, false); }
     }
 
     public override void Move(int i)
@@ -62,7 +60,7 @@ public class CutScene : Puzzle
     {
         if (Input.GetKeyDown(KeyCode.Space)) done = true;
         if (talk.textOver) done = true;
-        
+
         if (Input.GetButtonDown("Fire3")) talk.ReadNextLine();
     }
 }

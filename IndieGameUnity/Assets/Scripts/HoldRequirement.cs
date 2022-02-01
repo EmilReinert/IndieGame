@@ -6,6 +6,7 @@ public class HoldRequirement : MonoBehaviour
 {
     public Puzzle requirement;
     public GrandWalk gw;
+    public ToxicPersonBehavior tx;
     public bool done = false;
 
     private void Start()
@@ -16,8 +17,8 @@ public class HoldRequirement : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (done) return;
-
-        if (other.gameObject == gw.gameObject)
+        if (gw == null && tx == null) return;
+        if (gw!=null&&other.gameObject == gw.gameObject)
         {
             //print(requirement.done);
             if (requirement.done) { 
@@ -28,6 +29,20 @@ public class HoldRequirement : MonoBehaviour
             {
 
                 gw.Freeze(true);
+            }
+        }
+        if (tx != null && other.gameObject == tx.gameObject)
+        {
+            //print(requirement.done);
+            if (requirement.done)
+            {
+                done = true;
+                tx.Freeze(false);
+            }
+            else
+            {
+
+                tx.Freeze(true);
             }
         }
     }

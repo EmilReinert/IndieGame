@@ -74,10 +74,8 @@ public class FollowRoute : MonoBehaviour
                 //objectPosition.y = transform.position.y; // dont change height
                 if (optRotationBody != null&&tParam!=0)
                 {
-                    if (UseStartRotation)
-                        optRotationBody.transform.rotation = Quaternion.LookRotation(objectPosition - transform.position+transform.forward) * startRotation;
-                    else
-                        optRotationBody.transform.rotation = Quaternion.LookRotation(objectPosition - transform.position + transform.forward);// * startRotation;
+
+                    optRotationBody.transform.rotation = Quaternion.LookRotation(objectPosition - transform.position);// + transform.forward);// * startRotation;
                 }
                 transform.position = objectPosition;
                 yield return new WaitForEndOfFrame();

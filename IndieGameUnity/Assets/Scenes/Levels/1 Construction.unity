@@ -13702,6 +13702,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8321961373814002719, guid: 531bf3d0a06f3714d9694282f7c192bd, type: 3}
+      propertyPath: textpath
+      value: Assets/Conversations/Construction 1/1_Intro.rtf
+      objectReference: {fileID: 0}
     - target: {fileID: 8321961374691127407, guid: 531bf3d0a06f3714d9694282f7c192bd, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -18008,10 +18012,11 @@ MonoBehaviour:
   faily: 0
   grandperson: {fileID: 1143401918}
   talk: {fileID: 1000667600}
-  filePath: Assets/Conversations/test.txt
+  filePath: Assets/Conversations/Construction 1/1_Intro.rtf
   disappearOld: 0
   ani: {fileID: 1793100544}
   aniName: wave
+  resetAfter: 1
 --- !u!1001 &1259635764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19835,6 +19840,10 @@ PrefabInstance:
       propertyPath: next
       value: 
       objectReference: {fileID: 1288473706}
+    - target: {fileID: 4100829121821574527, guid: 7d4010d040cba344ab64607df028e25d, type: 3}
+      propertyPath: endrequirement
+      value: 
+      objectReference: {fileID: 1408304206}
     - target: {fileID: 7131735703361793961, guid: 7d4010d040cba344ab64607df028e25d, type: 3}
       propertyPath: lookAt
       value: 
@@ -19903,6 +19912,7 @@ MonoBehaviour:
   disappearOld: 0
   ani: {fileID: 0}
   aniName: 
+  resetAfter: 0
 --- !u!114 &1408304210 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4100829121821574527, guid: 7d4010d040cba344ab64607df028e25d, type: 3}
@@ -44368,6 +44378,10 @@ PrefabInstance:
       propertyPath: next
       value: 
       objectReference: {fileID: 1408304210}
+    - target: {fileID: 4100829121821574527, guid: 7d4010d040cba344ab64607df028e25d, type: 3}
+      propertyPath: endrequirement
+      value: 
+      objectReference: {fileID: 1257213232}
     - target: {fileID: 7131735703361793961, guid: 7d4010d040cba344ab64607df028e25d, type: 3}
       propertyPath: lookAt
       value: 

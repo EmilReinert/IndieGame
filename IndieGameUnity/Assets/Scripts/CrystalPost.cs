@@ -61,7 +61,8 @@ public class CrystalPost : Puzzle
     void Start()
     {
         hideObject = false;
-        ray.SetActive(false);
+        if(ray!=null)
+            ray.SetActive(false);
         goalRotation = 1; /// manage correct rotation
         currentRotation = 0;
         rotationRange = 8;

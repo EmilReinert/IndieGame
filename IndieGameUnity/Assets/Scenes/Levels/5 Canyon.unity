@@ -34203,7 +34203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6920146377805231503, guid: 06aad510579647c45a56e96e85a643fb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -41
+      value: -75.991
       objectReference: {fileID: 0}
     - target: {fileID: 6920146377805231503, guid: 06aad510579647c45a56e96e85a643fb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -34211,7 +34211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6920146377805231503, guid: 06aad510579647c45a56e96e85a643fb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 120
+      value: -308.05
       objectReference: {fileID: 0}
     - target: {fileID: 6920146377805231503, guid: 06aad510579647c45a56e96e85a643fb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -54844,6 +54844,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 25dbe13c40e0f84438057acf04f1f0eb, type: 3}
   m_PrefabInstance: {fileID: 1770668507}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1775389657 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 131941195176498666, guid: a7f9f16c3c376da4dab58cb3594155aa, type: 3}
+  m_PrefabInstance: {fileID: 8119492206177099458}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1776605088
 GameObject:
@@ -83257,6 +83262,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 765453048616849232, guid: a7f9f16c3c376da4dab58cb3594155aa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.58694005
+      objectReference: {fileID: 0}
+    - target: {fileID: 765453048616849232, guid: a7f9f16c3c376da4dab58cb3594155aa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.8096304
+      objectReference: {fileID: 0}
+    - target: {fileID: 765453048616849232, guid: a7f9f16c3c376da4dab58cb3594155aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 468.12
+      objectReference: {fileID: 0}
     - target: {fileID: 5562220698382948825, guid: a7f9f16c3c376da4dab58cb3594155aa, type: 3}
       propertyPath: m_Name
       value: xcandy
@@ -83279,7 +83296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6495132212280244506, guid: a7f9f16c3c376da4dab58cb3594155aa, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6712933
+      value: 0.6472318
       objectReference: {fileID: 0}
     - target: {fileID: 6495132212280244506, guid: a7f9f16c3c376da4dab58cb3594155aa, type: 3}
       propertyPath: m_LocalRotation.x
@@ -83287,7 +83304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6495132212280244506, guid: a7f9f16c3c376da4dab58cb3594155aa, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.74119174
+      value: 0.76229334
       objectReference: {fileID: 0}
     - target: {fileID: 6495132212280244506, guid: a7f9f16c3c376da4dab58cb3594155aa, type: 3}
       propertyPath: m_LocalRotation.z
@@ -83299,7 +83316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6495132212280244506, guid: a7f9f16c3c376da4dab58cb3594155aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -95.666
+      value: 99.334
       objectReference: {fileID: 0}
     - target: {fileID: 6495132212280244506, guid: a7f9f16c3c376da4dab58cb3594155aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -83309,6 +83326,14 @@ PrefabInstance:
       propertyPath: route
       value: 
       objectReference: {fileID: 4932602700812811954}
+    - target: {fileID: 8119492206177099460, guid: a7f9f16c3c376da4dab58cb3594155aa, type: 3}
+      propertyPath: optRotationBody
+      value: 
+      objectReference: {fileID: 1775389657}
+    - target: {fileID: 8119492206177099460, guid: a7f9f16c3c376da4dab58cb3594155aa, type: 3}
+      propertyPath: UseStartRotation
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7f9f16c3c376da4dab58cb3594155aa, type: 3}
 --- !u!1 &8119492206177099459 stripped
