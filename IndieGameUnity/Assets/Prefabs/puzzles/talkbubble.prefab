@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: ab45702727880724ca16d35e84258e38, type: 2}
   m_Color: {r: 0, g: 0, b: 0, a: 0.62352943}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -263,6 +263,7 @@ GameObject:
   - component: {fileID: 4574308508200084562}
   - component: {fileID: 4574308508200084561}
   - component: {fileID: 5049138999063712887}
+  - component: {fileID: 2600656196900175809}
   m_Layer: 0
   m_Name: talkbubble
   m_TagString: Untagged
@@ -299,7 +300,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 4574308507890392308}
-  textpath: Assets/Conversations/test.txt
+  textpath: Assets/Conversations/Construction 1/1_Intro.rtf
+  continuous: 0
+  canvas: {fileID: 0}
+  textOver: 0
 --- !u!114 &5049138999063712887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +317,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
+--- !u!114 &2600656196900175809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4574308508200084563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c188886b2d842e04980f685a0f48c9c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  h: 0
+  w: 0
 --- !u!1 &4574308508397781025
 GameObject:
   m_ObjectHideFlags: 0

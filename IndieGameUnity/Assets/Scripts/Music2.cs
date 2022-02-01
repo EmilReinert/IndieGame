@@ -15,17 +15,23 @@ public class Music2 : Puzzle
     AudioSource audi;
     bool hitNote;
 
+    private void Start()
+    {
+
+        anim = GetComponent<Animator>();
+        goalpos = 0.5f;
+        minDist = 0.5f - 3 * (dist * 0.5f) / 4;
+        maxDist = 0.5f + 3 * (dist * 0.5f) / 4;
+
+        audi = GetComponent<AudioSource>();
+    }
     // Start is called before the first frame update
     public override void StartPuzzle()
     {
-        anim = GetComponent<Animator>();
-        goalpos = 0.5f;
-        minDist = 0.5f-3*(dist * 0.5f)/4;
-        maxDist = 0.5f+3*(dist * 0.5f)/4;
-
-        audi = GetComponent<AudioSource>();
+        Start();
         audi.Play();
         hitNote = true;
+        SetGoalPos(0);
     }
 
     // Update is called once per frame

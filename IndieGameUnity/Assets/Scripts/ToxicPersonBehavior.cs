@@ -65,7 +65,7 @@ public class ToxicPersonBehavior : Puzzle
     // Start is called before the first frame update
     void Start()
     {
-        visibleMatThreshold = 0;// 0.99f;
+        visibleMatThreshold = 0.99f;
         f.Freeze(true);
     }
 

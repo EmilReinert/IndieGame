@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Level : GamePart
 {
@@ -17,6 +18,7 @@ public class Level : GamePart
     public Puzzle endrequirement;
 
     private bool done;
+    public bool lastLevel = false;
 
 
     // Start is called before the first frame update
@@ -85,5 +87,7 @@ public class Level : GamePart
         else cm.UpdateDefaultSettings();
         done = true;
         if(endrequirement != null && endrequirement.doneAnimation)  GameObject.Find("Player").GetComponentInChildren<Emotions>().PlayHappy();
+        if(lastLevel) 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

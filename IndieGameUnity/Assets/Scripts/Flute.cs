@@ -61,9 +61,12 @@ public class Flute : Puzzle
         songline = 0;
 
         UpdateNote(currentNote);
+        foreach (Note n in
+GameObject.FindObjectsOfType<Note>())
+            Destroy(n.gameObject);
 
+        CancelInvoke("CreateNote");
         InvokeRepeating("CreateNote", 1, 0.66f);// last one is playing speed
-
         currenthits = 0;
         notecount = 0;
 
@@ -73,6 +76,7 @@ public class Flute : Puzzle
         fail.gameObject.SetActive(true); fail.Stop();
 
         GameObject.Find("Player").GetComponentInChildren<Animator>().SetBool("Cfront", true);
+
     }
 
     public override void UpdatePuzzle()
@@ -98,7 +102,7 @@ public class Flute : Puzzle
                 noteObjects.Remove(n);
                 Destroy(n.gameObject);
                 StartCoroutine(Miss());
-
+                faily = true;
             }
         }
 

@@ -15,8 +15,13 @@ public class BalancePuzzle : Puzzle
     public GameObject startPos;
     public GameObject rotationBody;
     private bool failing = false;
+        public TriggerManager end;
+
+    public GameObject build;
+
     public override void EndPuzzle()
     {
+        build.SetActive(false);
 
     }
 
@@ -27,6 +32,7 @@ public class BalancePuzzle : Puzzle
 
     public override void StartPuzzle()
     {
+        build.SetActive(true);
         moveRadius = 30; // equals cylinders
         ResetPos();
         failing = false;
@@ -47,6 +53,7 @@ public class BalancePuzzle : Puzzle
 
     public override void UpdatePuzzle()
     {
+        if (end.isEntered) done = true;
         float randomdirection = (Random.value - 0.5f)*moveRadius;
         if (!randoming&&!failing)
         {
@@ -102,6 +109,7 @@ public class BalancePuzzle : Puzzle
     // Start is called before the first frame update
     void Start()
     {
+        build.SetActive(false);
         contiuous = true;
         player = GameObject.Find("Player");
         startRotation = rotatingelement.transform.rotation;

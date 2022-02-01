@@ -11,7 +11,7 @@ public class Conversation : MonoBehaviour
     private List<string> paragraphs;
     private int paragraphIDX;
     private bool currentlyReading;
-    public bool continuous;
+    bool continuous;
     private float talkspeed; //  == waiting betweeen words
     public GameObject canvas;
 
@@ -21,7 +21,6 @@ public class Conversation : MonoBehaviour
     {
         canvas = transform.Find("Canvas").gameObject;
         Reset();
-        continuous = false;
     }
     // Start is called before the first frame update
     public void Reset()
@@ -47,8 +46,9 @@ public class Conversation : MonoBehaviour
         
     }
 
-    public void ReadNextLine()
+    public void ReadNextLine(bool c)
     {
+        continuous = c;
         canvas.SetActive(true);
         if (textOver) return;
         ReadLine();
@@ -85,12 +85,11 @@ public class Conversation : MonoBehaviour
             yield return new WaitForSeconds(time);
         }
         currentlyReading = false;
-        /*
         if (continuous)
         {
             yield return new WaitForSeconds(0.5f);
-            ReadNextLine();
-        }*/
+            ReadNextLine(true);
+        }
     }
 
     void ReadTextFile(string file_path)

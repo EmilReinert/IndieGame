@@ -9,8 +9,10 @@ public class CutScene : Puzzle
     public bool freezePlayer;
     public GameObject grandperson; // root
     public Conversation talk;
+    private StayInframe frame;
     public string filePath;
     public bool disappearOld;
+   public  AudioClip audi;
     
     public Animator ani;
     public string aniName;
@@ -25,6 +27,8 @@ public class CutScene : Puzzle
         talk = grandperson.GetComponentInChildren<Conversation>();
         if (ani != null) 
         {  ani.SetBool(aniName, false); }
+        frame = talk.GetComponent<StayInframe>();
+        frame.enabled = false;
     }
 
     // Update is called once per frame
@@ -39,16 +43,25 @@ public class CutScene : Puzzle
         if (filePath == null || filePath == "") done = true;
         talk.StartNew(filePath);
 
-        talk.continuous = true;
-        talk.ReadNextLine(); // triggers full dialogue with continous = true
+        if (freezePlayer)
+            talk.ReadNextLine(false); // triggers full dialogue with continous = true
+        else talk.ReadNextLine(true);
 
         if (ani != null) { ani.SetBool(aniName, true); }
         if (freezePlayer) playerWalk.Freeze(true,false);
+
+        if (audi != null)
+        {
+            GetComponent<AudioSource>().clip = audi;
+            GetComponent<AudioSource>().Play();
+        }
+        frame.enabled = true;
     }
 
     public override void EndPuzzle()
     {
 
+        frame.enabled = false;
         talk.Reset();
         if (disappearOld)
             grandperson.SetActive(false);
@@ -65,6 +78,6 @@ public class CutScene : Puzzle
         //if (Input.GetKeyDown(KeyCode.Space)) done = true;
         if (talk.textOver) done = true;
         
-        if (Input.GetButtonDown("Fire3")|| Input.GetKeyDown(KeyCode.Space)) talk.ReadNextLine();
+        if (Input.GetButtonDown("Fire3")|| Input.GetKeyDown(KeyCode.Space)) talk.ReadNextLine(false);
     }
 }
