@@ -20,6 +20,7 @@ public class Conversation : MonoBehaviour
     private void Start()
     {
         canvas = transform.Find("Canvas").gameObject;
+        canvas.SetActive(false);
         //Reset();
     }
     // Start is called before the first frame update

@@ -25,7 +25,7 @@ public class CutScene : Puzzle
         doneAnimation = false;
 
         talk = grandperson.GetComponentInChildren<Conversation>();
-        if (ani != null) 
+        if (ani != null && aniName != "" && aniName != null) 
         {  ani.SetBool(aniName, false); }
         frame = talk.GetComponent<StayInframe>();
         frame.enabled = false;
@@ -42,7 +42,7 @@ public class CutScene : Puzzle
         Start();
         grandperson.SetActive(true);
         grandperson.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
-        if (ani != null) { ani.SetBool(aniName, true); }
+        if (ani != null && aniName != "" && aniName != null) { ani.SetBool(aniName, true); }
         if (freezePlayer) playerWalk.Freeze(true, false);
         talk.StartNew(filePath);
 

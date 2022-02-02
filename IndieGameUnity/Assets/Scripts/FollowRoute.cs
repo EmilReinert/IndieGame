@@ -25,7 +25,7 @@ public class FollowRoute : MonoBehaviour
     public  float speedModifier=0.1f;
 
     private bool coroutineAllowed;
-    private bool done = false;
+    public bool done = false;
     public bool loop = false;
 
     // Start is called before the first frame update

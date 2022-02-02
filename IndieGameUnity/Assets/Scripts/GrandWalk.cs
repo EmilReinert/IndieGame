@@ -7,6 +7,7 @@ public class GrandWalk : Puzzle
     public FollowRoute f;
     GameObject player;
     public float  maxDist = 5;
+    public bool disappear=false;
 
     [SerializeField]
     bool localFreeze;
@@ -14,6 +15,8 @@ public class GrandWalk : Puzzle
     public override void EndPuzzle()
     {
         f.Freeze(true);
+        if(disappear)
+            GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
     }
 
     public override void Move(int i)
@@ -26,11 +29,14 @@ public class GrandWalk : Puzzle
         f.Freeze(false);
         localFreeze = false;
         player = GameObject.Find("Player");
+        GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
     }
 
     public override void UpdatePuzzle()
     {
+        if (f.done) done = true;
         if (localFreeze) return;
+        print("hi");
 
         float currentDistance =Vector3.Distance( player.transform.position,f.transform.position);
         float speed = -(1 / maxDist) * currentDistance + 1;

@@ -16,6 +16,7 @@ public class GrabWallPuzzle : Puzzle
 
         walk.Freeze(false);
         ani.SetBool("Cclimb", false);
+        walk.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     public override void Move(int i)

@@ -38,6 +38,7 @@ public class PuzzleManager : MonoBehaviour
                 p.gameObject.SetActive(true);
                 p.enabled = true;
                 p.StartPuzzle();
+                p.ended = false;
             }
         }
     }

@@ -9,13 +9,17 @@ public class FlowerPuzzle : Puzzle
 
     public GameObject knife;
     public GameObject can;
+    public bool last = false;
 
     private Animator ani; // player ani
 
     public override void EndPuzzle()
     {
         ani.SetBool("Choldboth", false);
-        
+        if (last) {
+            can.SetActive(false);
+            knife.SetActive(false); }
+
     }
 
     public override void Move(int i)

@@ -488,7 +488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6920146377805231503, guid: 06aad510579647c45a56e96e85a643fb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14
+      value: 9.1
       objectReference: {fileID: 0}
     - target: {fileID: 6920146377805231503, guid: 06aad510579647c45a56e96e85a643fb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -496,7 +496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6920146377805231503, guid: 06aad510579647c45a56e96e85a643fb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 20
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6920146377805231503, guid: 06aad510579647c45a56e96e85a643fb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -14620,6 +14620,11 @@ GameObject:
 --- !u!4 &726544723 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2937946079611530486, guid: 003b576663d466f45a7361de1eb51c66, type: 3}
+  m_PrefabInstance: {fileID: 1453805046}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &726544724 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 376571520, guid: 003b576663d466f45a7361de1eb51c66, type: 3}
   m_PrefabInstance: {fileID: 1453805046}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &730185353
@@ -32000,7 +32005,7 @@ MonoBehaviour:
   filePath: Assets/Conversations/Toxic/43_Necklace_Gift.txt
   disappearOld: 0
   audi: {fileID: 0}
-  ani: {fileID: 0}
+  ani: {fileID: 726544724}
   aniName: 
   resetAfter: 0
 --- !u!1001 &1088754998
@@ -38505,7 +38510,7 @@ MonoBehaviour:
   grandperson: {fileID: 1300572178}
   talk: {fileID: 1551444940}
   filePath: Assets/Conversations/Toxic/35_Story-Toxic.txt
-  disappearOld: 1
+  disappearOld: 0
   audi: {fileID: 0}
   ani: {fileID: 0}
   aniName: 
@@ -39879,7 +39884,7 @@ MonoBehaviour:
   filePath: Assets/Conversations/Toxic/37_Intro_CRystals.txt
   disappearOld: 0
   audi: {fileID: 0}
-  ani: {fileID: 1076633085}
+  ani: {fileID: 726544724}
   aniName: work
   resetAfter: 0
 --- !u!1001 &1409377458
@@ -43192,7 +43197,7 @@ MonoBehaviour:
   filePath: Assets/Conversations/Toxic/37_Intro_CRystals.txt
   disappearOld: 0
   audi: {fileID: 0}
-  ani: {fileID: 1076633085}
+  ani: {fileID: 726544724}
   aniName: 
   resetAfter: 0
 --- !u!114 &1836738364 stripped

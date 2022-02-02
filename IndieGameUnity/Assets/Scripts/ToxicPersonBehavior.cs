@@ -20,6 +20,7 @@ public class ToxicPersonBehavior : Puzzle
     {
 
         f.Freeze(true);
+        gameObject.SetActive(false);
     }
 
     public override void Move(int i)
