@@ -20,7 +20,7 @@ public class Conversation : MonoBehaviour
     private void Start()
     {
         canvas = transform.Find("Canvas").gameObject;
-        Reset();
+        //Reset();
     }
     // Start is called before the first frame update
     public void Reset()
@@ -87,7 +87,7 @@ public class Conversation : MonoBehaviour
         currentlyReading = false;
         if (continuous)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(2);
             ReadNextLine(true);
         }
     }

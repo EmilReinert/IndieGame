@@ -119,6 +119,7 @@ GameObject.FindObjectsOfType<Note>())
     {
         GameObject.Find("Player").GetComponentInChildren<Animator>().SetBool("Cfront", false);
         GameObject.FindObjectOfType<Walk>().Freeze(false);
+        gameObject.SetActive(false);
     }
 
     public override void Move(int i)

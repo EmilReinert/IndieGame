@@ -40,15 +40,16 @@ public class CutScene : Puzzle
     public override void StartPuzzle()
     {
         Start();
-        if (filePath == null || filePath == "") done = true;
+        grandperson.SetActive(true);
+        grandperson.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
+        if (ani != null) { ani.SetBool(aniName, true); }
+        if (freezePlayer) playerWalk.Freeze(true, false);
         talk.StartNew(filePath);
 
         if (freezePlayer)
             talk.ReadNextLine(false); // triggers full dialogue with continous = true
         else talk.ReadNextLine(true);
 
-        if (ani != null) { ani.SetBool(aniName, true); }
-        if (freezePlayer) playerWalk.Freeze(true,false);
 
         if (audi != null)
         {
