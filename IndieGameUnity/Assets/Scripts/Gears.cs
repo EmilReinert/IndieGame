@@ -27,6 +27,7 @@ public class Gears : Puzzle
         gears[pointer].SetActive(true);
         playergear.SetActive(false);  // releasing gear
 
+        GetComponent<AudioSource>().Play();
         ani.SetBool("Cfront", false);
         if (pointer >= gears.Length-1) { done = true; return; }
         pointer++;

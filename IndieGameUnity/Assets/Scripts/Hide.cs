@@ -7,6 +7,7 @@ public class Hide : Puzzle
     public GameObject playerBody;
     private GameObject player;
     private Walk playerWalk;
+
     
 
    int oneheld; // both hands need to be held. this stores whetehr one is held at the moment 

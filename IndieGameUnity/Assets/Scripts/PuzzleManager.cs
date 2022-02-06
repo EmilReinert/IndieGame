@@ -14,8 +14,14 @@ public class PuzzleManager : MonoBehaviour
     public bool endcut = false;
     public GameObject positionSphere;
 
+    public AudioClip audi1;
+    public AudioClip audi2;
+    public AudioClip audiLoop;
+    private AudioSource au;
+
     public void Start()
     {
+        au = GetComponent<AudioSource>();
         GM = GameObject.FindObjectOfType<GameManager>();
         l = GetComponent<Level>();
         ended = false;
@@ -23,6 +29,10 @@ public class PuzzleManager : MonoBehaviour
 
     public void StartPuzzles()
     {
+        if (audiLoop != null) { au.clip = audiLoop;
+            au.loop = true;
+            au.Play();
+        }
         Start();
         if (positionSphere != null)
         {
@@ -45,9 +55,9 @@ public class PuzzleManager : MonoBehaviour
     public void EndPuzzles()
     {
         if (ended) return;
-
-       // if (puzzleObjects != null) {            puzzleObjects.SetActive(false);        }
-        foreach (Puzzle p in puzzles)
+        if (audiLoop != null) au.Pause();
+            // if (puzzleObjects != null) {            puzzleObjects.SetActive(false);        }
+            foreach (Puzzle p in puzzles)
         {
             if (p != null)
             {
@@ -60,6 +70,7 @@ public class PuzzleManager : MonoBehaviour
 
         if (l != null) 
         l.EndLevel();
+
 
     }
     public void UpdatePuzzles()
@@ -77,8 +88,25 @@ public class PuzzleManager : MonoBehaviour
 
                 if (Input.GetButton("Fire2") || Input.GetButton("Fire1"))
                 {
-                    // continuous update
-                    if (p.contiuous)
+                    if (Input.GetButton("Fire2"))
+                    {
+                        if (audi1 != null)
+                        {
+                            au.clip = audi1;
+                            au.Play();
+                        }
+                    }
+                    if (Input.GetButton("Fire1"))
+                    {
+                        if (audi2 != null)
+                        {
+                            au.clip = audi2;
+                            au.Play();
+                        }
+
+                    }
+                        // continuous update
+                        if (p.contiuous)
                     {
                         if (Input.GetButton("Fire2")) { move = -1; }
                         if (Input.GetButton("Fire1")) { move = 1; }

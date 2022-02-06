@@ -28,7 +28,7 @@ public class Conversation : MonoBehaviour
     {
         canvas.SetActive(false);
         StopAllCoroutines();
-        talkspeed = 0.01f;
+        talkspeed = 0.02f;
         textOver = false;
         paragraphIDX = 0;
         paragraphs = new List<string>();

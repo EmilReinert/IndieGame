@@ -36,7 +36,7 @@ public class GrandWalk : Puzzle
     {
         if (f.done) done = true;
         if (localFreeze) return;
-        print("hi");
+
 
         float currentDistance =Vector3.Distance( player.transform.position,f.transform.position);
         float speed = -(1 / maxDist) * currentDistance + 1;

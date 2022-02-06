@@ -10,14 +10,17 @@ public class StayInframe : MonoBehaviour
     public float h;
     public float w;
 
+    Vector3 startscale;
+
     // Start is called before the first frame update
     void Start()
     {
-        h = 2f;
-        w = 7f;
+        h = 3f;
+        w = 10f;
         c = GameObject.Find("Main Camera").GetComponentInChildren<Camera>() ;
         startLoc = transform.localPosition;
         modified = false;
+        startscale = transform.localScale;
     }
 
     // Update is called once per frame
@@ -66,5 +69,10 @@ public class StayInframe : MonoBehaviour
             }
         }
         //transform.position = new Vector3(transform.position.x, transform.position.y, c.WorldToScreenPoint(new Vector3 (0,0,0)).z);
+
+        float scale = Vector3.Distance(c.transform.position, transform.position);
+        transform.localScale = startscale *( scale/20);
+        if (transform.localScale.magnitude < startscale.magnitude)
+            transform.localScale = startscale;
     }
 }

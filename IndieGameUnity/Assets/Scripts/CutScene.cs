@@ -17,6 +17,8 @@ public class CutScene : Puzzle
     public Animator ani;
     public string aniName;
     public bool resetAfter = false;
+
+    public GameObject giveItem;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,7 @@ public class CutScene : Puzzle
         {  ani.SetBool(aniName, false); }
         frame = talk.GetComponent<StayInframe>();
         frame.enabled = false;
+        if (giveItem != null) giveItem.SetActive(false);
     }
 
     // Update is called once per frame
@@ -43,6 +46,9 @@ public class CutScene : Puzzle
         grandperson.SetActive(true);
         grandperson.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
         if (ani != null && aniName != "" && aniName != null) { ani.SetBool(aniName, true); }
+        if (giveItem != null)
+        { giveItem.SetActive(true); }
+
         if (freezePlayer) playerWalk.Freeze(true, false);
         talk.StartNew(filePath);
 
@@ -57,6 +63,7 @@ public class CutScene : Puzzle
             GetComponent<AudioSource>().Play();
         }
         frame.enabled = true;
+
     }
 
     public override void EndPuzzle()
@@ -68,6 +75,7 @@ public class CutScene : Puzzle
             grandperson.SetActive(false);
         if (ani != null && resetAfter)        { ani.SetBool(aniName, false); }
         if (freezePlayer) playerWalk.Freeze(false);
+        if (giveItem != null) giveItem.SetActive(false);
     }
 
     public override void Move(int i)

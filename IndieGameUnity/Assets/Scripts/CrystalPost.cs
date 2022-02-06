@@ -17,6 +17,7 @@ public class CrystalPost : Puzzle
 
     private Color startcolor;
 
+    public AudioClip corr;
 
     private LakeBehaviour[] lakes;
 
@@ -109,6 +110,11 @@ public class CrystalPost : Puzzle
         {
             if (next != null)
             {
+                if (corr != null && !next.glow)
+                {
+                    GetComponent<AudioSource>().clip = corr;
+                    GetComponent<AudioSource>().Play();
+                }
                 next.StartGlow();
                 next.ray.SetActive(true);
             }

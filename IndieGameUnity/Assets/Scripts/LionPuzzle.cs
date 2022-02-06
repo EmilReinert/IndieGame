@@ -13,6 +13,7 @@ public class LionPuzzle : Puzzle
     private bool seeing; // lion seeing player
     private bool failing=false;
     public GameObject goalsphere;
+    public AudioClip h;
 
     public GameObject steak;
     private void Start()
@@ -51,7 +52,8 @@ public class LionPuzzle : Puzzle
         inbush = false;
         foreach(GameObject b in bushes)
         {
-            if (b.GetComponent<TriggerManager>().isEntered) inbush = true;
+            if (b.GetComponent<TriggerManager>().isEntered) {if (inbush == false) { GetComponent<AudioSource>().clip = h; GetComponent<AudioSource>().Play(); }
+                    inbush = true;  }
         }
 
         if (seeing)
