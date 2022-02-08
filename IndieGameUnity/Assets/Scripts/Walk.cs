@@ -140,7 +140,7 @@ public class Walk : MonoBehaviour
             Vector3 eulerRot = new Vector3(0, 0, 1);
             while (Mathf.Abs(start) <= Mathf.Abs(i))
             {
-                start += Time.deltaTime * (i / steps) * 40;
+                start += Time.deltaTime * (i / steps) * 100;
 
             if (freeze && rotate) break;
 

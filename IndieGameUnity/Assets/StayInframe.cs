@@ -7,16 +7,16 @@ public class StayInframe : MonoBehaviour
     Camera c;
     Vector3 startLoc;
     bool modified;
-    public float h;
-    public float w;
+    public float hh;
+    public float ww;
 
     Vector3 startscale;
 
     // Start is called before the first frame update
     void Start()
     {
-        h = 3f;
-        w = 10f;
+        hh = 4f;
+        ww = 12f;
         c = GameObject.Find("Main Camera").GetComponentInChildren<Camera>() ;
         startLoc = transform.localPosition;
         modified = false;
@@ -26,6 +26,8 @@ public class StayInframe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float w = transform.localScale.x * ww;
+        float h = transform.localScale.x * hh;
             // curretn pos inscreen
         Vector3 current = transform.parent.TransformPoint(startLoc);
         // float h =Mathf.Abs( c.WorldToScreenPoint(current - new Vector3(0, 1, 0) * mh).y);
@@ -72,7 +74,6 @@ public class StayInframe : MonoBehaviour
 
         float scale = Vector3.Distance(c.transform.position, transform.position);
         transform.localScale = startscale *( scale/20);
-        if (transform.localScale.magnitude < startscale.magnitude)
-            transform.localScale = startscale;
+        //if (transform.localScale.magnitude < startscale.magnitude)            transform.localScale = startscale;
     }
 }

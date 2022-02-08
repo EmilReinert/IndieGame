@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6109804749413496287}
   - component: {fileID: 1353377968363937129}
   - component: {fileID: 9005443348943627918}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,12 +87,12 @@ GameObject:
   - component: {fileID: 4574308507573496302}
   - component: {fileID: 4574308507573496303}
   - component: {fileID: 4574308507573496296}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 0
 --- !u!4 &4574308507573496297
 Transform:
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 4574308507890392309}
   - component: {fileID: 4574308507890392299}
   - component: {fileID: 4574308507890392308}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,12 +237,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 2
+    m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+    m_FontSize: 3
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 40
+    m_MaxSize: 50
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -264,7 +264,9 @@ GameObject:
   - component: {fileID: 4574308508200084561}
   - component: {fileID: 5049138999063712887}
   - component: {fileID: 2600656196900175809}
-  m_Layer: 0
+  - component: {fileID: 7857077802127479724}
+  - component: {fileID: 5780501782975412061}
+  m_Layer: 10
   m_Name: talkbubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,8 +330,142 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c188886b2d842e04980f685a0f48c9c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  h: 0
-  w: 0
+  hh: 0
+  ww: 0
+--- !u!82 &7857077802127479724
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4574308508200084563}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1.64
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 210
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &5780501782975412061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4574308508200084563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 305cb9f3d9f0e364f87a4fa851ef32b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  A: {fileID: 8300000, guid: 0e105e6c0b4022d4bbca0bc590b988ba, type: 3}
+  B: {fileID: 8300000, guid: 2105edcc61151874381d0f37b001ccb8, type: 3}
+  C: {fileID: 8300000, guid: 131efb8d9faffeb47b7e957b0edb3f9a, type: 3}
+  D: {fileID: 8300000, guid: 24f2112a2f1a896439d5c844c2b478e2, type: 3}
+  E: {fileID: 8300000, guid: bc7e99c98ffb4694dbd16a798b00997d, type: 3}
+  F: {fileID: 8300000, guid: 9d33d122fe2cbe7458635457b6930cf9, type: 3}
+  G: {fileID: 8300000, guid: cab05076a3619354bbe47e75705e427a, type: 3}
+  H: {fileID: 8300000, guid: 185084cede66e6e41b198e067a2715a4, type: 3}
+  I: {fileID: 8300000, guid: 498b260d30c192843af4ad484c714549, type: 3}
+  J: {fileID: 8300000, guid: b9164200a1b65a047ac56118dbe6f27f, type: 3}
+  K: {fileID: 8300000, guid: 32efed53ba8ab73469122e91331c007b, type: 3}
+  L: {fileID: 8300000, guid: b35eab0d8d7a54f44b99a970f4a6f891, type: 3}
+  M: {fileID: 8300000, guid: cd694b249825c144c90620df4f25af73, type: 3}
+  N: {fileID: 8300000, guid: cbaae137742fb554faea7c08f02c37dd, type: 3}
+  O: {fileID: 8300000, guid: 9cdfbba2009b56c4082aa2cf51bf430f, type: 3}
+  P: {fileID: 8300000, guid: 65c524ac32bbb3f49beda36d5d102dda, type: 3}
+  Q: {fileID: 8300000, guid: ce0c436cc7150364ba7705478ea7441c, type: 3}
+  R: {fileID: 8300000, guid: e12f35cf5d727634097b00d1faa105c4, type: 3}
+  S: {fileID: 8300000, guid: c1dd15cc977aa0848a7090560dc1c8bd, type: 3}
+  T: {fileID: 8300000, guid: 42cf49a43f9d71f49b25b21922fece5c, type: 3}
+  U: {fileID: 8300000, guid: 26e7e2473f40acb4dae915007bf51f66, type: 3}
+  V: {fileID: 8300000, guid: 196e5220b33dd674586cb7cda65b9979, type: 3}
+  W: {fileID: 8300000, guid: 53448114977a78a4bb317e4bd9b79fe2, type: 3}
+  X: {fileID: 8300000, guid: 13827b11359031940a501feac6bea541, type: 3}
+  Y: {fileID: 8300000, guid: 71d18aa71b9fa6149af4183077e9b6a7, type: 3}
+  Z: {fileID: 8300000, guid: 582fd029154138940bd23cdd788cdece, type: 3}
 --- !u!1 &4574308508397781025
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +478,7 @@ GameObject:
   - component: {fileID: 4574308508397781029}
   - component: {fileID: 4574308508397781030}
   - component: {fileID: 4574308508397781031}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

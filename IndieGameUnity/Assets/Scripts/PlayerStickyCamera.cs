@@ -98,7 +98,7 @@ public class PlayerStickyCamera : MonoBehaviour
         cam.fieldOfView = fov;
 
         float tParam = 0;
-        while (tParam <= 1)
+        while (tParam < 1)
         {
             tParam += Time.deltaTime * speedModifier;
             cambase.transform.position = Vector3.Lerp(startCamPosition, targetPosition, tParam);
@@ -109,7 +109,7 @@ public class PlayerStickyCamera : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         yield return new WaitForEndOfFrame();
-        cambase.transform.position = targetPosition;
+        //cambase.transform.position = targetPosition;
     }
 
     public void ResetOffset()

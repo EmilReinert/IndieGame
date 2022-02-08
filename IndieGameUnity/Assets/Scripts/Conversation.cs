@@ -14,11 +14,12 @@ public class Conversation : MonoBehaviour
     bool continuous;
     private float talkspeed; //  == waiting betweeen words
     public GameObject canvas;
-
+    private VoiceOver voice;
     public bool textOver; // true when last line is read
 
     private void Start()
     {
+        voice = GetComponent<VoiceOver>();
         canvas = transform.Find("Canvas").gameObject;
         canvas.SetActive(false);
         //Reset();
@@ -28,7 +29,7 @@ public class Conversation : MonoBehaviour
     {
         canvas.SetActive(false);
         StopAllCoroutines();
-        talkspeed = 0.02f;
+        talkspeed = 0.04f;
         textOver = false;
         paragraphIDX = 0;
         paragraphs = new List<string>();
@@ -77,12 +78,14 @@ public class Conversation : MonoBehaviour
 
     IEnumerator ReadSlowly(string t, float time)
     {
+        yield return new WaitForSeconds(1);
         currentlyReading = true;
         string subtext = "";
         for (int i =0; i < t.Length; i++)
         {
             subtext += t[i];
             text.text = subtext;
+            voice.PlayLetter(char.ToUpper(t[i]));
             yield return new WaitForSeconds(time);
         }
         currentlyReading = false;

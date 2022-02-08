@@ -1,5 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4579552268957816544
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65e486e4de6e5448a8fbb43dc8756a0, type: 3}
+  m_Name: Grain
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  colored:
+    overrideState: 1
+    value: 0
+  intensity:
+    overrideState: 1
+    value: 0.779
+  size:
+    overrideState: 1
+    value: 1.53
+  lumContrib:
+    overrideState: 1
+    value: 0.122
 --- !u!114 &-2253029687030083930
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -12,107 +40,107 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb84e30e02715445aeb9959894e3b4d, type: 3}
   m_Name: ColorGrading
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
   gradingMode:
-    overrideState: 0
+    overrideState: 1
     value: 1
   externalLut:
-    overrideState: 0
+    overrideState: 1
     value: {fileID: 0}
     defaultState: 1
   tonemapper:
-    overrideState: 0
+    overrideState: 1
     value: 0
   toneCurveToeStrength:
-    overrideState: 0
+    overrideState: 1
     value: 0
   toneCurveToeLength:
-    overrideState: 0
+    overrideState: 1
     value: 0.5
   toneCurveShoulderStrength:
-    overrideState: 0
+    overrideState: 1
     value: 0
   toneCurveShoulderLength:
-    overrideState: 0
+    overrideState: 1
     value: 0.5
   toneCurveShoulderAngle:
-    overrideState: 0
+    overrideState: 1
     value: 0
   toneCurveGamma:
-    overrideState: 0
+    overrideState: 1
     value: 1
   ldrLut:
-    overrideState: 0
+    overrideState: 1
     value: {fileID: 0}
     defaultState: 4
   ldrLutContribution:
-    overrideState: 0
+    overrideState: 1
     value: 1
   temperature:
-    overrideState: 0
+    overrideState: 1
     value: 0
   tint:
-    overrideState: 0
+    overrideState: 1
     value: 0
   colorFilter:
-    overrideState: 0
-    value: {r: 1, g: 1, b: 1, a: 1}
+    overrideState: 1
+    value: {r: 0.64690024, g: 0.84110683, b: 1, a: 1}
   hueShift:
-    overrideState: 0
+    overrideState: 1
     value: 0
   saturation:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: -4
   brightness:
-    overrideState: 0
+    overrideState: 1
     value: 0
   postExposure:
-    overrideState: 0
+    overrideState: 1
     value: 0
   contrast:
     overrideState: 1
     value: 1.9
   mixerRedOutRedIn:
-    overrideState: 0
-    value: 100
+    overrideState: 1
+    value: 105
   mixerRedOutGreenIn:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 110
   mixerRedOutBlueIn:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: -200
   mixerGreenOutRedIn:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 2
   mixerGreenOutGreenIn:
-    overrideState: 0
-    value: 100
+    overrideState: 1
+    value: -5
   mixerGreenOutBlueIn:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 87
   mixerBlueOutRedIn:
-    overrideState: 0
+    overrideState: 1
     value: 0
   mixerBlueOutGreenIn:
-    overrideState: 0
+    overrideState: 1
     value: 0
   mixerBlueOutBlueIn:
-    overrideState: 0
+    overrideState: 1
     value: 100
   lift:
-    overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    overrideState: 1
+    value: {x: 0.7685704, y: 0.74107873, z: 1, w: 0}
   gamma:
-    overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    overrideState: 1
+    value: {x: 0.93987346, y: 1, z: 0.78691965, w: 0}
   gain:
-    overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    overrideState: 1
+    value: {x: 0.7611424, y: 0.83337605, z: 1, w: 0}
   masterCurve:
-    overrideState: 0
+    overrideState: 1
     value:
       curve:
         serializedVersion: 2
@@ -271,7 +299,7 @@ MonoBehaviour:
       - 0.984375
       - 0.9921875
   redCurve:
-    overrideState: 0
+    overrideState: 1
     value:
       curve:
         serializedVersion: 2
@@ -430,7 +458,7 @@ MonoBehaviour:
       - 0.984375
       - 0.9921875
   greenCurve:
-    overrideState: 0
+    overrideState: 1
     value:
       curve:
         serializedVersion: 2
@@ -589,7 +617,7 @@ MonoBehaviour:
       - 0.984375
       - 0.9921875
   blueCurve:
-    overrideState: 0
+    overrideState: 1
     value:
       curve:
         serializedVersion: 2
@@ -748,7 +776,7 @@ MonoBehaviour:
       - 0.984375
       - 0.9921875
   hueVsHueCurve:
-    overrideState: 0
+    overrideState: 1
     value:
       curve:
         serializedVersion: 2
@@ -889,7 +917,7 @@ MonoBehaviour:
       - 0.5
       - 0.5
   hueVsSatCurve:
-    overrideState: 0
+    overrideState: 1
     value:
       curve:
         serializedVersion: 2
@@ -1030,7 +1058,7 @@ MonoBehaviour:
       - 0.5
       - 0.5
   satVsSatCurve:
-    overrideState: 0
+    overrideState: 1
     value:
       curve:
         serializedVersion: 2
@@ -1171,7 +1199,7 @@ MonoBehaviour:
       - 0.5
       - 0.5
   lumVsSatCurve:
-    overrideState: 0
+    overrideState: 1
     value:
       curve:
         serializedVersion: 2
@@ -1326,6 +1354,7 @@ MonoBehaviour:
   settings:
   - {fileID: 4034676279390936174}
   - {fileID: -2253029687030083930}
+  - {fileID: -4579552268957816544}
 --- !u!114 &4034676279390936174
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1344,7 +1373,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 9.26
+    value: 4.64
   threshold:
     overrideState: 1
     value: 1.1
@@ -1362,7 +1391,7 @@ MonoBehaviour:
     value: -0.123
   color:
     overrideState: 1
-    value: {r: 1.082353, g: 0.6431373, b: 0.15686275, a: 1}
+    value: {r: 1.5298489, g: 0.98092574, b: 0.6432787, a: 1}
   fastMode:
     overrideState: 1
     value: 0

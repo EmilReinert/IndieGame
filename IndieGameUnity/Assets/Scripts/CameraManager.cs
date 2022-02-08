@@ -9,7 +9,7 @@ public class CameraManager : MonoBehaviour
 
     public CameraPos cameraPosition;
     public float distance;
-    public float fov;
+   // public float fov;
     public int tilt;
     public bool followRotation = false;
 
@@ -26,7 +26,7 @@ public class CameraManager : MonoBehaviour
         player = GameObject.Find("Player");
         mainCam = GameObject.Find("Main Camera");
         stickyCam = mainCam.GetComponent<PlayerStickyCamera>();
-        if (fov == 0) fov = 60;
+      //  if (fov == 0) fov = 60;
         if (tilt == 0) tilt = 20;
         if (distance == 0) distance = 20;
         stickyCam.transition = true;
@@ -40,7 +40,7 @@ public class CameraManager : MonoBehaviour
     {
         stickyCam.transition = true;
         stickyCam.offset = GetCameraOff();
-        stickyCam.fov = fov;
+     //   stickyCam.fov = fov;
 
         if (copyCam != null)
         {
@@ -57,7 +57,7 @@ public class CameraManager : MonoBehaviour
     public void RemainCameraSettings()
     {
         stickyCam.offset = GetCameraOff();
-        stickyCam.fov = fov;
+      //  stickyCam.fov = fov;
 
     }
 
