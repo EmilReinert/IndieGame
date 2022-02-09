@@ -29,7 +29,7 @@ public class Conversation : MonoBehaviour
     {
         canvas.SetActive(false);
         StopAllCoroutines();
-        talkspeed = 0.04f;
+        talkspeed = 0.03f;
         textOver = false;
         paragraphIDX = 0;
         paragraphs = new List<string>();
@@ -66,8 +66,11 @@ public class Conversation : MonoBehaviour
             return; }
         if (currentlyReading)
             Abort();
-        StartCoroutine(
-            ReadSlowly(paragraphs[paragraphIDX], talkspeed)); 
+        {
+            StopAllCoroutines();
+            StartCoroutine(
+                ReadSlowly(paragraphs[paragraphIDX], talkspeed));
+        }
     }
 
     void Abort()
@@ -78,7 +81,6 @@ public class Conversation : MonoBehaviour
 
     IEnumerator ReadSlowly(string t, float time)
     {
-        yield return new WaitForSeconds(1);
         currentlyReading = true;
         string subtext = "";
         for (int i =0; i < t.Length; i++)

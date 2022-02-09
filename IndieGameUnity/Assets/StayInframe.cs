@@ -15,8 +15,8 @@ public class StayInframe : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hh = 4f;
-        ww = 12f;
+        hh = 2f;
+        ww = 4f;
         c = GameObject.Find("Main Camera").GetComponentInChildren<Camera>() ;
         startLoc = transform.localPosition;
         modified = false;
@@ -32,15 +32,7 @@ public class StayInframe : MonoBehaviour
         Vector3 current = transform.parent.TransformPoint(startLoc);
         // float h =Mathf.Abs( c.WorldToScreenPoint(current - new Vector3(0, 1, 0) * mh).y);
         // float w = Mathf.Abs(c.WorldToScreenPoint(current - new Vector3(1, 0, 0) * mw).x);
-
-        if (c.WorldToScreenPoint(current).x - w < Screen.width && c.WorldToScreenPoint(current).x + w > 0
-                && c.WorldToScreenPoint(current).y - h < Screen.height && c.WorldToScreenPoint(current).y + h > 0)
-        {
-
-            transform.position = current;
-        }
-        else
-        {
+        
 
             if (c.WorldToScreenPoint(current).x - w > Screen.width)// || c.WorldToScreenPoint(transform.position).y > Screen.height / 2)
             {
@@ -69,7 +61,7 @@ public class StayInframe : MonoBehaviour
                 start = c.ScreenToWorldPoint(new Vector3(c.WorldToScreenPoint(current).x, 0, c.WorldToScreenPoint(current).z));
                 transform.position = new Vector3(transform.position.x, start.y + h, transform.position.z);
             }
-        }
+        
         //transform.position = new Vector3(transform.position.x, transform.position.y, c.WorldToScreenPoint(new Vector3 (0,0,0)).z);
 
         float scale = Vector3.Distance(c.transform.position, transform.position);
