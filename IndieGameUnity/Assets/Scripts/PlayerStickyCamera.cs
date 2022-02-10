@@ -132,7 +132,7 @@ public class PlayerStickyCamera : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         cambase.transform.position = targetPosition;
-        cam.transform.rotation = Quaternion.LookRotation((targetPosition - cam.transform.position));
+        //cam.transform.rotation = Quaternion.LookRotation((targetPosition - cam.transform.position));
         yield return new WaitForEndOfFrame();
     }
 
@@ -155,14 +155,4 @@ public class PlayerStickyCamera : MonoBehaviour
     }
 
 
-    ///
-    private void OnTriggerEnter(Collider other)
-    {
-        other.GetComponent<Renderer>().enabled = false;
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        other.GetComponent<Renderer>().enabled = false;
-
-    }
 }

@@ -50,8 +50,9 @@ public class CutScene : Puzzle
         { giveItem.SetActive(true); }
 
         if (freezePlayer) playerWalk.Freeze(true, false);
-        talk.StartNew(filePath);
 
+        if (filePath == "" || filePath == null) return;
+            talk.StartNew(filePath);
         if (freezePlayer)
             talk.ReadNextLine(false); // triggers full dialogue with continous = true
         else talk.ReadNextLine(true);

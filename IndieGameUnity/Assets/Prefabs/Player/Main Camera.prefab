@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 820353275891964550}
   - component: {fileID: 1479494796917562064}
   - component: {fileID: 4897822477319400520}
+  - component: {fileID: 7604545207293398721}
+  - component: {fileID: 7070482892971954269}
   m_Layer: 0
   m_Name: cam
   m_TagString: MainCamera
@@ -163,6 +165,31 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 3.95
+--- !u!135 &7604545207293398721
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41072865768756416}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7070482892971954269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41072865768756416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31253abcff800964686c84460701c30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7757445662153641339
 GameObject:
   m_ObjectHideFlags: 0
