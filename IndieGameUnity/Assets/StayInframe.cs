@@ -27,7 +27,7 @@ public class StayInframe : MonoBehaviour
     void Update()
     {
         float w = transform.localScale.x * ww;
-        float h = transform.localScale.x * hh;
+        float h = transform.localScale.y * hh;
             // curretn pos inscreen
         Vector3 current = transform.parent.TransformPoint(startLoc);
         // float h =Mathf.Abs( c.WorldToScreenPoint(current - new Vector3(0, 1, 0) * mh).y);

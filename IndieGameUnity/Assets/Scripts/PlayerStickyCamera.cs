@@ -99,8 +99,11 @@ public class PlayerStickyCamera : MonoBehaviour
             cam.fieldOfView = Mathf.Lerp(tempFOV, fov, tParam);
             yield return new WaitForEndOfFrame();
         }
-        transition = false;
+        cam.transform.position = transform.rotation * offset;
+        cam.transform.rotation=Quaternion.LookRotation((targetPosition - cam.transform.position));
+
         cambase.transform.position = targetPosition;
+        transition = false;
 
        // player.GetComponent<Walk>().Freeze(false);
     }
@@ -128,8 +131,9 @@ public class PlayerStickyCamera : MonoBehaviour
             cam.fieldOfView = Mathf.Lerp(tempFOV, fov, tParam);
             yield return new WaitForEndOfFrame();
         }
+        cambase.transform.position = targetPosition;
+        cam.transform.rotation = Quaternion.LookRotation((targetPosition - cam.transform.position));
         yield return new WaitForEndOfFrame();
-        //cambase.transform.position = targetPosition;
     }
 
     public void ResetOffset()
@@ -148,5 +152,17 @@ public class PlayerStickyCamera : MonoBehaviour
         Vector3 v = cambase.transform.position - cam.transform.position;
         v.y = 0;
         return v;
+    }
+
+
+    ///
+    private void OnTriggerEnter(Collider other)
+    {
+        other.GetComponent<Renderer>().enabled = false;
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        other.GetComponent<Renderer>().enabled = false;
+
     }
 }

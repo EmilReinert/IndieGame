@@ -54,43 +54,54 @@ public class Conversation : MonoBehaviour
         canvas.SetActive(true);
         if (textOver) return;
         ReadLine();
-        paragraphIDX++;
     }
 
     void ReadLine()
     {
         if (paragraphIDX >= paragraphs.Count) {
-            text.text = ""; textOver = true;
-            canvas.SetActive(false);
-
+            StartCoroutine(End());
             return; }
         if (currentlyReading)
-            Abort();
+        {
+            StopAllCoroutines(); StartCoroutine(
+             Abort());
+        }
+        else 
         {
             StopAllCoroutines();
             StartCoroutine(
                 ReadSlowly(paragraphs[paragraphIDX], talkspeed));
+            paragraphIDX++;
         }
     }
 
-    void Abort()
+    IEnumerator Abort()
     {
-        StopAllCoroutines();
         text.text = paragraphs[paragraphIDX-1];
-    }
+        currentlyReading = false;
 
+        yield return new WaitForSeconds(1);
+    }
+    IEnumerator End()
+    {
+        if(paragraphs.Count!=0)
+            text.text = paragraphs[paragraphIDX - 1];
+        yield return new WaitForSeconds(1);
+        text.text = ""; textOver = true;
+        canvas.SetActive(false);
+    }
     IEnumerator ReadSlowly(string t, float time)
     {
         currentlyReading = true;
         string subtext = "";
         for (int i =0; i < t.Length; i++)
         {
+            //if (t[i] == 't') subtext += 'T'; else
             subtext += t[i];
             text.text = subtext;
             voice.PlayLetter(char.ToUpper(t[i]));
-            yield return new WaitForSeconds(time);
+            yield return new WaitForEndOfFrame(); //WaitForSeconds(time);
         }
-        currentlyReading = false;
         if (continuous)
         {
             yield return new WaitForSeconds(2);
