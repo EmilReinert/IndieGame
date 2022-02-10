@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     {
         if (currentLevel == null)
         {
+            if (cm == null) return;
             cm.RemainCameraSettings();
         }
 

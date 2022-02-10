@@ -7,6 +7,7 @@ public class LionPuzzle : Puzzle
     public GameObject bushContainer;
     private GameObject[] bushes;
     public GameObject lionBody;
+    public GameObject lionBody2;
     public FollowRoute realLion;
     private Hide hide;
     private bool inbush;
@@ -18,6 +19,8 @@ public class LionPuzzle : Puzzle
     public GameObject steak;
     private void Start()
     {
+        lionBody.SetActive(true);
+        lionBody2.SetActive(false);
         TriggerManager[] t = bushContainer.GetComponentsInChildren<TriggerManager>();
         bushes = new GameObject[t.Length];
         for (int i = 0; i < t.Length; i++)
@@ -30,6 +33,10 @@ public class LionPuzzle : Puzzle
     }
     public override void EndPuzzle()
     {
+        lionBody.SetActive(false);
+        lionBody2.SetActive(true);
+        steak.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 
     public override void Move(int i)

@@ -13,8 +13,8 @@ public class SceneLoader : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if(other.gameObject == player)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if (other.gameObject == player)
+            NextScene();
     }
     private void Update()
     {
@@ -24,5 +24,20 @@ public class SceneLoader : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3)) SceneManager.LoadScene(3);
         if (Input.GetKeyDown(KeyCode.Alpha4)) SceneManager.LoadScene(4);
         if (Input.GetKeyDown(KeyCode.Alpha5)) SceneManager.LoadScene(5);
+    }
+
+    public void NextScene()
+    {
+        StartCoroutine(Next());
+    }
+    public void Startt()
+    {
+        StartCoroutine(Next()); 
+    }
+
+    IEnumerator Next()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
