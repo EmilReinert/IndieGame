@@ -91,7 +91,7 @@ public class CrystalPost : Puzzle
 
         glow = false;
         crystal.GetComponent<Renderer>().material.color = startcolor;
-
+        if (lakes == null) return;
         foreach (LakeBehaviour l in lakes)
         {
             l.decreaseByTime = true;
@@ -116,7 +116,8 @@ public class CrystalPost : Puzzle
                     GetComponent<AudioSource>().Play();
                 }
                 next.StartGlow();
-                next.ray.SetActive(true);
+                if(next.ray!=null)
+                    next.ray.SetActive(true);
             }
         }
         else

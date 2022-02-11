@@ -92,7 +92,7 @@ public class PlayerStickyCamera : MonoBehaviour
         float tParam = 0;
         while (tParam < 1)
         {
-            tParam += Time.deltaTime * speedModifier;
+            tParam += Time.deltaTime * speedModifier/2;
             cambase.transform.position = Vector3.Lerp(startCamPosition, targetPosition, tParam);
             cam.transform.position = Vector3.Lerp(startCamPosition2,transform.rotation * offset, tParam);
             cam.transform.rotation = Quaternion.LookRotation((targetPosition - cam.transform.position));// = Quaternion.Lerp(startCamRotation, targetRotation, tParam * 2);

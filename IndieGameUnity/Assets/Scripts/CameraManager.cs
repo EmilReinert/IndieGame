@@ -11,6 +11,7 @@ public class CameraManager : MonoBehaviour
     public float distance;
    // public float fov;
     public int tilt;
+    public int rot=0;
     public bool followRotation = false;
 
     public GameObject copyCam;
@@ -53,6 +54,7 @@ public class CameraManager : MonoBehaviour
         }
 
 
+
     }
     public void RemainCameraSettings()
     {
@@ -75,6 +77,7 @@ public class CameraManager : MonoBehaviour
         {
             return copyCam.transform.position;
         }
+
         switch (cameraPosition)
         {
             case CameraPos.Front: off = new CameraPosition(0, tilt, distance); break;
@@ -84,6 +87,8 @@ public class CameraManager : MonoBehaviour
             case CameraPos.TopFront: off = new CameraPosition(0, 70, distance); break;
             default: off = new CameraPosition(); break;
         }
-        return player.transform.position - off.GetOffsetAngle() - new Vector3(0, 2, 0);
+        if(rot!=0)
+            return Quaternion.Euler(0,rot,0)*( player.transform.position - off.GetOffsetAngle() );
+        return player.transform.position - off.GetOffsetAngle() ;
     }
 }

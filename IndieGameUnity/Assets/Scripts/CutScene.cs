@@ -88,6 +88,6 @@ public class CutScene : Puzzle
         //if (Input.GetKeyDown(KeyCode.Space)) done = true;
         if (talk.textOver) done = true;
         
-        if (Input.GetButtonDown("Fire3")|| Input.GetKeyDown(KeyCode.Space)) talk.ReadNextLine(false);
+        if (Input.GetButtonDown("Fire3")|| Input.GetKeyDown(KeyCode.Space)) talk.ReadNextLine(true);
     }
 }

@@ -11,11 +11,15 @@ public class GameManager : MonoBehaviour
     PlayerStickyCamera stickyCam;
     private CameraManager cm;
 
+
     //UI
     public GameObject leftButton;
     public GameObject rightButton;
     public Material defaultMaterial;
     public Material highlightMaterial;
+    public GameObject menu;
+    public GameObject overlay;
+    
     private bool moving;
 
     private void Start()
@@ -40,9 +44,7 @@ public class GameManager : MonoBehaviour
         if (l == currentLevel) return;
         if (currentLevel != null) {
             currentLevel.EndLevel();
-
-            if (currentLevel.pm.endcut) Cut();
-
+            
             if (currentLevel.playing) return;
         }
         currentLevel = l;
@@ -123,7 +125,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void Cut()
-    {
+    {if (overlay.activeSelf) return;
+        overlay.SetActive(true);
         transform.GetComponentInChildren<Animator>().SetTrigger("cut");
     }
 }

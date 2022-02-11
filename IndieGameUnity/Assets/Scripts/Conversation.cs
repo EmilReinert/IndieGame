@@ -58,7 +58,7 @@ public class Conversation : MonoBehaviour
 
     void ReadLine()
     {
-        if (paragraphIDX >= paragraphs.Count) {
+        if (paragraphs==null|| paragraphIDX >= paragraphs.Count) {
             StartCoroutine(End());
             return; }
         if (currentlyReading)
@@ -81,10 +81,11 @@ public class Conversation : MonoBehaviour
         currentlyReading = false;
 
         yield return new WaitForSeconds(1);
+        ReadNextLine(true);
     }
     IEnumerator End()
     {
-        if(paragraphs.Count!=0)
+        if(paragraphs!=null&& paragraphs.Count!=0)
             text.text = paragraphs[paragraphIDX - 1];
         yield return new WaitForSeconds(1);
         text.text = ""; textOver = true;
@@ -104,7 +105,7 @@ public class Conversation : MonoBehaviour
         }
         if (continuous)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
             ReadNextLine(true);
         }
     }

@@ -10,7 +10,7 @@ public class InsectStone : Puzzle
     public GameObject insectStone;
     public ToxicPersonBehavior t;
 
-    float neededtime = 10; //TODO increase later
+    float neededtime = 20; //TODO increase later
     float waittime = 3;
     float timer = 0;
     public float currenttime = 0;

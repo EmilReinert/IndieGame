@@ -85,16 +85,18 @@ public class LakeBehaviour : MonoBehaviour
 
         if (distanceMultiplyer <= 0) distanceMultiplyer = 0;
         float maxBright = distanceMultiplyer * maxIntensity;
-        
-        if (mat[0].GetFloat("_A2") >= maxBright)
+        if (mat != null&& mat[0] != null)
         {
-            SetAlpha(maxBright,true);
-        }
-        else
-        {
-            lightOn = true;
-            SetAlpha(mat[0].GetFloat("_A2") + increaseSpeed * Time.deltaTime,true);
-            yield return new WaitForEndOfFrame();
+            if (mat[0].GetFloat("_A2") >= maxBright)
+            {
+                SetAlpha(maxBright, true);
+            }
+            else
+            {
+                lightOn = true;
+                SetAlpha(mat[0].GetFloat("_A2") + increaseSpeed * Time.deltaTime, true);
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 
